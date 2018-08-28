@@ -5,13 +5,13 @@ MVC structure the user can manage projects across multiple teams. You can start 
 
 ## Getting Started
 
-To use this app, clone this repository, run 'bundle install' to install the needed gems.
+This app uses the gem 'puma' in production mode. To use this app, clone this repository, run 'bundle install --without production' to install the needed gems.
 
 To seed the database with test/example data, run rake db:seed.
 
-This app includes gem 'shotgun', run 'shotgun', and copy the url given in your browser to launch the site locally.
+Run 'rails s', and copy http://localhost:3000 in your browser to launch the site locally.
 
-Create your user account and have fun! End server with ctrl + c.
+To use this app, first create your user account, then create a team/add users and start creating projects. End server with ctrl + c.
 
 ## Contributing
 
