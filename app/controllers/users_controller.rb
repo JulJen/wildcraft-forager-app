@@ -1,5 +1,13 @@
 class UsersController < ApplicationController
-  before_action :require_logged_in, only: [:show, :edit, :update, :destroy]
+  before_action :require_logged_in, only: [:show, :index, :edit, :update, :destroy]
+
+  def index
+    # if logged_in?
+    #   @user = current_user
+    # else
+    #   redirect_to root_path
+    # end
+  end
 
   def new
     @user = User.new
@@ -24,17 +32,11 @@ class UsersController < ApplicationController
   end
 
   def show
-    if logged_in?
-      @user = current_user
+    @success_message = session[:success]
+    session[:success] = nil
 
-      @success_message = session[:success]
-      session[:success] = nil
-
-      @incomplete_message = session[:incomplete]
-      session[:incomplete] = nil
-    else
-      redirect_to root_path
-    end
+    @incomplete_message = session[:incomplete]
+    session[:incomplete] = nil
   end
 
   private
