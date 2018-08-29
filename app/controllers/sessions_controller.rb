@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  
+
   def new
     @user = User.new
     @users = User.all
@@ -13,10 +13,10 @@ class SessionsController < ApplicationController
 
   def create
     if !logged_in? && !sign_in_incomplete?
-      @user = User.find(params[:user][:name])
+      @user = User.find(params[:user][:username])
       if @user && @user.authenticate(params[:user][:password])
         session[:user_id] = @user.id
-        redirect_to user_path(@user)
+        redirect_to user_path(@user.id)
       else
         session[:failure] = "Name and password do not match, please try again."
         render 'new'
