@@ -6,16 +6,8 @@
   <p><%= @incomplete_message %></p>
 <% end %>
 
-  <br><br>
 
-  <strong>Name:</strong> <%= @user.fname%> <%= @user.lname%>
+<br><br>
 
-  <br><br>
 
-  <strong>Username:</strong> <%= @user.username %></p>
-
-  <p><strong>Email:</strong> <%= @user.email%></p>
-
-  <br><br>
-
-  <%= link_to "Create a team", new_team_path%>
+<%= link_to "Create a team", new_team_path%>
