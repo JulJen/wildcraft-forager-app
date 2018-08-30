@@ -14,9 +14,11 @@
       <li><%= link_to "Main", @user %></li>
       <li><%= link_to "Profile", profile_path %></li>
       <li><%= link_to "Log Out", logout_path, method: :delete %></li>
-    <% else %>
+    <% elsif current_page?(root_path) %>
       <li><%= link_to 'Sign Up', new_user_path %></li>
       <li><%= link_to 'Sign In', signin_path %></li>
+    <% else %>
+      <h1> Project-Manageable </h1>
     <% end %>
     <br><br>
     <%= yield %>
