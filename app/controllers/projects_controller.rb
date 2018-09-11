@@ -9,6 +9,7 @@ class ProjectsController < ApplicationController
   def new
     @user = current_user
     @project = Project.new
+    @team = Team.find_by(params[:id])
   end
 
   def create

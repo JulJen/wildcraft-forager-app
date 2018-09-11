@@ -4,8 +4,8 @@ class User < ApplicationRecord
   has_many :teams
   has_many :projects, through: :teams
 
-  validates :username, presence: true
-  validates :username, :email, uniqueness: true
+  validates :name, presence: true
+  validates :name, :email, uniqueness: true
 
   # extend FriendlyId
   # friendly_id :username, use: :slugged

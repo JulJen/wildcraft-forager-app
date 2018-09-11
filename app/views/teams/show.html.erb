@@ -11,11 +11,23 @@
   <p><%= @incomplete_message %></p>
 <% end %>
 
-<h2>Team: <%= @team.name %></h2>
-<p>User admin: <%= @current_user.username %>
+<% if @projects.length > 0 %>
+  <h2>Current projects: <%= @projects.length %></h2>
+  <ol>
+    <% @projects.each do |p| %>
+      <li>
+      <%= link_to "#{p.name}", team_project_path(@team) %>
+      </li>
+    <% end %>
+  </ol>
+<% else %>
+  <div>
+    <h1 align="center">Team: <%= @team.name %></h1>
+    <h2 align="center">Current projects: <%= @projects.length %></h2>
+    <div style="width: 500px;margin:auto">
+      <img style="width: 500px" src="https://images.pexels.com/photos/355952/pexels-photo-355952.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
+    </div>
+    <h1 align="center"><%= link_to "Create a project", new_team_project_path(@team)%></h1>
+  </div>
 
-<br><br>
-
-<h2>Current projects: <%= @projects.length %></h2>
-
-<%= link_to "Create a project", new_team_project_path(@team)%>
+<% end %>

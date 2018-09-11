@@ -34,7 +34,7 @@ class UsersController < ApplicationController
     if logged_in?
       # @user = User.find(session[:user_id])
       # @user = User.find_by_id(current_user)
-      @user = User.find_by(username: params[:username])
+      @user = User.find_by(name: params[:name])
 
       @success_message = session[:success]
       session[:success] = nil
@@ -54,7 +54,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:fname, :lname, :username, :email, :password)
+    params.require(:user).permit(:name, :email, :password)
   end
 
   # def set_user

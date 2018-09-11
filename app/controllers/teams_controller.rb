@@ -31,9 +31,9 @@ class TeamsController < ApplicationController
   def show
     if logged_in?
       @projects = Project.all
-      @team = Team.find(session[:team_id])
-      # @team = Team.find_by(params[:id])
-      @user = current_user
+      @current_user = current_user
+      @team = Team.find_by(params[:id])
+      # @user = current_user
 
       @success_message = session[:success]
       session[:success] = nil
