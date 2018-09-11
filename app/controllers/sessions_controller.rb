@@ -16,9 +16,10 @@ class SessionsController < ApplicationController
       @user = User.find(params[:user][:username])
       if @user && @user.authenticate(params[:user][:password])
         session[:user_id] = @user.id
-        redirect_to user_path(@user.id)
+        # redirect_to @user
+        redirect_to user_path(@user)
       else
-        session[:failure] = "Name and password do not match, please try again."
+        session[:failure] = "Account not saved, please try again."
         render 'new'
       end
     else
@@ -28,9 +29,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    @current_user = nil
-    session.clear
-
+    reset_session
     redirect_to root_path
   end
 

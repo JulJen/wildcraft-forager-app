@@ -1,12 +1,8 @@
 class UsersController < ApplicationController
   before_action :require_logged_in, only: [:show, :index, :edit, :update, :destroy]
+  # before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def index
-    # if logged_in?
-    #   @user = current_user
-    # else
-    #   redirect_to root_path
-    # end
   end
 
   def new
@@ -18,9 +14,10 @@ class UsersController < ApplicationController
       @user = User.new(user_params)
       if @user.save
         session[:user_id] = @user.id
-
         session[:success] = "User account created successfully!"
-        redirect_to user_path(@user.id)
+        @current_user = current_user
+    binding.pry
+        redirect_to user_path(@current_user)
       else
         session[:failure] = "Failure, user account not saved."
         render 'new'
@@ -32,11 +29,26 @@ class UsersController < ApplicationController
   end
 
   def show
-    @success_message = session[:success]
-    session[:success] = nil
+    # @user = User.friendly.find(params[:id])
+    # @user = User.friendly.find(session[:user_id])
+    if logged_in?
+      # @user = User.find(session[:user_id])
+      # @user = User.find_by_id(current_user)
+      @user = User.find_by(username: params[:username])
 
-    @incomplete_message = session[:incomplete]
-    session[:incomplete] = nil
+      @success_message = session[:success]
+      session[:success] = nil
+
+      @failure_message = session[:failure]
+      session[:failure] = nil
+
+      @incomplete_message = session[:incomplete]
+      session[:incomplete] = nil
+
+      render :show
+    else
+      redirect_to root_path
+    end
   end
 
   private
@@ -44,4 +56,9 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:fname, :lname, :username, :email, :password)
   end
+
+  # def set_user
+  #   @user = User.friendly.find(params[:id])
+  #   redirect_to action: action_name, id: @user.friendly_id, status: 301 unless @user.friendly_id == params[:id]
+  # end
 end
