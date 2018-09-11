@@ -1,4 +1,6 @@
-<% if @success_message %>
+<h1>Team: <%= @team.name %></h1>
+
+  <% if @success_message %>
   <p><%= @success_message %></p>
 <% end %>
 
@@ -10,8 +12,7 @@
   <p><%= @incomplete_message %></p>
 <% end %>
 
-<h2>Hi, <%= @current_user.username %></h2>
-
 <br><br>
 
-<%= link_to "Create a team", new_team_path%>
+
+<%= link_to "Create a project", new_project_path%>

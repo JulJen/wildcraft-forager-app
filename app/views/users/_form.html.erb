@@ -1,4 +1,6 @@
-<%= form_for @user do |f| %>
+<h2>Sign up</h2>
+
+<%= form_with(model: @user) do |f| %>
 
   <% if @user.errors.any? %>
     <div id="error_explanation">

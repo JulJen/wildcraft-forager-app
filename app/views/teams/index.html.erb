@@ -1,0 +1,8 @@
+<h2>All Teams</h2>
+
+<% @teams.each do |team| %>
+  <ul>
+    <%= link_to "Show #{team.name}", team_path(team) %>
+    </li>
+  </ul>
+<% end %>

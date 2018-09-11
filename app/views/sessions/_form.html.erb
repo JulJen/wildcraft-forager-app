@@ -1,3 +1,5 @@
+<h2>Sign in</h2>
+
 <% if @incomplete_message %>
   <p><%= @incomplete_message %></p>
 <% end %>
@@ -7,7 +9,7 @@
 <% end %>
 
 
-<%= form_for @user, url: signin_path, method: :post do |f| %>
+<%= form_for :user, url: '/signin' do |f| %>
   <%= f.label :username %>
   <%= f.collection_select(:username, User.all, :id, :username, prompt: "Select your username") %><br>
   <%= f.label :password, "password" %>
@@ -18,4 +20,4 @@
 
 <br><br>
 
-<p>New user? <%= link_to "Sign Up", new_user_path %><p>
+<p>New user? <%= link_to "Sign Up", signup_path %><p>
