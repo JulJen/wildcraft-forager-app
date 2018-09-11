@@ -4,16 +4,25 @@ Rails.application.routes.draw do
 
   get '/signin' => 'sessions#new'
   post '/signin' => 'sessions#create'
+  get '/signup' => 'users#new'
+  post '/signup' => 'users#create'
+
   get '/profile' => 'users#index'
+  get '/dashboard' => 'users#show'
+
+  get '/teams/:name' => 'teams#show'
+
   delete '/logout' => 'sessions#destroy'
 
-  resources :users
+
+  resources :users, :except => [:index]
+
   resources :teams
   resources :projects
 
-  # resource :users, only: [:index, :show] do
-  #   resources :teams, only: [:index, :new, :create]
-  # end
+  resource :users do
+    resources :teams, only: [:index, :new, :create]
+  end
   #
   # resources :teams, only: [:show, :edit, :update, :destroy]
   #
