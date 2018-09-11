@@ -30,7 +30,9 @@ class TeamsController < ApplicationController
 
   def show
     if logged_in?
-      @team = Team.find_by(params[:id])
+      @projects = Project.all
+      @team = Team.find(session[:team_id])
+      # @team = Team.find_by(params[:id])
       @user = current_user
 
       @success_message = session[:success]
@@ -41,6 +43,8 @@ class TeamsController < ApplicationController
 
       @incomplete_message = session[:incomplete]
       session[:incomplete] = nil
+
+      render :show
     else
       redirect_to root_path
     end

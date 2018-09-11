@@ -1,8 +1,12 @@
-<h2>All Teams</h2>
-
-<% @teams.each do |team| %>
-  <ul>
-    <%= link_to "Show #{team.name}", team_path(team) %>
-    </li>
-  </ul>
+<% if @teams.length > 0 %>
+  <h2>Current Teams: <%= @teams.length %></h2>
+  <ol>
+    <% @teams.each do |team| %>
+      <li>
+      <%= link_to "#{team.name}", team_path(team) %>
+      </li>
+    <% end %>
+  </ol>
+<% else %>
+    <%= link_to "Create a team", newteam_path%>
 <% end %>

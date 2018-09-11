@@ -10,27 +10,22 @@ Rails.application.routes.draw do
   get '/profile' => 'users#index'
   get '/dashboard' => 'users#show'
 
+  get '/newteam' => 'teams#new'
   get '/teams/:name' => 'teams#show'
+
+  get '/projects' => 'projects#index'
+  get '/team/:id/project/:name' => 'projects#show'
 
   delete '/logout' => 'sessions#destroy'
 
 
-  resources :users, :except => [:index]
+  resources :users, :except => [:index, :show]
 
-  resources :teams
-  resources :projects
+  resources :teams, :except => [:new, :show]
 
-  resource :users do
-    resources :teams, only: [:index, :new, :create]
+  resources :teams do
+    resources :projects, :except => [:index]
   end
-  #
-  # resources :teams, only: [:show, :edit, :update, :destroy]
-  #
-  # resources :teams do
-  #   resources :projects , only: [:index, :show]
-  # end
-  #
-  # resources :projects, only: [:show, :edit, :update, :destroy]
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

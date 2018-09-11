@@ -16,8 +16,8 @@ class UsersController < ApplicationController
         session[:user_id] = @user.id
         session[:success] = "User account created successfully!"
         @current_user = current_user
-    binding.pry
-        redirect_to user_path(@current_user)
+        redirect_to '/dashboard'
+        # redirect_to user_path(@current_user)
       else
         session[:failure] = "Failure, user account not saved."
         render 'new'
