@@ -38,16 +38,16 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'bcrypt', '~> 3.1', '>= 3.1.12'
 
 gem 'omniauth'
-gem 'omniauth-github'
 
+gem 'omniauth-google-oauth2'
+gem 'dotenv-rails'
 # gem 'friendly_id', '~> 5.2'
-
-
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'pry'
+  # gem 'dotenv-rails'
 end
 
 group :development do
