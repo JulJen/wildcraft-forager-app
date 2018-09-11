@@ -25,17 +25,17 @@ ActiveRecord::Schema.define(version: 2018_08_26_193518) do
     t.string "name"
     t.integer "project_id"
     t.integer "user_id"
+    t.boolean "team_admin", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "fname"
-    t.string "lname"
-    t.string "username"
+    t.string "uid"
+    t.string "name"
     t.string "password_digest"
     t.string "email"
-    t.boolean "admin", default: false
+    t.text "image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
