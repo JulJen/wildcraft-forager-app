@@ -1,7 +1,5 @@
 class UsersController < ApplicationController
-  before_action :require_logged_in, only: [:show, :index, :edit, :update, :destroy]
-  # before_action :set_user, only: [:show, :edit, :update, :destroy]
-
+  before_action :require_logged_in, except: %i[new create]
   def index
   end
 
@@ -15,7 +13,6 @@ class UsersController < ApplicationController
       if @user.save
         session[:user_id] = @user.id
         session[:success] = "User account created successfully!"
-        @current_user = current_user
         redirect_to '/dashboard'
         # redirect_to user_path(@current_user)
       else
@@ -29,27 +26,16 @@ class UsersController < ApplicationController
   end
 
   def show
-    # @user = User.friendly.find(params[:id])
-    # @user = User.friendly.find(session[:user_id])
-    if logged_in?
-      # @user = User.find(session[:user_id])
-      # @user = User.find_by_id(current_user)
-      @user = User.find_by(name: params[:name])
-      @current_user = current_user
+    @success_message = session[:success]
+    session[:success] = nil
 
-      @success_message = session[:success]
-      session[:success] = nil
+    @failure_message = session[:failure]
+    session[:failure] = nil
 
-      @failure_message = session[:failure]
-      session[:failure] = nil
+    @incomplete_message = session[:incomplete]
+    session[:incomplete] = nil
 
-      @incomplete_message = session[:incomplete]
-      session[:incomplete] = nil
-
-      render :show
-    else
-      redirect_to root_path
-    end
+    render :show
   end
 
   private

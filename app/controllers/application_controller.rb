@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  helper_method :require_logged_in
+  helper_method :require_logged_in, :current_user
 
 
   def welcome
@@ -12,6 +12,14 @@ class ApplicationController < ActionController::Base
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
+
+  def user_teams
+    @user_teams ||= Team.find_by_id(current_user) if current_user
+  end
+
+  def user_projects
+    @user_projects ||= Project.find_by_id(current_user) if current_user
+  end 
 
   def logged_in?
     !!current_user

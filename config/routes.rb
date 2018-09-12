@@ -17,8 +17,8 @@ Rails.application.routes.draw do
   get '/dashboard' => 'users#show'
 
   get '/your_teams' => 'teams#index'
-  get '/new_team' => 'teams#new'
-  post '/new_team' => 'teams#create'
+  # get '/new_team' => 'teams#new'
+  # post '/new_team' => 'teams#create'
 
   get '/team_projects' => 'projects#index'
 
@@ -32,18 +32,27 @@ Rails.application.routes.draw do
   #   resources :projects, only: %i[show edit update destroy]
   # end
 
-
-  resources :users, only: '/dashboard', shallow: true do
-    resources :teams, except: %i[index]
+  resources :users do
+    resources :teams, only: %i[show new create], shallow: true
   end
 
-  # resources :teams, except: %i[index new edit update destroy]
+  resources :teams do
+    resources :projects, only: %i[show new create], shallow: true
+  end
+
+  # resources :users, only: '/dashboard', shallow: true do
+  #   resources :teams, except: %i[index new create]
+  # end
+
+  # resources :teams, only: %i[show edit update destroy]
+  # resources :projects, only: %i[show edit update destroy]
+
 
   # resources :projects, except: %i[index new edit update destroy]
 
   # Teams has_many Projects, Projects have_many Users
-  resources :teams, only: '/your_teams', shallow: true do
-    resources :projects, except: %i[index]
-  end
+  # resources :teams, only: '/your_teams', shallow: true do
+  #   resources :projects, except: %i[index]
+  # end
 
 end

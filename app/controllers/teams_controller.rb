@@ -1,9 +1,12 @@
 class TeamsController < ApplicationController
-  before_action :require_logged_in, only: [:new, :show, :edit, :update, :destroy]
+  before_action :require_logged_in, except: %i[show]
 
   def index
-    @teams = Team.all
-    @user = current_user
+binding.pry
+    # @team = Team.find(session[:user_id])
+    @teams = Team.all.order([:updated_at])
+    @team = Team.find_by_id(current_user)
+    # @user = current_user
   end
 
   def new
@@ -12,21 +15,14 @@ class TeamsController < ApplicationController
   end
 
   def create
-    # if !team_params.empty?
-    # @team = Team.new(team_params)
-    binding.pry
-    if !params[:name].empty?
-      @team = Team.new(name: params[:name])
+    @team = Team.new(team_params)
 
-      if @team.save
-        session[:success] = "Team created successfully!"
-        redirect_to user_teams_path(@team)
-      else
-        session[:failure] = "Team could not be created, please try again."
-        render 'new'
-      end
+    if current_user.teams.save
+      session[:success] = "Team created successfully!"
+
+      redirect_to user_teams_path(@team)
     else
-      session[:incomplete] = "Failure, fill out all fields."
+      session[:failure] = "Team could not be created, please try again."
       render 'new'
     end
   end
@@ -34,27 +30,22 @@ class TeamsController < ApplicationController
 
 
   def show
-# binding.pry
-    if logged_in?
-      @projects = Project.all
-      @current_user = current_user
+    @projects = Project.all
+    @current_user = current_user
 
-      @team = Team.find(params[:id])
-      # @user = current_user
+    @team = Team.find(params[:id])
+    # @user = current_user
 
-      @success_message = session[:success]
-      session[:success] = nil
+    @success_message = session[:success]
+    session[:success] = nil
 
-      @failure_message = session[:failure]
-      session[:failure] = nil
+    @failure_message = session[:failure]
+    session[:failure] = nil
 
-      @incomplete_message = session[:incomplete]
-      session[:incomplete] = nil
+    @incomplete_message = session[:incomplete]
+    session[:incomplete] = nil
 
-      render :show
-    else
-      redirect_to root_path
-    end
+    render :show
   end
 
   #
@@ -71,10 +62,10 @@ class TeamsController < ApplicationController
   #   end
   # end
 
-  # private
-  #
-  # def team_params
-  #   params.require(:team).permit(:name)
-  # end
+  private
+
+  def team_params
+    params.require(:team).permit(:name)
+  end
 
 end
