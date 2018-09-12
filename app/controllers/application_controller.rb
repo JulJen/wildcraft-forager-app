@@ -3,6 +3,12 @@ class ApplicationController < ActionController::Base
   helper_method :require_logged_in
 
 
+  def welcome
+    @current_user = nil
+    session.clear
+  end
+
+
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end

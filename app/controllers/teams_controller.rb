@@ -8,14 +8,19 @@ class TeamsController < ApplicationController
 
   def new
     @team = Team.new
+    @user = current_user
   end
 
   def create
-    if !team_params.empty?
-      @team = Team.new(team_params)
+    # if !team_params.empty?
+    # @team = Team.new(team_params)
+    binding.pry
+    if !params[:name].empty?
+      @team = Team.new(name: params[:name])
+
       if @team.save
         session[:success] = "Team created successfully!"
-        redirect_to team_path(@team)
+        redirect_to user_teams_path(@team)
       else
         session[:failure] = "Team could not be created, please try again."
         render 'new'
@@ -29,10 +34,12 @@ class TeamsController < ApplicationController
 
 
   def show
+# binding.pry
     if logged_in?
       @projects = Project.all
       @current_user = current_user
-      @team = Team.find_by(params[:id])
+
+      @team = Team.find(params[:id])
       # @user = current_user
 
       @success_message = session[:success]
@@ -64,10 +71,10 @@ class TeamsController < ApplicationController
   #   end
   # end
 
-  private
-
-  def team_params
-    params.require(:team).permit(:name)
-  end
+  # private
+  #
+  # def team_params
+  #   params.require(:team).permit(:name)
+  # end
 
 end

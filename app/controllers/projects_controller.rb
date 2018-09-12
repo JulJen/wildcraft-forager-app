@@ -2,22 +2,23 @@ class ProjectsController < ApplicationController
   before_action :require_logged_in, only: [:new, :show, :edit, :update, :destroy]
 
   def index
-    @projects = Project.all
+    @projects = Project.where("team_id = ?", params[:team_id])
     @user = current_user
   end
 
   def new
     @user = current_user
     @project = Project.new
-    @team = Team.find_by(params[:id])
+    @team = Team.find_by(id: params[:team_id])
   end
 
   def create
-    if !team_params.empty?
+binding.pry
+    if !project_params.empty?
       @project = Project.new(project_params)
       if @project.save
         session[:success] = "Project created successfully!"
-        redirect_to team_path(@project)
+        redirect_to new_team_project_path(@project)
       else
         session[:failure] = "Project could not be created, please try again."
         render 'new'

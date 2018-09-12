@@ -1,0 +1,27 @@
+<div>
+  <ul align="center">
+    <div style="width: 500px;margin:auto">
+      <img style="width: 500px" src="https://images.pexels.com/photos/6662/creative-smartphone-notebook-typography.jpg?auto=compress&cs=tinysrgb&h=650&w=940">
+    </div>
+    <h1 align="center">Team Projects</h1>
+
+    <% if !@projects.empty? %>
+    <% @projects.each do |team| %>
+        <ul>
+          <%= link_to "Show #{project.name}", project_path(project) %>
+        </ul>
+      <% end %>
+    <% elsif @projects.empty? %>
+      <p>You currently have <%= @projects.size %> projects.<p>
+      <p> Start a project by selecting from your team list:</p>
+
+      <%= form_for :team, url: '/teams/', action: 'get' do |f| %>
+        <%= f.collection_select(:name, Team.all, :id, :name, prompt: "Select your team") %>
+
+        <br><br>
+        <%= f.submit "Select team" %>
+      <% end %>
+    <% end %>
+    <br>
+  </ul>
+</div>

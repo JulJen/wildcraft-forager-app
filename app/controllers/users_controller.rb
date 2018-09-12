@@ -35,6 +35,7 @@ class UsersController < ApplicationController
       # @user = User.find(session[:user_id])
       # @user = User.find_by_id(current_user)
       @user = User.find_by(name: params[:name])
+      @current_user = current_user
 
       @success_message = session[:success]
       session[:success] = nil

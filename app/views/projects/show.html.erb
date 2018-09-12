@@ -1,0 +1,14 @@
+<% if @projects.length > 0 %>
+  <h1 align="center">Current projects: <%= @projects.length %></h1>
+
+  <% @projects.each do |project| %>
+    <li align="center">
+    <%= link_to "#{project.name}", project_path(project) %>
+    </li>
+  <% end %>
+
+<% elsif @projects.empty? %>
+  <p>You currently have <%= @projects.size %> projects.<p>
+  <%= link_to "Create a project", new_project_path(@user)%>
+
+<% end %>

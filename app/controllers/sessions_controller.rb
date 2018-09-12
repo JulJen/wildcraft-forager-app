@@ -15,11 +15,13 @@ class SessionsController < ApplicationController
     @user = User.find_or_create_by(uid: auth['uid']) do |u|
       u.name = auth['info']['name']
       u.email = auth['info']['email']
+      # make password secure
+      u.password = auth['uid']
     end
     # self.current_user = @user
     session[:user_id] = @user.id
     # redirect_to @user
-    redirect_to user_path(@user)
+    redirect_to '/dashboard'
   end
 
   #   if !logged_in? && !sign_in_incomplete?

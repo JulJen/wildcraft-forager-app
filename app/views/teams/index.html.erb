@@ -1,20 +1,20 @@
 <div>
-  <h1 align="center">Your teams</h1>
   <div style="width: 500px;margin:auto">
-    <img style="width: 500px" src="https://images.pexels.com/photos/1268480/pexels-photo-1268480.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
+    <img style="width: 500px" src="https://images.pexels.com/photos/1266005/pexels-photo-1266005.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
   </div>
-</div>
 
-<% if @teams.length > 0 %>
-  <h2>Current Teams: <%= @teams.length %></h2>
-  <ol>
+  <% if @teams.length > 0 %>
+    <h1 align="center">Current teams: <%= @teams.length %></h1>
+
     <% @teams.each do |team| %>
-      <li>
+      <li align="center">
       <%= link_to "#{team.name}", team_path(team) %>
       </li>
     <% end %>
-  </ol>
-<% else %>
-  <h2>Current Teams: <%= @teams.length %></h2>
-  <%= link_to "Create a team", newteam_path%>
-<% end %>
+
+  <% elsif @teams.empty? %>
+    <p>You currently have <%= @teams.size %> projects.<p>
+    <%= link_to "Create a team", new_team_path(@user)%>
+
+  <% end %>
+</div>
