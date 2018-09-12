@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
 # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
+  # get '/auth/google_oauth2/callback', to: 'users#create'
   get '/auth/google_oauth2/callback', to: 'sessions#create'
 
-  root 'application#main'
-  get '/success', to: 'application#success'
+  root 'application#welcome'
+  # get '/success', to: 'application#success'
 
   get '/signin' => 'sessions#new'
   post '/signin' => 'sessions#create'
@@ -15,25 +16,34 @@ Rails.application.routes.draw do
   get '/profile' => 'users#index'
   get '/dashboard' => 'users#show'
 
-  get '/newteam' => 'teams#new'
-  get '/teams/:name' => 'teams#show'
+  get '/your_teams' => 'teams#index'
+  get '/new_team' => 'teams#new'
+  post '/new_team' => 'teams#create'
 
-  get '/projects' => 'projects#index'
-  get '/team/:id/project/:name' => 'projects#show'
+  get '/team_projects' => 'projects#index'
 
   delete '/logout' => 'sessions#destroy'
 
+  # scope '/admin', shallow: true do
+  #   resources :teams, only: %i[show edit update destroy]
+  # end
+  #
+  # scope '/admin', shallow: true do
+  #   resources :projects, only: %i[show edit update destroy]
+  # end
 
-  resources :users, :except => [:index, :show]
 
-  resources :teams, :except => [:new, :show]
-
-  resources :users do
-    resources :teams, :only => [:index]
+  resources :users, only: '/dashboard', shallow: true do
+    resources :teams, except: %i[index]
   end
 
-  resources :teams do
-    resources :projects, :except => [:index]
+  # resources :teams, except: %i[index new edit update destroy]
+
+  # resources :projects, except: %i[index new edit update destroy]
+
+  # Teams has_many Projects, Projects have_many Users
+  resources :teams, only: '/your_teams', shallow: true do
+    resources :projects, except: %i[index]
   end
 
 end
