@@ -5,7 +5,13 @@ class User < ApplicationRecord
   has_many :projects, through: :teams
 
   validates :name, presence: true
-  validates :name, :email, uniqueness: true
+  validates :email, uniqueness: true
+
+  # validates_presence_of :slug
+  #
+  # def to_param
+  # slug
+  # end
 
   # extend FriendlyId
   # friendly_id :username, use: :slugged

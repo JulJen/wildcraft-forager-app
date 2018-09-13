@@ -27,8 +27,9 @@
 
   <%= f.label :name %>
   <%= f.collection_select(:name, User.all, :id, :name, prompt: "Select your name") %><br>
-  <%= f.label :password, "password" %>
-  <%= f.password_field :password %><br>
+  <br>
+  <%= f.label :password %><br>
+  <%= f.password_field :password %>
   <br><br>
   <%= f.submit "Sign In" %>
 <% end %>
@@ -36,3 +37,4 @@
 <br><br>
 
 <p>New user? <%= link_to "Sign Up", signup_path %><p>
+<p>Log In <%= link_to "Google Account", '/auth/google_oauth2' %><p>

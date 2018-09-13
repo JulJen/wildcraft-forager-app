@@ -3,7 +3,9 @@ class ProjectsController < ApplicationController
 
   def index
     @projects = Project.where("team_id = ?", params[:team_id])
-    @user = current_user
+
+    @delete_message = session[:delete]
+    session[:delete] = nil
   end
 
   def new
@@ -47,6 +49,28 @@ binding.pry
     else
       redirect_to root_path
     end
+  end
+
+  def edit
+    @project = Project.find(params[:id])
+  end
+
+  def update
+    @project = Project.find(params[:id])
+    if @project.update(project_params)
+      redirect_to project_path(@project)
+    else
+      render :new
+    end
+  end
+
+  def destroy
+    @project = Project.find_by_id(params[:id])
+    if @project.user_id == current_user.id
+      @project.delete
+    end
+    session[:delete] = "Project deleted."
+    redirect_to user_projects_path(current_user)
   end
 
   private

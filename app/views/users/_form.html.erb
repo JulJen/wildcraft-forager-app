@@ -1,4 +1,8 @@
-<%= form_with(model: @user) do |f| %>
+<% if @failure_message %>
+  <p><%= @failure_message %></p>
+<% end %>
+
+<%= form_for signup_path(@user) do |f| %>
 
   <% if @user.errors.any? %>
     <div id="error_explanation">
@@ -16,17 +20,17 @@
     </div>
   <% end %>
 
-  <%= f.label :name, "Your Name" %><br>
+  <%= f.label :name %><br>
   <%= f.text_field :name %>
 
   <br><br>
 
-  <%= f.label :email, "Email" %><br>
+  <%= f.label :email %><br>
   <%= f.text_field :email %>
 
   <br><br>
 
-  <%= f.label :password, "Password"  %><br>
+  <%= f.label :password %><br>
   <%= f.password_field :password %>
 
   <br><br>
@@ -37,4 +41,5 @@
 
 <br><br>
 
-<p>Existing user? <%= link_to "Log In", signin_path %><p>
+<p>Existing user? <%= link_to "Sign In", signin_path %><p>
+<p>Sign up with <%= link_to "Google Account", '/auth/google_oauth2' %><p>

@@ -1,8 +1,12 @@
 <div>
-  <h1 align="center"><%= current_user.name%>'s Profile</h1>
-  <p align="center"><strong>Name:</strong> <%= current_user.name%><p>
-  <p align="center"><strong>Email:</strong> <%= current_user.email%></p>
-  <div style="width: 400px;margin:auto">
-    <img style="width: 400px" src="https://images.pexels.com/photos/1307104/pexels-photo-1307104.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
+  <div style="text-align: center;">
+    <div style="display: inline-block; text-align: left;">
+      <h1 align="left">Contact Info</h1>
+      <p align="left"><strong>Name:</strong> <%= current_user.name%><p>
+      <p align="left"><strong>Email:</strong> <%= current_user.email%></p>
+    </div><br>
+    <div style="width: 400px;margin:auto">
+      <img style="width: 400px" src="https://images.pexels.com/photos/1307104/pexels-photo-1307104.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
+    </div>
   </div>
 </div>

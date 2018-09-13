@@ -2,32 +2,25 @@ class TeamsController < ApplicationController
   before_action :require_logged_in, except: %i[show]
 
   def index
-binding.pry
-    # @team = Team.find(session[:user_id])
-    @teams = Team.all.order([:updated_at])
-    @team = Team.find_by_id(current_user)
-    # @user = current_user
+    @teams = Team.find_by(user_id: session[:user_id])
   end
 
   def new
     @team = Team.new
-    @user = current_user
   end
 
   def create
     @team = Team.new(team_params)
+    if @team.save
+      current_user.teams << @team
 
-    if current_user.teams.save
       session[:success] = "Team created successfully!"
-
-      redirect_to user_teams_path(@team)
+      redirect_to team_path(current_user)
     else
       session[:failure] = "Team could not be created, please try again."
-      render 'new'
+      render :new
     end
   end
-
-
 
   def show
     @projects = Project.all
@@ -62,10 +55,9 @@ binding.pry
   #   end
   # end
 
-  private
-
+  # private
+  #
   def team_params
     params.require(:team).permit(:name)
   end
-
 end

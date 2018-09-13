@@ -4,10 +4,40 @@ class ApplicationController < ActionController::Base
 
 
   def welcome
+    clear_user
+    render :welcome
+    # render layout: 'welcome'
+  end
+
+  def enter
+    clear_user
+    render :enter
+  end
+
+
+  # def login_page
+  #   if current_page?(:controller => 'application', :action => 'welcome')
+  #   end
+  # end
+
+  def google_login?
+    @url = request.path_info
+    if @url.include?('/auth/google_oauth2/callback')
+      redirect_to '/auth/google_oauth2/callback'
+    end
+  end
+
+# !params[:uid].present? &&
+
+  def clear_user
     @current_user = nil
     session.clear
   end
 
+  def reset_session
+    clear_user
+    redirect_to enter_path
+  end
 
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
@@ -19,7 +49,7 @@ class ApplicationController < ActionController::Base
 
   def user_projects
     @user_projects ||= Project.find_by_id(current_user) if current_user
-  end 
+  end
 
   def logged_in?
     !!current_user
@@ -27,25 +57,19 @@ class ApplicationController < ActionController::Base
 
   def user_authenticate?
     if @user && @user.authenticate(params[:user][:password])
-      @user = current_user
+      current_user = @user
     end
   end
 
   def require_logged_in
-    if logged_in?
-      @user = @current_user
-    else
-      redirect_to root_path
+    if !!logged_in?
+      @user = current_user
     end
   end
 
+
   def sign_in_incomplete?
     params[:user][:name] == "" || params[:user][:password] == ""
-  end
-
-  def reset_session
-    @current_user = nil
-    session.clear
   end
 
 end
