@@ -18,8 +18,8 @@
     <div style="width: 500px;margin:auto">
       <img style="width: 500px" src="https://images.pexels.com/photos/212286/pexels-photo-212286.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
     </div>
-    <% if !!@teams %>
-    <p>You currently have <%= @teams.size %> projects.<p>
+    <% if @user.teams.size > 0 %>
+    <h3 align="center">You are active on <%= link_to "#{@user.teams.size} teams", current_teams_path(current_user) %> </h3>
     <% else %>
       <h2 align="center"><%= link_to "Create a team", new_user_team_path(current_user) %></h2>
     <% end %>

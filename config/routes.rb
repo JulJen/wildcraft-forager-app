@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
 # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
+  get '/404', :to => 'errors#not_found'
+  get '/422', :to => 'errors#unacceptable'
+  get '/500', :to => 'errors#internal_error'
+
+
   match '/auth/google_oauth2/callback', to: 'sessions#create', via: [:get, :post]
 
   # get '/auth/google_oauth2/callback', to: 'sessions#create'
@@ -12,13 +17,14 @@ Rails.application.routes.draw do
   get '/projectmanageable/signin' => 'sessions#new', :as => 'signin'
   post '/signin' => 'sessions#create'
 
-  get '/projectmanageable//signup' => 'users#new', :as => 'signup'
+  get '/projectmanageable/signup' => 'users#new', :as => 'signup'
   post '/signup' => 'users#create'
 
   # match '/signup', to: 'users#create',  via: [:get, :post]
 
   get '/profile' => 'users#index', :as => 'profile'
   get '/dashboard' => 'users#show', :as => 'dashboard'
+  get '/users/:user_id/teams' => 'teams#index', :as => 'current_teams'
 
   delete '/teams/:id/delete_team' => 'teams#destroy', :as => 'delete_team'
   delete '/teams/:id/projects/:id/delete_project' => 'projects#destroy', :as => 'delete_project'

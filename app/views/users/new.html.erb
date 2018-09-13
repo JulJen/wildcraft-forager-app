@@ -1,8 +1,17 @@
 <div>
-  <h1 align="center">Project Manageable</h1>
-  <div style="width: 500px;margin:auto">
-    <img style="width: 500px" src="https://images.pexels.com/photos/942317/pexels-photo-942317.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
+  <div style="text-align: center;">
+    <div style="display: inline-block; text-align: left;">
+      <h1 align="center">Project Manageable</h1>
+
+        <div style="width: 500px;margin:auto">
+          <img style="width: 500px" src="https://images.pexels.com/photos/942317/pexels-photo-942317.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
+        </div>
+
+      <h2 align="center">Sign up!</h2>
+
+      <h4 align="center"><%= render partial: "form", locals: {user: current_user} %></h4>
+
+    </div>
   </div>
-  <h2 align="center">Sign up!</h2>
-  <h4 align="center"><%= render partial: "form", locals: {user: current_user} %></h4>
+  
 </div>

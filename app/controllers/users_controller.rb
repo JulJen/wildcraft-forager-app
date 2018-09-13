@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   end
 
   def new
+    clear_user
     @user = User.new
 
     @failure_message = session[:failure]
@@ -32,7 +33,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require('/signup').permit(:name, :email, :password)
+    params.require(signup_path).permit(:name, :email, :password)
   end
 
   # def set_user

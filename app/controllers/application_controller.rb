@@ -5,13 +5,10 @@ class ApplicationController < ActionController::Base
 
   def welcome
     clear_user
-    render :welcome
-    # render layout: 'welcome'
   end
 
   def enter
     clear_user
-    render :enter
   end
 
 
@@ -22,9 +19,9 @@ class ApplicationController < ActionController::Base
 
   def google_login?
     @url = request.path_info
-    if @url.include?('/auth/google_oauth2/callback')
-      redirect_to '/auth/google_oauth2/callback'
-    end
+    !!@url.include?('/auth/google_oauth2/callback')
+    #   redirect_to '/auth/google_oauth2/callback'
+    # end
   end
 
 # !params[:uid].present? &&

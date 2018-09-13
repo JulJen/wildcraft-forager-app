@@ -5,7 +5,9 @@ class User < ApplicationRecord
   has_many :projects, through: :teams
 
   validates :name, presence: true
-  validates :email, uniqueness: true
+  validates :email,  uniqueness: true
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
+  # validates_format_of :email,:with => /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/
 
   # validates_presence_of :slug
   #

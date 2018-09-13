@@ -30,7 +30,7 @@
       <div style="width: 500px;margin:auto">
         <img style="width: 500px" src="https://images.pexels.com/photos/355952/pexels-photo-355952.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
       </div>
-      <%= link_to "Delete Team", '/delete_team' method: :delete %>
+      <%= link_to "Delete Team", delete_team_path(current_user), method: :delete %>
     <% end %><br>
   </ul>
 </div>

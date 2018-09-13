@@ -1,10 +1,9 @@
-<% if @failure_message %>
-  <p><%= @failure_message %></p>
-<% end %>
-
 <%= form_for signup_path(@user) do |f| %>
 
   <% if @user.errors.any? %>
+  <% if @failure_message %>
+    <p><%= @failure_message %></p>
+  <% end %>
     <div id="error_explanation">
       <h2>
         <%= pluralize(@user.errors.count, "error") %>
@@ -19,6 +18,9 @@
       <ul>
     </div>
   <% end %>
+
+
+
 
   <%= f.label :name %><br>
   <%= f.text_field :name %>

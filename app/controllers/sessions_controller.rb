@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
 
   def new
+    clear_user
     @user = User.new
     @users = User.all
 
