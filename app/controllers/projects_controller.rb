@@ -2,31 +2,29 @@ class ProjectsController < ApplicationController
   before_action :require_logged_in
 
   def index
-    @projects = Project.where("team_id = ?", params[:team_id])
+binding.pry
+    @current_teams = current_user.teams
+    # @projects = Project.where("team_id = ?", params[:team_id])
 
     @delete_message = session[:delete]
     session[:delete] = nil
   end
 
   def new
-    @user = current_user
     @project = Project.new
-    @team = Team.find_by(id: params[:team_id])
+    @team = Team.find_by(user_id: current_user)
   end
 
   def create
 binding.pry
-    if !project_params.empty?
-      @project = Project.new(project_params)
-      if @project.save
-        session[:success] = "Project created successfully!"
-        redirect_to new_team_project_path(@project)
-      else
-        session[:failure] = "Project could not be created, please try again."
-        render 'new'
-      end
+    @team = Team.find_by(user_id: current_user)
+    @project = Project.new(project_params)
+    if current_user && @project.save
+      @team.projects << @project
+      session[:success] = "Project created successfully!"
+      redirect_to new_team_project_path(@team, @project)
     else
-      session[:incomplete] = "Failure, fill out all fields."
+      session[:failure] = "Project could not be created, please try again."
       render 'new'
     end
   end

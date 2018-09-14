@@ -2,9 +2,10 @@ class User < ApplicationRecord
   has_secure_password
 
   has_many :teams
+  # has_many :projects
   has_many :projects, through: :teams
 
-  validates :name, presence: true
+  validates :name, :email, presence: true
   validates :email,  uniqueness: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
   # validates_format_of :email,:with => /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/

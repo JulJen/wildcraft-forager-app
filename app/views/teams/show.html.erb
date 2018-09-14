@@ -13,7 +13,7 @@
 
 <div>
   <ul align="center">
-    <% if @projects.length > 0 %>
+    <% if !!@projects && @projects.length > 0 %>
       <h2>Current projects: <%= @projects.length %></h2>
       <ol>
         <% @projects.each do |p| %>
@@ -22,15 +22,17 @@
           </li>
         <% end %>
       </ol>
-    <% elsif @projects.empty? %>
+    <% else%>
       <h1 align="center">Team: <%= @team.name %></h1>
-      <p>You currently have <%= @projects.size %> projects.<p>
       <%= link_to "Create a project",  new_team_project_path(@team) %>
+      
+      <br><br>
 
       <div style="width: 500px;margin:auto">
         <img style="width: 500px" src="https://images.pexels.com/photos/355952/pexels-photo-355952.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
       </div>
-      <%= link_to "Delete Team", delete_team_path(current_user), method: :delete %>
-    <% end %><br>
+      <br>
+      <%= link_to "Edit #{@team.name}", edit_team_path(@team) %><br>
+  <% end %><br>
   </ul>
 </div>

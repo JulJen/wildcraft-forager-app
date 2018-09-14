@@ -25,6 +25,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    @current_teams = current_user.teams
     # @user = User.find(session[:user_id])
     @success_message = session[:success]
     session[:success] = nil

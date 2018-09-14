@@ -40,12 +40,12 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
 
-  def user_teams
-    @user_teams ||= Team.find_by_id(current_user) if current_user
+  def current_teams
+    @current_teams = current_user.teams if current_user
   end
 
-  def user_projects
-    @user_projects ||= Project.find_by_id(current_user) if current_user
+  def current_projects
+    @current_projects = current_user.projects if current_user
   end
 
   def logged_in?

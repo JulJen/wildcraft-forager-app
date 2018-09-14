@@ -15,7 +15,9 @@
       <li><%= link_to "Dashboard", dashboard_path %></li>
       <li><%= link_to "#{current_user.name.capitalize}'s profile", profile_path %></li>
       <li><%= link_to "Teams", user_teams_path(current_user) %></li>
-      <li><%= link_to "Projects", user_projects_path(current_user) %></li>
+      <% if !!@current_projects %>
+        <li><%= link_to "Projects", user_projects_path(current_user) %></li>
+      <% end %>
       <li><%= link_to "Log Out", logout_path, method: :delete %></li>
     <% elsif current_page?(:controller => 'application', :action => 'welcome') %>
       <br><h1 align="center"><%= link_to 'Project Manageable', enter_path %></h1><br>

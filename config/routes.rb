@@ -18,28 +18,32 @@ Rails.application.routes.draw do
   post '/signin' => 'sessions#create'
 
   get '/projectmanageable/signup' => 'users#new', :as => 'signup'
+  post '/projectmanageable/signup' => 'users#create'
+
   post '/signup' => 'users#create'
 
   # match '/signup', to: 'users#create',  via: [:get, :post]
 
   get '/profile' => 'users#index', :as => 'profile'
   get '/dashboard' => 'users#show', :as => 'dashboard'
-  get '/users/:user_id/teams' => 'teams#index', :as => 'current_teams'
 
-  delete '/teams/:id/delete_team' => 'teams#destroy', :as => 'delete_team'
-  delete '/teams/:id/projects/:id/delete_project' => 'projects#destroy', :as => 'delete_project'
+  get '/users/:user_id/teams' => 'teams#index', :as => 'current_teams'
+  delete '/users/:user_id/teams/:id' => 'teams#destroy', :as => 'admin_team_delete'
 
 
   delete '/logout' => 'sessions#destroy', :as => 'logout'
 
+  # index
+  # new
+  # create
+  # show
+  # edit
+  # update
+  # destroy
 
-
-
-  # resources :users, only: %i[new create]
-
-  resources :users, only: %i[dashboard] do
-    resources :teams, except: %i[delete], shallow: true
-    resources :projects, except: %i[new create delete], shallow: true
+  resources :users, only: %i[show] do
+    resources :teams, shallow: true
+    resources :projects
   end
 
   # resources :users, only: %i[dashboard] do
@@ -50,7 +54,7 @@ Rails.application.routes.draw do
   # #   resources :projects, shallow: true
   # # end
   resources :teams, only: %i[show] do
-    resources :projects, only: %i[index new create], shallow: true
+    resources :projects
   end
 
 end

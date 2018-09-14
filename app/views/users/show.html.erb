@@ -14,15 +14,18 @@
 <div>
   <div style="text-align: center;">
     <div style="display: inline-block; text-align: left;">
-    <h1 align="center">Hi, <%= current_user.name %></h1>
+    <h3 align="center"><%= current_user.name.capitalize %>, what are you working on today?</h3>
     <div style="width: 500px;margin:auto">
-      <img style="width: 500px" src="https://images.pexels.com/photos/212286/pexels-photo-212286.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
+      <img style="width: 500px" src="https://images.pexels.com/photos/954599/pexels-photo-954599.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
     </div>
-    <% if @user.teams.size > 0 %>
-    <h3 align="center">You are active on <%= link_to "#{@user.teams.size} teams", current_teams_path(current_user) %> </h3>
-    <% else %>
-      <h2 align="center"><%= link_to "Create a team", new_user_team_path(current_user) %></h2>
+    <% if !@current_teams.nil? %>
+      <% if @current_teams.size == 1 %>
+        <h3 align="center">You are active on <%= link_to "#{@user.teams.size} team", current_teams_path(current_user) %> </h3>
+      <% elsif @current_teams.size >= 2 %>
+        <h3 align="center">You are active on <%= link_to "#{@user.teams.size} teams", current_teams_path(current_user) %> </h3>
+      <% end %>
     <% end %>
+    <h3 align="center"><%= link_to "Create a team", new_user_team_path(current_user) %></h3>
     </div>
   </div>
 </div>
