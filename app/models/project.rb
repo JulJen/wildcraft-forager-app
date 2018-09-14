@@ -1,6 +1,9 @@
 class Project < ApplicationRecord
   belongs_to :team
-  belongs_to :user
+  has_many :users, through: :teams
+  # belongs_to :user
+
+  include ActiveModel::Validations
 
   validates :name, presence: true
   validates_uniqueness_of :name

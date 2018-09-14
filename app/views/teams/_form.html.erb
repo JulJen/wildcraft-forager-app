@@ -19,6 +19,9 @@
   <%= f.label :name, "Team name" %><br>
   <%= f.text_field :name %><br>
 
+  <%= f.label :team_admin, "Check box if you are team admin" %>
+  <%= f.check_box :teama_admin , {}, "true", "false" %>
+
   <%= f.submit 'Create Team' %>
 
 <% end %>

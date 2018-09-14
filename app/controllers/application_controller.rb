@@ -11,17 +11,16 @@ class ApplicationController < ActionController::Base
     clear_user
   end
 
-
-  # def login_page
-  #   if current_page?(:controller => 'application', :action => 'welcome')
-  #   end
-  # end
-
   def google_login?
     @url = request.path_info
     !!@url.include?('/auth/google_oauth2/callback')
     #   redirect_to '/auth/google_oauth2/callback'
     # end
+  end
+
+  def current_url
+    path = request.path_info
+    @url = path.include?(request.path_info)
   end
 
 # !params[:uid].present? &&
@@ -65,8 +64,12 @@ class ApplicationController < ActionController::Base
   end
 
 
-  def sign_in_incomplete?
-    params[:user][:name] == "" || params[:user][:password] == ""
+  def signin_valid?
+    !params[:user][:name] == "" || !params[:user][:password] == ""
+  end
+
+  def signup_valid?
+    !params[:user][:name] == "" || !params[:user][:email] == "" || !params[:user][:password] == ""
   end
 
 end

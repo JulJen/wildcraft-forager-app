@@ -14,12 +14,12 @@ Rails.application.routes.draw do
 
   get '/projectmanageable' => 'application#enter', :as => 'enter'
 
-  get '/projectmanageable/signin' => 'sessions#new', :as => 'signin'
+  # get '/projectmanageable/signin' => 'sessions#new', :as => 'signin'
+  get '/signin' => 'sessions#new'
   post '/signin' => 'sessions#create'
 
-  get '/projectmanageable/signup' => 'users#new', :as => 'signup'
-  post '/projectmanageable/signup' => 'users#create'
-
+  # get '/projectmanageable/signup' => 'users#new', :as => 'signup'
+  get '/signup' => 'users#new'
   post '/signup' => 'users#create'
 
   # match '/signup', to: 'users#create',  via: [:get, :post]
@@ -29,7 +29,6 @@ Rails.application.routes.draw do
 
   get '/users/:user_id/teams' => 'teams#index', :as => 'current_teams'
   delete '/users/:user_id/teams/:id' => 'teams#destroy', :as => 'admin_team_delete'
-
 
   delete '/logout' => 'sessions#destroy', :as => 'logout'
 

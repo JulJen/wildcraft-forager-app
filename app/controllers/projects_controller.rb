@@ -2,7 +2,6 @@ class ProjectsController < ApplicationController
   before_action :require_logged_in
 
   def index
-binding.pry
     @current_teams = current_user.teams
     # @projects = Project.where("team_id = ?", params[:team_id])
 
@@ -11,6 +10,9 @@ binding.pry
   end
 
   def new
+    @failure_message = session[:failure]
+    session[:failure] = nil
+
     @project = Project.new
     @team = Team.find_by(user_id: current_user)
   end
@@ -25,7 +27,7 @@ binding.pry
       redirect_to new_team_project_path(@team, @project)
     else
       session[:failure] = "Project could not be created, please try again."
-      render 'new'
+      redirect_to new_team_project_path(@team)
     end
   end
 
@@ -39,11 +41,7 @@ binding.pry
       @success_message = session[:success]
       session[:success] = nil
 
-      @failure_message = session[:failure]
-      session[:failure] = nil
-
-      @incomplete_message = session[:incomplete]
-      session[:incomplete] = nil
+      render :show
     else
       redirect_to root_path
     end

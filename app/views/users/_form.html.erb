@@ -1,4 +1,4 @@
-<%= form_for signup_path(@user) do |f| %>
+<%= form_for @user, as: :user, url: signup_path do |f| %>
 
   <% if @user.errors.any? %>
   <% if @failure_message %>

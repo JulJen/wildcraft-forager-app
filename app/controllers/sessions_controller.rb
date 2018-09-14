@@ -1,27 +1,20 @@
 class SessionsController < ApplicationController
 
   def new
-    clear_user
-    @user = User.new
-    @users = User.all
-
     @failure_message = session[:failure]
     session[:failure] = nil
 
-    @incomplete_message = session[:incomplete]
-    session[:incomplete] = nil
+    clear_user
+    @user = User.new
+    @users = User.all
   end
 
   def create
-  # binding.pry
-    if !google_login?
+    if !google_login? && signin_valid?
       @user = User.find(params[:user][:name])
       if user_authenticate?
         session[:user_id] = @user.id
         redirect_to dashboard_path
-      else
-        session[:failure] = "Account not saved, please try again."
-        render :new
       end
     elsif google_login?
       @user = User.find_or_create_by(uid: auth['uid']) do |u|
@@ -32,7 +25,11 @@ class SessionsController < ApplicationController
       end
       session[:user_id] = @user.id
       redirect_to dashboard_url
+    elsif !signin_valid?
+      session[:failure] = "Account not saved, please try again."
+      redirect_to signin_path
     end
+
   end
 
   def destroy
