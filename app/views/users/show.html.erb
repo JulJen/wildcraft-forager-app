@@ -20,9 +20,9 @@
     </div>
     <% if !@current_teams.nil? %>
       <% if @current_teams.size == 1 %>
-        <h3 align="center">You are active on <%= link_to "#{@user.teams.size} team", current_teams_path(current_user) %> </h3>
+        <h3 align="center">You are active on <%= link_to "#{@user.teams.size} team", user_teams_path(current_user) %> </h3>
       <% elsif @current_teams.size >= 2 %>
-        <h3 align="center">You are active on <%= link_to "#{@user.teams.size} teams", current_teams_path(current_user) %> </h3>
+        <h3 align="center">You are active on <%= link_to "#{@user.teams.size} teams", user_teams_path(current_user) %> </h3>
       <% end %>
     <% end %>
     <h3 align="center"><%= link_to "Create a team", new_user_team_path(current_user) %></h3>

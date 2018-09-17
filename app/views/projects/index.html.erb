@@ -5,6 +5,23 @@
     </div>
     <h1 align="center">Team Projects</h1>
 
+
+    <% if @team.projects.length > 0 %>
+      <h1 align="center">Current projects: <%= @team.projects.length %></h1>
+
+      <% @team.projects.each do |project| %>
+        <li align="center">
+        <%= link_to "#{project.name}", project %>
+        </li>
+      <% end %>
+
+    <% elsif @team.projects.empty? %>
+      <p>You currently have <%= @projects.size %> projects.<p>
+      <%= link_to "Create a project", new_project_path(@user)%>
+
+    <% end %>
+
+
     <% if !@projects.empty? %>
     <% @projects.each do |team| %>
         <ul>

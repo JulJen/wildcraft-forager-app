@@ -1,5 +1,5 @@
 class Team < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, optional: true
   has_many :projects
 
   # # testing these out
@@ -12,7 +12,7 @@ class Team < ApplicationRecord
   include ActiveModel::Validations
 
   validates :name, presence: true
-  # validates_uniqueness_of :name
+  validates_uniqueness_of :name
 
 
 end

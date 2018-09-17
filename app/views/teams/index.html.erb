@@ -11,6 +11,10 @@
         <p><%= @team_deleted_message %></p>
       <% end %>
 
+      <% if @team_success_message %>
+        <p><%= @team_success_message %></p>
+      <% end %>
+
       <% if !@user.teams.empty? %>
         <h2>Your teams: <%= @user.teams.length %></h2>
 

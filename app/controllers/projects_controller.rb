@@ -10,11 +10,10 @@ class ProjectsController < ApplicationController
   end
 
   def new
-binding.pry
     # @failure_message = session[:failure]
     # session[:failure] = nil
     @project = Project.new
-    @team = Team.find_by_id(params[:id])
+    # @team = Team.find_by_id(params[:id])
     @team = Team.find_by(user_id: current_user)
   end
 
@@ -22,6 +21,7 @@ binding.pry
     @team = Team.find_by(user_id: current_user)
     @project = Project.new(project_params)
     if @project.save
+binding.pry
       @team.projects << @project
       session[:success] = "Project created successfully!"
       redirect_to team_project_path(@team, @project)
@@ -38,7 +38,7 @@ binding.pry
       # @project = Project.find(session[:user_id])
       @user = current_user
       @team = Team.find_by(user_id: current_user)
-      @project = Project.find_by(user_id: current_user)
+      @project = Project.find_by_id(params[:id])
 
       @success_message = session[:success]
       session[:success] = nil

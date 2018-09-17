@@ -13,6 +13,22 @@ class ApplicationController < ActionController::Base
     clear_user
   end
 
+  def current_user
+    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+  end
+
+  def logged_in?
+    !!current_user
+  end
+
+  def require_logged_in
+    if !!logged_in?
+      @user = current_user
+    elsif !current_user
+      redirect_to welcome_path
+    end
+  end
+
   def google_login?
     @url = request.path_info
     !!@url.include?('/auth/google_oauth2/callback')
@@ -37,34 +53,14 @@ class ApplicationController < ActionController::Base
     redirect_to enter_path
   end
 
-  def current_user
-    @current_user ||= User.find(session[:user_id]) if session[:user_id]
-  end
 
-  def current_teams
-    @current_teams = current_user.teams if current_user
-  end
-
-  def current_projects
-    @current_projects = current_user.projects if current_user
-  end
-
-  def logged_in?
-    !!current_user
-  end
-
-  def user_authenticate?
-    if @user && @user.authenticate(params[:user][:password])
-      current_user = @user
-    end
-  end
-
-  def require_logged_in
-    if !!logged_in?
-      @user = current_user
-    end
-  end
-
+  # def current_teams
+  #   @current_teams = current_user.teams if current_user
+  # end
+  #
+  # def current_projects
+  #   @current_projects = current_user.projects if current_user
+  # end
 
   def signin_valid?
     !params[:user][:name] == "" || !params[:user][:password] == ""
@@ -73,5 +69,14 @@ class ApplicationController < ActionController::Base
   def signup_valid?
     !params[:user][:name] == "" || !params[:user][:email] == "" || !params[:user][:password] == ""
   end
+
+  # def user_authenticate?
+  #   if @user && @user.authenticate(params[:user][:password])
+  #     current_user = @user
+  #   end
+  # end
+
+
+
 
 end

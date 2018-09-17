@@ -14,25 +14,11 @@ Rails.application.routes.draw do
 
   get '/projectmanageable' => 'application#enter', :as => 'enter'
 
-  # get '/projectmanageable/signin' => 'sessions#new', :as => 'signin'
   get '/signin' => 'sessions#new'
   post '/signin' => 'sessions#create'
-
-  # get '/projectmanageable/signup' => 'users#new', :as => 'signup'
-  get '/signup' => 'users#new'
-  post '/signup' => 'users#create'
-
-  # match '/signup', to: 'users#create',  via: [:get, :post]
-
-  get '/profile' => 'users#index'
-
-  # get '/users/:id' => 'users#show', :as => 'dashboard'
-  get '/dashboard' => 'users#show', :as => 'dashboard'
-
-  get '/dashboard/:user_id/teams' => 'teams#index', :as => 'current_teams'
-  delete '/dashboard/:user_id/teams/:id' => 'teams#destroy', :as => 'admin_team_delete'
-
   delete '/logout' => 'sessions#destroy', :as => 'logout'
+
+
 
   # index
   # new
@@ -42,23 +28,31 @@ Rails.application.routes.draw do
   # update
   # destroy
 
-  resources :users, path: :dashboard,  except: %i[index, new, destroy]
-  get '/dashboard/:id' => 'users#show'
+  # resources :users, path: :signup, only: %i[new create]
 
-  resources :users, path: :dashboard,  only: %i[show] do
-    resources :teams
+  delete '/teams/:id' => 'teams#destroy', :as => 'admin_team_delete'
+
+  resources :users, path: :dashboard, shallow: true, except: %i[index new create destroy] do
+    resources :teams, shallow: true
+    # resources :projects, shallow: true
+  end
+
+
+  get '/signup' => 'users#new'
+  post '/signup' => 'users#create'
+  get '/profile' => 'users#index', :as => 'profile'
+
+  resources :team, only: %i[show] do
     resources :projects
   end
 
-  # resources :users, only: %i[dashboard] do
-  #   resources :teams, shallow: true
+  # resources :users, path: :dashboard, only: %i[edit update destroy]
+  # get '/dashboard/:id' => 'users#show', :as => 'dashboard'
+
+
+  #
+  # resources :users, path: :dashboard, only: %i[show] do
+  #   resources :teams, except: %i[index, show], shallow: true
   # end
-  # #
-  # # resources :users, only: %i[dashboard] do
-  # #   resources :projects, shallow: true
-  # # end
-  resources :teams, path: :dashboard,  only: %i[show] do
-    resources :projects
-  end
 
 end
