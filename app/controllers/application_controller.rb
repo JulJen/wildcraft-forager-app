@@ -2,6 +2,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   helper_method :require_logged_in, :current_user
 
+  # <%= form_for  @user, as: :user, url: signup_path do |f| %>
+
 
   def welcome
     clear_user

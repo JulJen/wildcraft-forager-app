@@ -1,19 +1,19 @@
-<% if @success_message %>
-  <p><%= @success_message %></p>
-<% end %>
-
-<% if @failure_message %>
-  <p><%= @failure_message %></p>
-<% end %>
-
-<% if @incomplete_message %>
-  <p><%= @incomplete_message %></p>
-<% end %>
-
-
 <div>
   <div style="text-align: center;">
     <div style="display: inline-block; text-align: left;">
+      <ul align="center">
+      <% if @success_message %>
+        <p><%= @success_message %></p>
+      <% end %>
+
+      <% if @failure_message %>
+        <p><%= @failure_message %></p>
+      <% end %>
+
+      <% if @incomplete_message %>
+        <p><%= @incomplete_message %></p>
+      <% end %>
+    </ul>
     <h3 align="center"><%= current_user.name.capitalize %>, what are you working on today?</h3>
     <div style="width: 500px;margin:auto">
       <img style="width: 500px" src="https://images.pexels.com/photos/954599/pexels-photo-954599.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">

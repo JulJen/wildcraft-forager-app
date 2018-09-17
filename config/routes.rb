@@ -24,11 +24,13 @@ Rails.application.routes.draw do
 
   # match '/signup', to: 'users#create',  via: [:get, :post]
 
-  get '/profile' => 'users#index', :as => 'profile'
+  get '/profile' => 'users#index'
+
+  # get '/users/:id' => 'users#show', :as => 'dashboard'
   get '/dashboard' => 'users#show', :as => 'dashboard'
 
-  get '/users/:user_id/teams' => 'teams#index', :as => 'current_teams'
-  delete '/users/:user_id/teams/:id' => 'teams#destroy', :as => 'admin_team_delete'
+  get '/dashboard/:user_id/teams' => 'teams#index', :as => 'current_teams'
+  delete '/dashboard/:user_id/teams/:id' => 'teams#destroy', :as => 'admin_team_delete'
 
   delete '/logout' => 'sessions#destroy', :as => 'logout'
 
@@ -40,8 +42,11 @@ Rails.application.routes.draw do
   # update
   # destroy
 
-  resources :users, only: %i[show] do
-    resources :teams, shallow: true
+  resources :users, path: :dashboard,  except: %i[index, new, destroy]
+  get '/dashboard/:id' => 'users#show'
+
+  resources :users, path: :dashboard,  only: %i[show] do
+    resources :teams
     resources :projects
   end
 
@@ -52,7 +57,7 @@ Rails.application.routes.draw do
   # # resources :users, only: %i[dashboard] do
   # #   resources :projects, shallow: true
   # # end
-  resources :teams, only: %i[show] do
+  resources :teams, path: :dashboard,  only: %i[show] do
     resources :projects
   end
 

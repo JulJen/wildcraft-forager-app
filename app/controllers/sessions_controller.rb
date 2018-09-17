@@ -26,7 +26,7 @@ class SessionsController < ApplicationController
       session[:user_id] = @user.id
       redirect_to dashboard_url
     elsif !signin_valid?
-      session[:failure] = "Account not saved, please try again."
+      session[:failure] = "Incorrect name and password, please try again."
       redirect_to signin_path
     end
 

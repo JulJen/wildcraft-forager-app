@@ -10,24 +10,24 @@ class ProjectsController < ApplicationController
   end
 
   def new
-    @failure_message = session[:failure]
-    session[:failure] = nil
-
+binding.pry
+    # @failure_message = session[:failure]
+    # session[:failure] = nil
     @project = Project.new
+    @team = Team.find_by_id(params[:id])
     @team = Team.find_by(user_id: current_user)
   end
 
   def create
-binding.pry
     @team = Team.find_by(user_id: current_user)
     @project = Project.new(project_params)
-    if current_user && @project.save
+    if @project.save
       @team.projects << @project
       session[:success] = "Project created successfully!"
-      redirect_to new_team_project_path(@team, @project)
+      redirect_to team_project_path(@team, @project)
     else
       session[:failure] = "Project could not be created, please try again."
-      redirect_to new_team_project_path(@team)
+      render :new
     end
   end
 
@@ -37,6 +37,8 @@ binding.pry
       # @team = Team.find(session[:user_id])
       # @project = Project.find(session[:user_id])
       @user = current_user
+      @team = Team.find_by(user_id: current_user)
+      @project = Project.find_by(user_id: current_user)
 
       @success_message = session[:success]
       session[:success] = nil

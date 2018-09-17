@@ -16,11 +16,11 @@
     </div>
   <% end %>
 
-  <%= f.label :name, "Team name" %><br>
-  <%= f.text_field :name %><br>
+  <%= f.label :name, "Team" %><br>
+  <%= f.text_field :name %><br><br>
 
-  <%= f.label :team_admin, "Check box if you are team admin" %>
-  <%= f.check_box :teama_admin , {}, "true", "false" %>
+  <%= f.label :team_admin, "check box if you're the team admin" %>
+  <%= f.check_box :team_admin , {}, "true", "false" %><br><br>
 
   <%= f.submit 'Create Team' %>
 

@@ -9,25 +9,26 @@ class UsersController < ApplicationController
 
     @failure_message = session[:failure]
     session[:failure] = nil
-
-    # binding.pry
   end
 
   def create
+binding.pry
     @user = User.new(user_params)
     if @user.save
-      # session[:user_id] = @user.id
+      session[:user_id] = @user.id
+
       session[:success] = "User account created successfully!"
-      redirect_to dashboard_path(current_user)
+      redirect_to @user
+      # redirect_to dashboard_path(current_user)
     else
       session[:failure] = "Failure, user account not saved."
-      render 'new'
+      render :new
     end
   end
 
   def show
     @current_teams = current_user.teams
-    # @user = User.find(session[:user_id])
+
     @success_message = session[:success]
     session[:success] = nil
   end

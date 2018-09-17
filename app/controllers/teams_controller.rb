@@ -9,23 +9,24 @@ class TeamsController < ApplicationController
   end
 
   def new
-    @failure_message = session[:failure]
-    session[:failure] = nil
-
+    # @failure_message = session[:failure]
+    # session[:failure] = nil
     @team = Team.new
-    @project = Project.new
+    # @project = Project.new
   end
 
   def create
+binding.pry
     @team = Team.new(team_params)
     if @team.save
       @user.teams << @team
 
       session[:success] = "Team created successfully!"
-      redirect_to team_path(@team)
+      redirect_to user_team_path(current_user, @team)
     else
       session[:failure] = "Team not saved, please try again."
       render :new
+      # redirect_to new_user_team_path(current_user)
     end
   end
 
@@ -36,7 +37,7 @@ class TeamsController < ApplicationController
 
     @success_message = session[:success]
     session[:success] = nil
-    
+
     render :show
   end
 
@@ -67,6 +68,6 @@ class TeamsController < ApplicationController
   private
 
   def team_params
-    params.require(:team).permit(:name)
+    params.require(:team).permit(:name, :team_admin)
   end
 end

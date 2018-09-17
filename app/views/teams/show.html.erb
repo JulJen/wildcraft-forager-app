@@ -1,18 +1,14 @@
-
-<% if @success_message %>
-  <p><%= @success_message %></p>
-<% end %>
-
-<% if @failure_message %>
-  <p><%= @failure_message %></p>
-<% end %>
-
-<% if @incomplete_message %>
-  <p><%= @incomplete_message %></p>
-<% end %>
-
 <div>
   <ul align="center">
+
+    <% if @success_message %>
+      <p><%= @success_message %></p>
+    <% end %>
+
+    <% if @incomplete_message %>
+      <p><%= @incomplete_message %></p>
+    <% end %>
+
     <% if !!@projects && @projects.length > 0 %>
       <h2>Current projects: <%= @projects.length %></h2>
       <ol>
@@ -25,7 +21,7 @@
     <% else%>
       <h1 align="center">Team: <%= @team.name %></h1>
       <%= link_to "Create a project",  new_team_project_path(@team) %>
-      
+
       <br><br>
 
       <div style="width: 500px;margin:auto">
