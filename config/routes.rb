@@ -6,9 +6,9 @@ Rails.application.routes.draw do
   get '/500', :to => 'errors#internal_error'
 
 
-  match '/auth/google_oauth2/callback', to: 'sessions#create', via: [:get, :post]
+  # match '/auth/google_oauth2/callback', to: 'sessions#create', via: [:get, :post]
 
-  # get '/auth/google_oauth2/callback', to: 'sessions#create'
+  get '/auth/google_oauth2/callback', to: 'sessions#create'
 
   root 'application#welcome', :as => 'welcome'
 
