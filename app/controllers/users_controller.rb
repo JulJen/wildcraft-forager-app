@@ -5,10 +5,13 @@ class UsersController < ApplicationController
   end
 
   def new
-    @user = User.new
-
-    @failure_message = session[:failure]
-    session[:failure] = nil
+    if !current_user
+      @user = User.new
+      @failure_message = session[:failure]
+      session[:failure] = nil
+    else
+      redirect_to user_path(current_user)
+    end
   end
 
   def create
@@ -27,10 +30,14 @@ binding.pry
   end
 
   def show
-    @current_teams = current_user.teams
+    if params[:id] == current_user.id
+      @current_teams = current_user.teams
 
-    @success_message = session[:success]
-    session[:success] = nil
+      @success_message = session[:success]
+      session[:success] = nil
+    elsif !params[:id] == current_user.id
+      redirect_to '/404'
+    end
   end
 
   private

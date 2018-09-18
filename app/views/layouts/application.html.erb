@@ -14,11 +14,22 @@
       <strong>Project Manageable</strong><br>
       <li><%= link_to "Dashboard", current_user %></li>
       <li><%= link_to "#{current_user.name.capitalize}'s profile", profile_path %></li>
-      <% if !!@current_teams %>
-        <li><%= link_to "Current Teams", user_teams_path(current_user) %></li>
-        <% if request.path_info.include?('current_user.team_id') %>
+      <% if !!current_user.teams %>
+        <li><%= link_to "All Teams", user_teams_path(current_user) %></li>
+        <% if !!@team && request.path_info.include?('/teams') && !request.path_info.include?('/edit') %>
           <li><%= link_to "Edit #{@team.name}", edit_team_path(@team) %></li>
+          <li><%= link_to "New project", new_team_project_path(@team) %></li>
+        <% elsif !!@team && request.path_info.include?('/teams') && !request.path_info.include?('/projects') %>
+          <li><%= link_to "Back to #{@team.name}", team_path(@team) %></li>
         <% end %>
+      <% else%>
+        <li><%= link_to "New team", new_user_team_path(current_user) %></li>
+      <% end %>
+      <% if !!@project && request.path_info.include?('/projects') && !request.path_info.include?('/new') && !request.path_info.include?('/projects')  %>
+        <li><%= link_to "Edit #{@project.name}", edit_project_path(@project) %></li>
+        <li><%= link_to "Back to #{@team.name}", team_path(@team) %></li>
+      <% elsif !current_user.teams %>
+        <li><%= link_to "Back to #{@project.name}", project_path(@project) %></li>
       <% end %>
       <li><%= link_to "Log Out", logout_path, method: :delete %></li>
     <% elsif current_page?(:controller => 'application', :action => 'welcome') %>

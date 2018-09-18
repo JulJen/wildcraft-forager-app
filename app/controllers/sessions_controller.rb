@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
       @user = User.new
       @users = User.all
     else
-      redirect_to dashboard_path(current_user)
+      redirect_to current_user
     end
   end
 

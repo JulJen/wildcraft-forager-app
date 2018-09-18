@@ -12,8 +12,6 @@ class TeamsController < ApplicationController
   end
 
   def new
-    # @failure_message = session[:failure]
-    # session[:failure] = nil
     @team = Team.new
   end
 
@@ -21,20 +19,15 @@ class TeamsController < ApplicationController
     @team = Team.new(team_params)
     if @team.save
       current_user.teams << @team
-      # @user.teams << @team
 
       session[:success_team] = "Team created successfully!"
       redirect_to user_teams_path(current_user)
     else
-      # session[:failure] = "Team not saved, please try again."
       render :new
-      # redirect_to new_user_team_path(current_user)
     end
   end
 
   def show
-    require_logged_in
-    # @projects = Project.all
     @current_teams = current_user.teams
     @team = Team.find_by_id(params[:id])
 
@@ -43,8 +36,6 @@ class TeamsController < ApplicationController
 
     @project_delete_message = session[:project_delete]
     session[:project_delete] = nil
-
-    render :show
   end
 
   def edit

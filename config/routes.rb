@@ -41,6 +41,8 @@ Rails.application.routes.draw do
   get '/signup' => 'users#new'
   post '/signup' => 'users#create'
   get '/profile' => 'users#index', :as => 'profile'
+  get '/dashboard' => 'users#show'
+
 
   resources :team, only: %i[show] do
     resources :projects, shallow: true

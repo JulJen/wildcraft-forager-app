@@ -20,15 +20,14 @@
       </ol>
     <% else%>
       <h1>Project: <%= @project.name %></h1>
-      <h3>Created by <%= link_to @team.name, @team %></h3><br>
+      <h3>Created by <%= link_to @team.name, @team %></h3>
       <p>Description: <%= @project.description %></p>
-      <br><br>
+      <br>
 
       <div style="width: 500px;margin:auto">
         <img style="width: 500px" src="https://images.pexels.com/photos/908295/pexels-photo-908295.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
       </div>
-      <br>
-      <%= link_to "Edit project #{@project.name}", edit_project_path(@project) %><br>
-  <% end %><br>
+
+  <% end %>
   </ul>
 </div>
