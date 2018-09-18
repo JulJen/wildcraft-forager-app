@@ -1,44 +1,34 @@
 <div>
-  <ul align="center">
-    <div style="width: 500px;margin:auto">
-      <img style="width: 500px" src="https://images.pexels.com/photos/6662/creative-smartphone-notebook-typography.jpg?auto=compress&cs=tinysrgb&h=650&w=940">
+
+  <div style="width: 500px;margin:auto">
+    <img style="width: 500px" src="https://images.pexels.com/photos/1266005/pexels-photo-1266005.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
+  </div>
+
+  <div style="text-align: center;">
+    <div style="display: inline-block; text-align: left;">
+
+      <% if @project_deleted_message %>
+        <p><%= @project_deleted_message %></p>
+      <% end %>
+
+      <% if @project_success_message %>
+        <p><%= @project_success_message %></p>
+      <% end %>
+
+      <% if !@team.projects.empty? %>
+        <h2>Your projects: <%= @team.projects.length %></h2>
+
+        <% @team.projects.each do |o| %>
+          <li>
+          <%= link_to "#{p.name.capitalize}", p_path(p.id) %>
+          </li>
+        <% end %>
+
+      <% else %>
+        <h3 align="center"><%= link_to "Create a project", new_team_project_path(@team) %></h3>
+      <% end %>
+
     </div>
-    <h1 align="center">Team Projects</h1>
+  </div>
 
-
-    <% if @team.projects.length > 0 %>
-      <h1 align="center">Current projects: <%= @team.projects.length %></h1>
-
-      <% @team.projects.each do |project| %>
-        <li align="center">
-        <%= link_to "#{project.name}", project %>
-        </li>
-      <% end %>
-
-    <% elsif @team.projects.empty? %>
-      <p>You currently have <%= @projects.size %> projects.<p>
-      <%= link_to "Create a project", new_project_path(@user)%>
-
-    <% end %>
-
-
-    <% if !@projects.empty? %>
-    <% @projects.each do |team| %>
-        <ul>
-          <%= link_to "Show #{project.name}", project_path(project) %>
-        </ul>
-      <% end %>
-    <% elsif @projects.empty? %>
-      <p>You currently have <%= @projects.size %> projects.<p>
-      <p> Start a project by selecting from your team list:</p>
-
-      <%= form_for :team, url: '/teams/', action: 'get' do |f| %>
-        <%= f.collection_select(:name, Team.all, :id, :name, prompt: "Select your team") %>
-
-        <br><br>
-        <%= f.submit "Select team" %>
-      <% end %>
-    <% end %>
-    <br>
-  </ul>
 </div>

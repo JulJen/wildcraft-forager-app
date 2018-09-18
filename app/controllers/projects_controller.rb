@@ -21,7 +21,6 @@ class ProjectsController < ApplicationController
     @team = Team.find_by(user_id: current_user)
     @project = Project.new(project_params)
     if @project.save
-binding.pry
       @team.projects << @project
       session[:success] = "Project created successfully!"
       redirect_to team_project_path(@team, @project)
@@ -34,8 +33,6 @@ binding.pry
 
   def show
     if logged_in?
-      # @team = Team.find(session[:user_id])
-      # @project = Project.find(session[:user_id])
       @user = current_user
       @team = Team.find_by(user_id: current_user)
       @project = Project.find_by_id(params[:id])
@@ -50,26 +47,30 @@ binding.pry
   end
 
   def edit
-    @project = Project.find(params[:id])
+    @project = Project.find_by_id(params[:id])
   end
 
   def update
-    @project = Project.find(params[:id])
+binding.pry
+    @project = Project.find_by_id(params[:id])
+    @project = Project.find_by(user_id: current_user)
     if @project.update(project_params)
-      redirect_to project_path(@project)
+      redirect_to team_project_path(@team, @project)
     else
-      render :new
+      render :edit
     end
   end
 
   def destroy
+binding.pry
     @project = Project.find_by_id(params[:id])
-    if @project.user_id == current_user.id
-      @project.delete
+    if @project.team_id == current_team.id
+      @team.delete
     end
-    session[:delete] = "Project deleted."
-    redirect_to user_projects_path(current_user)
+    session[:team_deleted] = "Team deleted."
+    redirect_to user_teams_path(current_user)
   end
+
 
   private
 

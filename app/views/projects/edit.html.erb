@@ -1,0 +1,37 @@
+<div>
+  <div style="text-align: center;">
+    <div style="display: inline-block; text-align: center;">
+
+      <h1 align="center">
+        <%= form_for @project do |f| %>
+
+        <% if @project.errors.any? %>
+          <div id="error_explanation">
+            <h2>
+              <%= pluralize(@project.errors.count, "error") %>
+              prohibited team from being saved:
+            </h2>
+            <ul>
+            <% @project.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <%= f.label :name, "Edit #{@project.name}" %><br>
+        <%= f.text_field :name %><br>
+
+        <%= f.submit 'Update Team' %>
+      <% end %></h1><br>
+
+    <div style="width: 500px;margin:auto">
+      <img style="width: 500px" src="https://images.pexels.com/photos/355948/pexels-photo-355948.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
+    </div>
+
+    <br>
+
+    <%= link_to "Delete Team", team_path(@project), method: :delete %>
+
+  </div>
+</div>

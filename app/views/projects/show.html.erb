@@ -1,1 +1,34 @@
-<%= @project.name %>
+<div>
+  <ul align="center">
+
+    <% if @success_message %>
+      <p><%= @success_message %></p>
+    <% end %>
+
+    <% if @incomplete_message %>
+      <p><%= @incomplete_message %></p>
+    <% end %>
+
+    <% if !!@projects && @projects.length > 0 %>
+      <h2>Current projects: <%= @projects.length %></h2>
+      <ol>
+        <% @projects.each do |p| %>
+          <li>
+          <%= link_to "#{p.name}", team_project_path(@team) %>
+          </li>
+        <% end %>
+      </ol>
+    <% else%>
+      <h1 align="center">Project: <%= @project.name %></h1>
+      <h3 align="center">Created by <%= link_to @team.name, @team %>
+
+      <br><br>
+
+      <div style="width: 500px;margin:auto">
+        <img style="width: 500px" src="https://images.pexels.com/photos/355952/pexels-photo-355952.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
+      </div>
+      <br>
+      <%= link_to "Edit #{@project.name}", edit_project_path(@team, @project) %><br>
+  <% end %><br>
+  </ul>
+</div>

@@ -20,7 +20,6 @@ class TeamsController < ApplicationController
   def create
     @team = Team.new(team_params)
     if @team.save
-binding.pry
       current_user.teams << @team
       # @user.teams << @team
 
@@ -45,17 +44,7 @@ binding.pry
     render :show
   end
 
-  def destroy
-    @team = Team.find_by_id(params[:id])
-    if @team.user_id == current_user.id
-      @team.delete
-    end
-    session[:team_deleted] = "Team deleted."
-    redirect_to user_teams_path(current_user)
-  end
-
   def edit
-    # @team = Team.find(params[:id])
     @team = Team.find_by_id(params[:id])
   end
 
@@ -66,6 +55,15 @@ binding.pry
     else
       render :edit
     end
+  end
+
+  def destroy
+    @team = Team.find_by_id(params[:id])
+    if @team.user_id == current_user.id
+      @team.delete
+    end
+    session[:team_deleted] = "Team deleted."
+    redirect_to user_teams_path(current_user)
   end
 
   private

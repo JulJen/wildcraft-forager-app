@@ -43,8 +43,10 @@ Rails.application.routes.draw do
   get '/profile' => 'users#index', :as => 'profile'
 
   resources :team, only: %i[show] do
-    resources :projects
+    resources :projects, shallow: true
   end
+
+  # resources :projects, only: %i[show edit update destroy]
 
   # resources :users, path: :dashboard, only: %i[edit update destroy]
   # get '/dashboard/:id' => 'users#show', :as => 'dashboard'
