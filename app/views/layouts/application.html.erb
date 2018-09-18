@@ -14,12 +14,15 @@
       <strong>Project Manageable</strong><br>
       <li><%= link_to "Dashboard", current_user %></li>
       <li><%= link_to "#{current_user.name.capitalize}'s profile", profile_path %></li>
-      <li><%= link_to "Teams", user_teams_path(current_user) %></li>
-      <li><%= link_to "Projects", team_projects_path(@team) %></li>
+      <% if !!@current_teams %>
+        <li><%= link_to "Current Teams", user_teams_path(current_user) %></li>
+        <% if request.path_info.include?('current_user.team_id') %>
+          <li><%= link_to "Edit #{@team.name}", edit_team_path(@team) %></li>
+        <% end %>
+      <% end %>
       <li><%= link_to "Log Out", logout_path, method: :delete %></li>
     <% elsif current_page?(:controller => 'application', :action => 'welcome') %>
       <br><h1 align="center"><%= link_to 'Project Manageable', enter_path %></h1><br>
-
       <div style="width: 728px;margin:auto">
         <img style="width: 728px" src="https://images.pexels.com/photos/6224/hands-people-woman-working.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260">
       </div>

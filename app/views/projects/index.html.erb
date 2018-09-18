@@ -15,12 +15,12 @@
         <p><%= @project_success_message %></p>
       <% end %>
 
-      <% if !@team.projects.empty? %>
-        <h2>Your projects: <%= @team.projects.length %></h2>
+      <% if !@current_projects.empty? %>
+        <h2>Your projects: <%= @current_projects.length %></h2>
 
-        <% @team.projects.each do |o| %>
+        <% @current_projects.each do |project| %>
           <li>
-          <%= link_to "#{p.name.capitalize}", p_path(p.id) %>
+          <%= link_to "#{project.name.capitalize}", project_path(project.id) %>
           </li>
         <% end %>
 

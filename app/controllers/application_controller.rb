@@ -36,11 +36,6 @@ class ApplicationController < ActionController::Base
     # end
   end
 
-  def current_url
-    path = request.path_info
-    @url = path.include?(request.path_info)
-  end
-
 # !params[:uid].present? &&
 
   def clear_user
@@ -54,13 +49,19 @@ class ApplicationController < ActionController::Base
   end
 
 
-  # def current_teams
-  #   @current_teams = current_user.teams if current_user
+  def current_teams
+    @current_teams = current_user.teams if current_user
+  end
+
+  def find_team
+    @find_team = Team.find_by(user_id: current_user) if current_user
+  end
+
+  # def url_path(url)
+  #   @url_path = request.path_info if request.path_info.include?(url)
   # end
-  #
-  # def current_projects
-  #   @current_projects = current_user.projects if current_user
-  # end
+
+  # @current_teams.each {|team| request.path_info if request.path_info.include?('/team.id')}
 
   def signin_valid?
     !params[:user][:name] == "" || !params[:user][:password] == ""

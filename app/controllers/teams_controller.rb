@@ -41,6 +41,9 @@ class TeamsController < ApplicationController
     @success_message = session[:success]
     session[:success] = nil
 
+    @project_delete_message = session[:project_delete]
+    session[:project_delete] = nil
+
     render :show
   end
 

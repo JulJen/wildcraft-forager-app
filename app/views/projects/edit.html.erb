@@ -20,9 +20,16 @@
         <% end %>
 
         <%= f.label :name, "Edit #{@project.name}" %><br>
-        <%= f.text_field :name %><br>
+        <%= f.text_field :name %>
 
-        <%= f.submit 'Update Team' %>
+        <br><br>
+
+        <%= f.label :description, "Description" %><br>
+        <%= f.text_field :description %>
+
+        <br><br>
+
+        <%= f.submit 'Update Project' %>
       <% end %></h1><br>
 
     <div style="width: 500px;margin:auto">
@@ -31,7 +38,7 @@
 
     <br>
 
-    <%= link_to "Delete Team", team_path(@project), method: :delete %>
+    <%= link_to "Delete Project", project_path(@project), method: :delete %>
 
   </div>
 </div>

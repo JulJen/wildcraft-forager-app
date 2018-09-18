@@ -1,5 +1,13 @@
 <div>
-  <ul align="center">
+
+  <div style="width: 500px;margin:auto">
+    <img style="width: 500px" src="https://images.pexels.com/photos/355952/pexels-photo-355952.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
+  </div>
+
+  <div style="text-align: center;">
+    <div style="display: inline-block; text-align: left;">
+
+    <h1 align="center">Team: <%= @team.name %></h1>
 
     <% if @success_message %>
       <p><%= @success_message %></p>
@@ -9,26 +17,25 @@
       <p><%= @incomplete_message %></p>
     <% end %>
 
-    <% if !!@projects && @projects.length > 0 %>
-      <h2>Current projects: <%= @projects.length %></h2>
-      <ol>
-        <% @projects.each do |p| %>
-          <li>
-          <%= link_to "#{p.name}", team_project_path(@team) %>
-          </li>
-        <% end %>
-      </ol>
-    <% else%>
-      <h1 align="center">Team: <%= @team.name %></h1>
-      <%= link_to "Create a project",  new_team_project_path(@team) %>
+    <% if @project_delete_message %>
+      <p><%= @project_delete_message %></p>
+    <% end %>
+
+    <% if !@team.projects.empty? %>
+      <h2>Your projects: <%= @team.projects.length %></h2>
+
+      <% @team.projects.each do |project| %>
+        <li>
+        <%= link_to "#{project.name.capitalize}", project_path(project.id) %>
+        </li>
+      <% end %>
 
       <br><br>
-
-      <div style="width: 500px;margin:auto">
-        <img style="width: 500px" src="https://images.pexels.com/photos/355952/pexels-photo-355952.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
-      </div>
-      <br>
       <%= link_to "Edit #{@team.name}", edit_team_path(@team) %><br>
-  <% end %><br>
-  </ul>
+      <%= link_to "Create a project",  new_team_project_path(@team) %>
+    <% else %>
+      <%= link_to "Create a project",  new_team_project_path(@team) %>
+    <% end %>
+
+  </div>
 </div>

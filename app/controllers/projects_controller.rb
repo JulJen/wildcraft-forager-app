@@ -2,11 +2,9 @@ class ProjectsController < ApplicationController
   before_action :require_logged_in
 
   def index
-    @current_teams = current_user.teams
+    @team = Team.find_by(user_id: current_user)
+    @current_projects = current_user.projects
     # @projects = Project.where("team_id = ?", params[:team_id])
-
-    @delete_message = session[:delete]
-    session[:delete] = nil
   end
 
   def new
@@ -23,7 +21,7 @@ class ProjectsController < ApplicationController
     if @project.save
       @team.projects << @project
       session[:success] = "Project created successfully!"
-      redirect_to team_project_path(@team, @project)
+      redirect_to project_path(@project)
     else
       session[:failure] = "Project could not be created, please try again."
       render :new
@@ -51,11 +49,9 @@ class ProjectsController < ApplicationController
   end
 
   def update
-binding.pry
     @project = Project.find_by_id(params[:id])
-    @project = Project.find_by(user_id: current_user)
     if @project.update(project_params)
-      redirect_to team_project_path(@team, @project)
+      redirect_to @project
     else
       render :edit
     end
@@ -64,11 +60,12 @@ binding.pry
   def destroy
 binding.pry
     @project = Project.find_by_id(params[:id])
-    if @project.team_id == current_team.id
-      @team.delete
+    @team = Team.find_by(user_id: current_user)
+    if @project.team_id == @team.id
+      @project.delete
     end
-    session[:team_deleted] = "Team deleted."
-    redirect_to user_teams_path(current_user)
+    session[:project_delete] = "Project deleted."
+    redirect_to team_projects_path(@team, @project)
   end
 
 
