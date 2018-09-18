@@ -12,25 +12,37 @@ class SessionsController < ApplicationController
   end
 
   def create
-    @user = User.find(params[:user][:name])
-    if @user && @user.authenticate(params[:user][:password])
+binding.pry
+    if !google_login?
+      @user = User.find(params[:user][:name])
+      if @user && @user.authenticate(params[:user][:password])
+        session[:user_id] = @user.id
+        redirect_to current_user
+      end
+    elsif google_login?
+      @user = User.find_or_create_by(uid: auth['uid']) do |u|
+        u.name = auth['info']['name']
+        u.email = auth['info']['email']
+        # make password secure
+        u.password = auth['uid']
+      end
       session[:user_id] = @user.id
-      redirect_to current_user
-
-    # elsif google_login?
-    #   @user = User.find_or_create_by(uid: auth['uid']) do |u|
-    #     u.name = auth['info']['name']
-    #     u.email = auth['info']['email']
-    #     # make password secure
-    #     u.password = auth['uid']
-    #   end
-    #   session[:user_id] = @user.id
-    #   redirect_to dashboard_url
-  else
+      redirect_to user_path(@user)
+    else
       session[:failure] = "Incorrect name and password, please try again."
       redirect_to signin_path
     end
   end
+
+  # @user = User.find_or_create_by(uid: auth['uid']) do |u|
+  #     u.name = auth['info']['name']
+  #     u.email = auth['info']['email']
+  #   end
+  #   # self.current_user = @user
+  #   session[:user_id] = @user.id
+  #   # redirect_to @user
+  #   redirect_to user_path(@user)
+  # end
 
   def destroy
     reset_session

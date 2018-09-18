@@ -30,10 +30,7 @@ class ApplicationController < ActionController::Base
   end
 
   def google_login?
-    @url = request.path_info
-    !!@url.include?('/auth/google_oauth2/callback')
-    #   redirect_to '/auth/google_oauth2/callback'
-    # end
+    !!request.path_info.include?('/auth/google_oauth2/callback')
   end
 
 # !params[:uid].present? &&
