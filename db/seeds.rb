@@ -5,3 +5,38 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+
+require 'faker'
+
+Faker::UniqueGenerator.clear
+
+User.destroy_all
+10.times do |index|
+  User.create!(name: Faker::FunnyName.unique.name, #=> "Kaci"
+    password_digest: Faker::Internet.unique.password, #=> "*%NkOnJsH4"
+    email: Faker::Internet.unique.email,  #=> "eliza@mann.net"
+  )
+end
+
+
+Team.destroy_all
+10.times do |index|
+  Team.create!(name: Faker::Hipster.unique.words,
+    created_at: Faker::Time.between(4.months.ago, 1.month.ago),
+    updated_at: Faker::Time.between(4.months.ago, 1.month.ago)
+  )
+end
+
+
+Project.destroy_all
+10.times do |index|
+  Project.create!(name: Faker::Company.unique.bs,
+    description: Faker::Hipster.unique.sentences,
+    created_at: Faker::Time.between(4.months.ago, 1.month.ago),
+    updated_at: Faker::Time.between(4.months.ago, 1.month.ago)
+  )
+end
+
+
+p "Created #{User.count} users, #{Team.count} teams, #{Project.count} projects"
