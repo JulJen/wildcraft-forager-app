@@ -49,7 +49,7 @@ Rails.application.routes.draw do
   end
 
   resources :projects, only: %i[show] do
-    resources :team_members, shallow: true
+    resources :team_members, path: :myteam, shallow: true
   end
 
   # resources :projects, only: %i[show edit update destroy]
