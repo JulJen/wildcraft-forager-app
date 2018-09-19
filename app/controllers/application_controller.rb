@@ -67,7 +67,7 @@ class ApplicationController < ActionController::Base
 
   def reset_session
     clear_user
-    redirect_to enter_path
+    redirect_to signin_path
   end
 
 

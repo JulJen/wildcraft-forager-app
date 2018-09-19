@@ -1,4 +1,5 @@
 class TeamMembersController < ApplicationController
+  before_action :require_logged_in
 
   def index
     @team_member = TeamMember.new
@@ -16,13 +17,14 @@ class TeamMembersController < ApplicationController
   end
 
   def new
-    @user = User.all
+    @users = User.all
     @team_member = TeamMember.new
     @team = Team.find_by(user_id: current_user)
     @project = Project.find_by_id(params[:project_id])
   end
 
   def create
+binding.pry
     @team = Team.find_by(user_id: current_user)
     @project = Project.find_by_id(params[:project_id])
     @team_member= TeamMember.new(member_params)
@@ -60,7 +62,7 @@ class TeamMembersController < ApplicationController
   private
 
   def member_params
-    params.require(:team_member).permit(:name, :email)
+    params.require(:team_member).permit(:name, :email, :image)
   end
 
 end
