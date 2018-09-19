@@ -24,15 +24,22 @@
     <% else %>
 
       <h1>Project: <%= @project.name %></h1>
-      <h3>Team: <%= link_to @team.name, @team %></h3><br>
+      <h3>Team: <%= link_to @team.name, @team %></h3>
+
+      <% if !!@project.team_members %>
+        <% if @project.team_members.size == 1 %>
+          <h4 align="center">There are currently <%= link_to "#{@project.team_members.size} active members", project_team_members_path(@project) %><br>
+ </h4>
+        <% elsif @project.team_members.size >= 2 %>
+          <h4>There are currently <%= link_to "#{@project.team_members.size} active members", project_team_members_path(@project) %><br>
+</h4>
+        <% else %>
+          <h3><%= link_to "Add team members", new_project_team_member_path(@project) %></h3><br>
+        <% end %>
+      <% end %>
+
       <p>Description: <%= @project.description %></p><br>
 
-    <% end %>
-
-    <% if @project.team_members.size > 0 %>
-      Team members: <%= link_to "#{@project.team_members.size}", project_team_members_path(@project) %><br>
-    <% else %>
-      <h3><%= link_to "Add team members", new_project_team_member_path(@project) %></h3><br>
     <% end %>
 
     <br>

@@ -19,22 +19,26 @@
         <li><%= link_to "All Teams", user_teams_path(current_user) %></li>
 
         <% if !!@team && request.path_info.include?('/teams') && !request.path_info.include?('/edit') && !request.path_info.include?('/new')%>
-          <li><%= link_to "Edit #{@team.name}", edit_team_path(@team) %></li>
+          <li><%= link_to "Edit team: #{@team.name}", edit_team_path(@team) %></li>
           <li><%= link_to "New project", new_team_project_path(@team) %></li>
         <% elsif !!@team && request.path_info.include?('/teams') && !request.path_info.include?('/projects') && !request.path_info.include?('/new') %>
-          <li><%= link_to "Back to #{@team.name}", team_path(@team) %></li>
+          <li><%= link_to "Back to team: #{@team.name}", team_path(@team) %></li>
         <% elsif !request.path_info.include?('/new') && !request.path_info.include?('/projects') %>
           <li><%= link_to "New team", new_user_team_path(current_user) %></li>
         <% end %>
 
-        <% if !!@project && request.path_info.include?('/projects') && !request.path_info.include?('/new') %>
+        <% if !!@project && request.path_info.include?('/projects') && !request.path_info.include?('/new') && !request.path_info.include?('/myteam') %>
           <% if !request.path_info.include?('/edit')%>
-            <li><%= link_to "Back to #{@team.name}", team_path(@team) %></li>
-            <li><%= link_to "Edit #{@project.name}", edit_project_path(@project) %></li>
+            <li><%= link_to "Back to team: #{@team.name}", team_path(@team) %></li>
+            <li><%= link_to "Edit project: #{@project.name}", edit_project_path(@project) %></li>
           <% else %>
-            <li><%= link_to "Back to #{@project.name}", project_path(@project) %></li>
+            <li><%= link_to "Back to project: #{@project.name}", project_path(@project) %></li>
           <% end %>
         <% end %>
+
+      <% if !!@team_member && request.path_info.include?('/myteam') %>
+        <li><%= link_to "Back to project: #{@project.name}", project_path(@project) %></li>
+      <% end %>
 
       <% else%>
         <li><%= link_to "New team", new_user_team_path(current_user) %></li>

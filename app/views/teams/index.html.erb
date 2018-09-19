@@ -1,9 +1,5 @@
 <div>
 
-  <div style="width: 500px;margin:auto">
-    <img style="width: 500px" src="https://images.pexels.com/photos/1266005/pexels-photo-1266005.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
-  </div>
-
   <div style="text-align: center;">
     <div style="display: inline-block; text-align: left;">
 
@@ -16,7 +12,15 @@
       <% end %>
 
       <% if !@user.teams.empty? %>
-        <h2>Your teams: <%= @user.teams.length %></h2>
+        <h2>Current teams: <%= @user.teams.length %></h2>
+
+        <% if !!@current_projects %>
+          <% if @current_projects.size == 1 %>
+            <h3 align="center">You are active on <%= "#{@current_projects.size} project" %> </h3>
+          <% elsif @current_projects.size >= 2 %>
+            <h3 align="center">You are active on <%= "#{@current_projects.size} projects" %> </h3>
+          <% end %>
+        <% end %>
 
         <% @user.teams.each do |team| %>
           <li>
@@ -28,7 +32,15 @@
         <h3 align="center"><%= link_to "Start a team", new_user_team_path(current_user) %></h3>
       <% end %>
 
+
+
     </div>
+  </div>
+
+  <br>
+
+  <div style="width: 500px;margin:auto">
+    <img style="width: 500px" src="https://images.pexels.com/photos/1266005/pexels-photo-1266005.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
   </div>
 
 </div>

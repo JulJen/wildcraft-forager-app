@@ -2,22 +2,20 @@
   <div style="text-align: center;">
     <div style="display: inline-block; text-align: left;">
 
-      <h3 align="center"><%= current_member.name.capitalize %></h3>
+      <h1>Project: <%= @project.name.capitalize %></h1>
+      <h3>Team member: <%= @team_member.name.capitalize %></h3>
+      <h3>Contact: <%= @team_member.email %></h3>
+      <h3> <%= @team_member.image %></h3>
 
-      <% if !!current_user.teams %>
-        <% if current_user.teams.size == 1 %>
-          <h3 align="center">You are active on <%= link_to "#{@user.teams.size} team", user_teams_path(current_user) %> </h3>
-        <% elsif current_user.teams.size >= 2 %>
-          <h3 align="center">You are active on <%= link_to "#{@user.teams.size} teams", user_teams_path(current_user) %> </h3>
-        <% else %>
-          <h3 align="center"><%= link_to "Create a team", new_user_team_path(current_user) %></h3>
-        <% end %>
-      <% end %>
+      <%= link_to "Remove from project", project_team_member_path(@project), method: :delete %>
 
-      <div style="width: 500px;margin:auto">
-        <img style="width: 500px" src="https://images.pexels.com/photos/954599/pexels-photo-954599.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
+      <br><br>
+
+      <div style="width: 300px;margin:auto">
+        <img style="width: 300px" src="https://images.pexels.com/photos/1282169/pexels-photo-1282169.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
       </div>
 
     </div>
   </div>
+
 </div>
