@@ -22,7 +22,8 @@ end
 
 Team.destroy_all
 20.times do |index|
-  Team.create!(name: Faker::Hipster.unique.words,
+  Team.create!(name: Faker::Hipster.unique.words(1, true),
+    team_admin: false,
     created_at: Faker::Time.between(4.months.ago, 1.month.ago),
     updated_at: Faker::Time.between(4.months.ago, 1.month.ago)
   )
@@ -33,6 +34,7 @@ Project.destroy_all
 20.times do |index|
   Project.create!(name: Faker::Company.unique.bs,
     description: Faker::Hipster.unique.sentences,
+    project_admin: false,
     created_at: Faker::Time.between(4.months.ago, 1.month.ago),
     updated_at: Faker::Time.between(4.months.ago, 1.month.ago)
   )
