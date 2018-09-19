@@ -16,7 +16,8 @@ User.destroy_all
   User.create!(name: Faker::FunnyName.unique.name, #=> "Kaci"
     password_digest: Faker::Internet.unique.password, #=> "*%NkOnJsH4"
     email: Faker::Internet.unique.email,  #=> "eliza@mann.net"
-    image: Faker::LoremFlickr.image
+    image: Faker::LoremFlickr.image,
+    time_zone: Faker::Address.time_zone
   )
 end
 
