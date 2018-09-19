@@ -25,20 +25,18 @@
 
       <h1>Project: <%= @project.name %></h1>
       <h3>Team: <%= link_to @team.name, @team %></h3>
-
-      <% if !!@project.team_members %>
-        <% if @project.team_members.size == 1 %>
-          <h4 align="center">There are currently <%= link_to "#{@project.team_members.size} active members", project_team_members_path(@project) %><br>
- </h4>
-        <% elsif @project.team_members.size >= 2 %>
-          <h4>There are currently <%= link_to "#{@project.team_members.size} active members", project_team_members_path(@project) %><br>
-</h4>
-        <% else %>
-          <h3><%= link_to "Add team members", new_project_team_member_path(@project) %></h3><br>
-        <% end %>
-      <% end %>
-
       <p>Description: <%= @project.description %></p><br>
+
+      <% if !!@project.team_members && !!@project_admin_id%>
+        <% if @project.team_members.size == 1 %>
+          <h4>There is currently <%= link_to "#{@project.team_members.size} active member", project_team_members_path(@project) %></h4>
+        <% elsif @project.team_members.size >= 2 %>
+          <h4>There are currently <%= link_to "#{@project.team_members.size} active members", project_team_members_path(@project) %></h4>
+        <% end %>
+          <h4><%= link_to "Add a team member", new_project_team_member_path(@project) %></h4><br>
+      <% else %>
+        <h3>Team members are unavailable</h3><br>
+      <% end %>
 
     <% end %>
 
