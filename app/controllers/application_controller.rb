@@ -4,6 +4,10 @@ class ApplicationController < ActionController::Base
 
   # <%= form_for  @user, as: :user, url: signup_path do |f| %>
 
+  def clear_user
+    @current_user = nil
+    session.clear
+  end
 
   def welcome
     clear_user
@@ -16,6 +20,10 @@ class ApplicationController < ActionController::Base
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
+
+  # def select_member
+  #   @select_member ||= TeamMember.find_by(session[:project_id]) if session[:project_id]
+  # end
 
   def logged_in?
     !!current_user
@@ -43,15 +51,10 @@ class ApplicationController < ActionController::Base
   end
 
 
-  def 
+  def
 
 
 # !params[:uid].present? &&
-
-  def clear_user
-    @current_user = nil
-    session.clear
-  end
 
   def reset_session
     clear_user
@@ -65,6 +68,10 @@ class ApplicationController < ActionController::Base
 
   def current_projects
     @current_projects = current_user.projects if current_user
+  end
+
+  def current_members
+    @current_members = @project.team_members if @project
   end
 
   def find_team

@@ -31,6 +31,7 @@ class UsersController < ApplicationController
   def show
     if params[:id] == current_user.id
       @current_teams = current_user.teams
+      @current_projects = current_user.projects
 
       @success_message = session[:success]
       session[:success] = nil

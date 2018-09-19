@@ -1,10 +1,17 @@
 class TeamMembersController < ApplicationController
 
   def index
-    @team = Team.find_by(user_id: current_user)
-    @project = Project.find_by_id(params[:project_id])
     @team_member = TeamMember.new
-    @current_members = @project.team_members
+
+    @team = Team.find_by(user_id: current_user)
+    if !!params[:project_id]
+      @project = Project.find_by_id(params[:project_id])
+      @current_members = @project.team_members
+    end
+
+    @member_deleted_message  = session[:member_delete]
+    session[:member_delete] = nil
+
     # @users = User.all
   end
 
@@ -15,18 +22,17 @@ class TeamMembersController < ApplicationController
   end
 
   def create
-binding.pry
     @team = Team.find_by(user_id: current_user)
     @project = Project.find_by_id(params[:project_id])
     @team_member= TeamMember.new(member_params)
     if @project.project_admin == true
       if @team_member.save
         @project.team_members << @team_member
-        session[:success] = "Project created successfully!"
-        redirect_to project_path(@project)
+
+        session[:member_success] = "Team member added!"
+        redirect_to project_team_members_path(@project)
       end
     else
-      session[:failure] = "Invitation failed, please try again."
       render :new
     end
   end
@@ -39,6 +45,16 @@ binding.pry
   end
 
   def destroy
+binding.pry
+    @team = Team.find_by(user_id: current_user)
+    @project = Project.find_by_id(params[:project_id])
+    @team_member = TeamMember.find_by_id(params[:id])
+
+    if @team_member.project_id == @project.id
+      @team_member.delete
+    end
+    session[:member_delete] = "Member removed from #{@project.name}."
+    redirect_to project_team_members_path(@project)
   end
 
   private
