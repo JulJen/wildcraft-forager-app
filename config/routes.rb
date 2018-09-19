@@ -44,13 +44,13 @@ Rails.application.routes.draw do
 
 
   resources :team, only: %i[show] do
-    resources :projects, shallow: true do
-      resources :team_members, path: :myteam
-    end
+    resources :projects, shallow: true
+      # resources :team_members, path: :myteam
+    # end
   end
 
-  # resources :projects, only: %i[show] do
-  #   resources :team_members, path: :myteam
-  # end
+  resources :projects, only: %i[show] do
+    resources :team_members, path: :myteam
+  end
 
 end
