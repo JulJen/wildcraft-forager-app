@@ -20,9 +20,12 @@
       </ol>
     <% else%>
       <h1>Project: <%= @project.name %></h1>
-      <h3>Created by <%= link_to @team.name, @team %></h3>
+      <h3>Team: <%= link_to @team.name, @team %></h3><br>
+
       <p>Description: <%= @project.description %></p>
       <br>
+
+      <h3><%= link_to "Add team members", new_project_team_member_path(@project) %></h3><br>
 
       <div style="width: 500px;margin:auto">
         <img style="width: 500px" src="https://images.pexels.com/photos/908295/pexels-photo-908295.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">

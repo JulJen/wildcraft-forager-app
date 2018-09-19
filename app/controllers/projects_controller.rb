@@ -13,11 +13,16 @@ class ProjectsController < ApplicationController
     @project = Project.new
     # @team = Team.find_by_id(params[:id])
     @team = Team.find_by(user_id: current_user)
+
+    @users = User.all  
   end
 
   def create
     @team = Team.find_by(user_id: current_user)
     @project = Project.new(project_params)
+    if @project.project_admin == true
+      params[:team_admin_id] = @team.id
+    end
     if @project.save
       @team.projects << @project
       session[:success] = "Project created successfully!"
@@ -30,18 +35,11 @@ class ProjectsController < ApplicationController
 
 
   def show
-    if logged_in?
-      @user = current_user
-      @team = Team.find_by(user_id: current_user)
-      @project = Project.find_by_id(params[:id])
+    @team = Team.find_by(user_id: current_user)
+    @project = Project.find_by_id(params[:id])
 
-      @success_message = session[:success]
-      session[:success] = nil
-
-      render :show
-    else
-      redirect_to root_path
-    end
+    @success_message = session[:success]
+    session[:success] = nil
   end
 
   def edit
@@ -57,8 +55,14 @@ class ProjectsController < ApplicationController
     end
   end
 
+
+  # project_params.each  do |params|
+  #   if !params[:name] == "" || params[:description] == ""
+  #     @project.update(params)
+  #   end
+  # end
+
   def destroy
-binding.pry
     @project = Project.find_by_id(params[:id])
     @team = Team.find_by(user_id: current_user)
     if @project.team_id == @team.id
@@ -72,7 +76,7 @@ binding.pry
   private
 
   def project_params
-    params.require(:project).permit(:name, :description)
+    params.require(:project).permit(:name, :description, :team_admin_id, :project_admin).select { |k, v| !v.nil? }
   end
 
 end
