@@ -6,8 +6,6 @@ Rails.application.routes.draw do
   get '/500', :to => 'errors#internal_error'
 
 
-  # match '/auth/google_oauth2/callback', to: 'sessions#create', via: [:get, :post]
-
   get '/auth/google_oauth2/callback', to: 'sessions#create'
 
   root 'application#welcome', :as => 'welcome'
@@ -30,7 +28,6 @@ Rails.application.routes.draw do
   # update
   # destroy
 
-  # resources :users, path: :signup, only: %i[new create]
 
   delete '/teams/:id' => 'teams#destroy', :as => 'admin_team_delete'
 
@@ -47,22 +44,13 @@ Rails.application.routes.draw do
 
 
   resources :team, only: %i[show] do
-    resources :projects, shallow: true
+    resources :projects, shallow: true do
+      resources :team_members, path: :myteam
+    end
   end
 
-  resources :projects, only: %i[show] do
-    resources :team_members, path: :myteam
-  end
-
-  # resources :projects, only: %i[show edit update destroy]
-
-  # resources :users, path: :dashboard, only: %i[edit update destroy]
-  # get '/dashboard/:id' => 'users#show', :as => 'dashboard'
-
-
-  #
-  # resources :users, path: :dashboard, only: %i[show] do
-  #   resources :teams, except: %i[index, show], shallow: true
+  # resources :projects, only: %i[show] do
+  #   resources :team_members, path: :myteam
   # end
 
 end
