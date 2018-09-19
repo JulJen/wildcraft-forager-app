@@ -2,6 +2,8 @@ class TeamsController < ApplicationController
   before_action :require_logged_in
 
   def index
+    @teams = Team.all
+
     @current_teams = current_user.teams
     @current_projects = current_user.projects
 
@@ -31,6 +33,8 @@ class TeamsController < ApplicationController
   def show
     @current_teams = current_user.teams
     @team = Team.find_by_id(params[:id])
+
+    @team_admin_id = @current_user.id if @team.team_admin == true
 
     @success_message = session[:success]
     session[:success] = nil

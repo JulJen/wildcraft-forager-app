@@ -21,6 +21,10 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
 
+  # <li><%= link_to "Your Teams", user_teams_path(current_user) %></li>
+  # <li><%= link_to "Team Board", teamboard_path(current_user) %></li>
+
+
   # def select_member
   #   @select_member ||= TeamMember.find_by(session[:project_id]) if session[:project_id]
   # end
@@ -50,8 +54,13 @@ class ApplicationController < ActionController::Base
     @current_projects.each {|p| @project_admin = p.project_admin if p.project_admin == 'true'}
   end
 
+  def team_admin_id
+    @team_admin_id = @current_user.id if @team.team_admin == true
+  end
 
-  def
+  def project_admin_id
+    @project_admin_id = @current_user.id if @project.project_admin == true
+  end
 
 
 # !params[:uid].present? &&
