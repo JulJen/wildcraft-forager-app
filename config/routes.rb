@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   post '/signin' => 'sessions#create'
   delete '/logout' => 'sessions#destroy', :as => 'logout'
 
+  get '/dashboard/:id/teamboard' => 'team_board#index', :as => 'teamboard'
+
 
 
   # index
