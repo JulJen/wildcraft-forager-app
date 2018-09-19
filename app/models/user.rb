@@ -12,7 +12,7 @@ class User < ApplicationRecord
 
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
 
-  validates_length_of :name, within: 2..20, too_long: 'pick a shorter name', too_short: 'pick a longer name'
+  validates_length_of :name, within: 2..30, too_long: 'pick a shorter name', too_short: 'pick a longer name'
 
   # before_validation :remove_whitespaces
 
