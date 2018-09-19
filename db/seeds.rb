@@ -12,16 +12,16 @@ require 'faker'
 Faker::UniqueGenerator.clear
 
 User.destroy_all
-10.times do |index|
+30.times do |index|
   User.create!(name: Faker::FunnyName.unique.name, #=> "Kaci"
     password_digest: Faker::Internet.unique.password, #=> "*%NkOnJsH4"
     email: Faker::Internet.unique.email,  #=> "eliza@mann.net"
+    image: Faker::LoremFlickr.image
   )
 end
 
-
 Team.destroy_all
-10.times do |index|
+20.times do |index|
   Team.create!(name: Faker::Hipster.unique.words,
     created_at: Faker::Time.between(4.months.ago, 1.month.ago),
     updated_at: Faker::Time.between(4.months.ago, 1.month.ago)
@@ -30,7 +30,7 @@ end
 
 
 Project.destroy_all
-10.times do |index|
+20.times do |index|
   Project.create!(name: Faker::Company.unique.bs,
     description: Faker::Hipster.unique.sentences,
     created_at: Faker::Time.between(4.months.ago, 1.month.ago),
