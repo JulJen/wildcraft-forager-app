@@ -5,6 +5,7 @@ class CreateTeamMembers < ActiveRecord::Migration[5.2]
       t.string :email
       t.integer :team_id
       t.integer :project_id
+      t.text :image
 
       t.datetime "created_at", null: false
       t.datetime "updated_at", null: false
