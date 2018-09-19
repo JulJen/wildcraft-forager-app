@@ -1,6 +1,7 @@
 class Team < ApplicationRecord
   belongs_to :user, optional: true
   has_many :projects
+  has_many :team_members, through: :projects
 
   # # testing these out
   # has_many :projects
