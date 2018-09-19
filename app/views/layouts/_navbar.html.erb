@@ -1,0 +1,47 @@
+<% if current_user %>
+  <strong>Project Manageable</strong><br>
+  <li><%= link_to "Dashboard", current_user %></li>
+  <li><%= link_to "#{current_user.name.capitalize}'s profile", profile_path %></li>
+  <li><%= link_to "Public Teams", teamboard_path(current_user) %></li>
+
+  <% if current_user.teams.size > 0 %>
+    <li><%= link_to "Team Board", user_teams_path(current_user) %></li>
+    <% if !!@team && request.path_info.include?('/teams') && !!@team_admin_id && !request.path_info.include?('/edit') && !request.path_info.include?('/new')%>
+      <li><%= link_to "Edit team: #{@team.name}", edit_team_path(@team) %></li>
+      <li><%= link_to "New project", new_team_project_path(@team) %></li>
+    <% elsif !!@team && request.path_info.include?('/teams') && !request.path_info.include?('/projects') && !request.path_info.include?('/new') %>
+      <li><%= link_to "Back to team: #{@team.name}", team_path(@team) %></li>
+    <% elsif request.path_info.include?('/teams') && !request.path_info.include?('/new') && !request.path_info.include?('/projects') %>
+      <li><%= link_to "New team", new_user_team_path(current_user) %></li>
+    <% elsif request.path_info.include?('/projects') && request.path_info.include?('/new') %>
+      <li><%= link_to "Back to team: #{@team.name}", team_path(@team) %></li>
+    <% end %>
+
+
+    <% if !!@project && request.path_info.include?('/projects') && !request.path_info.include?('/new') && !request.path_info.include?('/myteam') %>
+      <% if !request.path_info.include?('/edit')%>
+        <li><%= link_to "Back to team: #{@team.name}", team_path(@team) %></li>
+        <li><%= link_to "Edit project: #{@project.name}", edit_project_path(@project) %></li>
+      <% else %>
+        <li><%= link_to "Back to project: #{@project.name}", project_path(@project) %></li>
+      <% end %>
+    <% end %>
+
+  <% if !!@team_member && request.path_info.include?('/myteam') %>
+    <li><%= link_to "Back to project: #{@project.name}", project_path(@project) %></li>
+  <% end %>
+
+  <% else%>
+    <li><%= link_to "New team", new_user_team_path(current_user) %></li>
+  <% end %>
+
+  <li><%= link_to "Log Out", logout_path, method: :delete %></li>
+
+<% elsif current_page?(:controller => 'application', :action => 'welcome') %>
+  <br><h1 align="center"><%= link_to 'Project Manageable', enter_path %></h1><br>
+  <div style="width: 728px;margin:auto">
+    <img style="width: 728px" src="https://images.pexels.com/photos/6224/hands-people-woman-working.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260">
+  </div>
+<% end %>
+
+<br><br>
