@@ -16,6 +16,7 @@ class TeamMembersController < ApplicationController
   end
 
   def new
+    @user = User.all
     @team_member = TeamMember.new
     @team = Team.find_by(user_id: current_user)
     @project = Project.find_by_id(params[:project_id])
@@ -45,7 +46,6 @@ class TeamMembersController < ApplicationController
   end
 
   def destroy
-binding.pry
     @team = Team.find_by(user_id: current_user)
     @project = Project.find_by_id(params[:project_id])
     @team_member = TeamMember.find_by_id(params[:id])
@@ -60,7 +60,7 @@ binding.pry
   private
 
   def member_params
-    params.require(:team_member).permit(:name, :team_admin_id, :project_id)
+    params.require(:team_member).permit(:name, :email)
   end
 
 end

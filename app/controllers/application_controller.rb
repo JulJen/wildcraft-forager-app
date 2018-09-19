@@ -74,9 +74,9 @@ class ApplicationController < ActionController::Base
     @current_members = @project.team_members if @project
   end
 
-  def find_team
-    @find_team = Team.find_by(user_id: current_user) if current_user
-  end
+  # def find_team
+  #   @find_team = Team.find_by(user_id: current_user) if current_user
+  # end
 
   # def url_path(url)
   #   @url_path = request.path_info if request.path_info.include?(url)

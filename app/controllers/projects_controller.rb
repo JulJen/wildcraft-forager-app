@@ -8,17 +8,16 @@ class ProjectsController < ApplicationController
   end
 
   def new
+
     # @failure_message = session[:failure]
     # session[:failure] = nil
     @project = Project.new
     # @team = Team.find_by_id(params[:id])
-    @team = Team.find_by(user_id: current_user)
-
-    @users = User.all
+    @team = Team.find_by_id(params[:team_id])
   end
 
   def create
-    @team = Team.find_by(user_id: current_user)
+    @team = Team.find_by_id(params[:team_id])
     @project = Project.new(project_params)
     if @project.project_admin == true
       params[:team_admin_id] = @team.id
@@ -35,8 +34,10 @@ class ProjectsController < ApplicationController
 
 
   def show
-    @team = Team.find_by(user_id: current_user)
     @project = Project.find_by_id(params[:id])
+    @team = Team.find_by_id(@project.team_id)
+
+    @project_admin_id = @current_user.id if @project.project_admin == true
 
     @success_message = session[:success]
     session[:success] = nil
@@ -69,7 +70,7 @@ class ProjectsController < ApplicationController
       @project.delete
     end
     session[:project_delete] = "Project deleted."
-    redirect_to team_projects_path(@team, @project)
+    redirect_to team_projects_path(@team)
   end
 
 
