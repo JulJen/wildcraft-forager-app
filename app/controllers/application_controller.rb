@@ -33,6 +33,19 @@ class ApplicationController < ActionController::Base
     !!request.path_info.include?('/auth/google_oauth2/callback')
   end
 
+
+  def team_admin
+    @current_teams.each {|team| @team_admin = team.team_admin if team.team_admin == 'true'}
+  end
+
+  def project_admin
+    @current_projects.each {|p| @project_admin = p.project_admin if p.project_admin == 'true'}
+  end
+
+
+  def 
+
+
 # !params[:uid].present? &&
 
   def clear_user
@@ -48,6 +61,10 @@ class ApplicationController < ActionController::Base
 
   def current_teams
     @current_teams = current_user.teams if current_user
+  end
+
+  def current_projects
+    @current_projects = current_user.projects if current_user
   end
 
   def find_team
