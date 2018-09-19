@@ -14,7 +14,7 @@ class ProjectsController < ApplicationController
     # @team = Team.find_by_id(params[:id])
     @team = Team.find_by(user_id: current_user)
 
-    @users = User.all  
+    @users = User.all
   end
 
   def create
