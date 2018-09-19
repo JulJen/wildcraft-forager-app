@@ -42,6 +42,8 @@ gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'dotenv-rails'
 # gem 'friendly_id', '~> 5.2'
+gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
