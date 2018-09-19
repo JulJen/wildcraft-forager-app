@@ -22,11 +22,11 @@ class ProjectsController < ApplicationController
     @project = Project.new(project_params)
     if @project.project_admin == true
       params[:team_admin_id] = @team.id
-    end
-    if @project.save
-      @team.projects << @project
-      session[:success] = "Project created successfully!"
-      redirect_to project_path(@project)
+      if @project.save
+        @team.projects << @project
+        session[:success] = "Project created successfully!"
+        redirect_to project_path(@project)
+      end
     else
       session[:failure] = "Project could not be created, please try again."
       render :new
@@ -76,7 +76,7 @@ class ProjectsController < ApplicationController
   private
 
   def project_params
-    params.require(:project).permit(:name, :description, :team_admin_id, :project_admin).select { |k, v| !v.nil? }
+    params.require(:project).permit(:name, :description, :team_admin_id, :project_admin)
   end
 
 end
