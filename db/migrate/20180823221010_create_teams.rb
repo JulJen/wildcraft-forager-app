@@ -4,7 +4,7 @@ class CreateTeams < ActiveRecord::Migration[5.2]
       t.string :name
       t.integer :project_id
       t.integer :user_id
-      t.boolean :team_admin, default: false
+      t.boolean :team_admin, default: true
       t.datetime "created_at", null: false
       t.datetime "updated_at", null: false
 
