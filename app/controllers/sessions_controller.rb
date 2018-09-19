@@ -12,7 +12,6 @@ class SessionsController < ApplicationController
   end
 
   def create
-binding.pry
     if !google_login?
       @user = User.find(params[:user][:name])
       if @user && @user.authenticate(params[:user][:password])
