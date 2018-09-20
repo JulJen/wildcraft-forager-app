@@ -1,6 +1,22 @@
+module UsersHelper
+  def not_found
+    render :status => 404
+  end
+
+  def unacceptable
+    render :status => 422
+  end
+
+  def internal_error
+    render :status => 500
+  end
+end
+
+
+
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  helper_method :require_logged_in, :current_user
+  helper_method :require_logged_in, :current_user, :authenticate_user
 
   # <%= form_for  @user, as: :user, url: signup_path do |f| %>
 
@@ -21,10 +37,6 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
 
-  # <li><%= link_to "Your Teams", user_teams_path(current_user) %></li>
-  # <li><%= link_to "Team Board", teamboard_path(current_user) %></li>
-
-
   # def select_member
   #   @select_member ||= TeamMember.find_by(session[:project_id]) if session[:project_id]
   # end
@@ -34,9 +46,8 @@ class ApplicationController < ActionController::Base
   end
 
   def require_logged_in
-    if !!logged_in?
-      @user = current_user
-    elsif !current_user
+    if !logged_in?
+      clear_user
       redirect_to welcome_path
     end
   end
@@ -107,7 +118,17 @@ class ApplicationController < ActionController::Base
   #   end
   # end
 
+  def authenticate_user
+    if logged_in
+      unless is_admin?
+        flash[:error] = "You are not admin of this team"
+        redirect_to dashboard_path # halts request cycle
+      end
+    end
+  end
 
+  def is_admin?
+    params[:team_admin] == true ? true : false
+  end
 
-
-end
+end 
