@@ -13,14 +13,19 @@ class Team < ApplicationRecord
   include ActiveModel::Validations
 
   validates :name, presence: true
+  validates :name, uniqueness: true
 
-  validate :ensure_unique, on: :create
+  # validates :user,
+  #   uniqueness: {
+  #     message: ->(object, data) do
+  #       "Hey #{object.name}!, #{data[:value]} is taken already!"
+  #     end
+  #   }
 
   # validates :team_admin, inclusion: { in: [ true, 'true' ] }
 
   # validates_inclusion_of :team_admin, :in => [true, false]
-  # validates :team_admin, :presence => { :message => "Please select some formats!" }
   # validates :team_admin, acceptance: {accept: true} , on: :create, allow_nil: false
-  validates :team_admin, :inclusion => {:in => [true, false]}, presence: true
+  validates :team_admin, :inclusion => {:in => [true, false]}
 
 end
