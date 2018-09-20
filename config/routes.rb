@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   post '/signin' => 'sessions#create'
   delete '/logout' => 'sessions#destroy', :as => 'logout'
 
-  get '/teamboard' => 'team_board#index', :as => 'teamboard'
+  get '/dashboard/:id/teamboard' => 'team_board#index', :as => 'teamboard'
 
 
 
@@ -40,7 +40,6 @@ Rails.application.routes.draw do
   get '/signup' => 'users#new'
   post '/signup' => 'users#create'
   get '/profile' => 'users#index', :as => 'profile'
-  get '/dashboard' => 'users#show'
 
   resources :team, only: %i[show] do
     resources :projects, shallow: true
