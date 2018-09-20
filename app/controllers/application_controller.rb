@@ -16,7 +16,7 @@ end
 
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  helper_method :require_logged_in, :current_user, :authenticate_user
+  helper_method :require_logged_in, :current_user
 
   # <%= form_for  @user, as: :user, url: signup_path do |f| %>
 
@@ -121,18 +121,4 @@ class ApplicationController < ActionController::Base
   #     current_user = @user
   #   end
   # end
-
-  def authenticate_user
-    if logged_in
-      unless is_admin?
-        flash[:error] = "You are not admin of this team"
-        redirect_to dashboard_path # halts request cycle
-      end
-    end
-  end
-
-  def is_admin?
-    params[:team_admin] == true ? true : false
-  end
-
 end

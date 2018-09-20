@@ -73,4 +73,18 @@ class TeamsController < ApplicationController
   def team_params
     params.require(:team).permit(:name, :team_admin)
   end
+
+  def authenticate_user
+    if logged_in
+      unless is_admin?
+        flash[:error] = "You are not admin of this team"
+        redirect_to dashboard_path # halts request cycle
+      end
+    end
+  end
+
+  def is_admin?
+    @team.team_admin == true ? true : false
+  end
+
 end

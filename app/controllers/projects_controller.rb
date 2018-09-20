@@ -81,4 +81,17 @@ class ProjectsController < ApplicationController
     params.require(:project).permit(:name, :description, :team_admin_id, :project_admin)
   end
 
+  def authenticate_user
+    if logged_in
+      unless is_admin?
+        flash[:error] = "You are not admin of this team"
+        redirect_to dashboard_path # halts request cycle
+      end
+    end
+  end
+
+  def is_admin?
+    @project.project_admin == true ? true : false
+  end
+
 end

@@ -12,8 +12,6 @@ class TeamMembersController < ApplicationController
 
     @member_deleted_message  = session[:member_delete]
     session[:member_delete] = nil
-
-binding.pry
   end
 
   def new
@@ -27,6 +25,7 @@ binding.pry
     @team = Team.find_by(user_id: current_user)
     @project = Project.find_by_id(params[:project_id])
     @team_member= TeamMember.new(member_params)
+binding.pry
     if @project.project_admin == true
       if @team_member.save
         @project.team_members << @team_member
