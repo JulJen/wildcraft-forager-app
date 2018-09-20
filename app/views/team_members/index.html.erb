@@ -18,7 +18,7 @@
 
         <% @current_members.each do |member| %>
           <li>
-          <%= link_to "#{member.name.capitalize}", project_team_member_path(@project, member.id) %>
+          <%= link_to "#{member.name}", project_team_member_path(@project, member.id) %>
           </li>
         <% end %>
       <% else %>

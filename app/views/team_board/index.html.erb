@@ -23,7 +23,7 @@
           <% elsif @current_projects.size >= 2 %>
             <h3>You are active on <%= "#{@current_projects.size} projects" %> </h3>
           <% end %>
-          <% @user.teams.each do |team| %>
+          <% current_user.teams.each do |team| %>
             <li>
             <%= link_to "#{team.name.capitalize}", team_path(team.id) %>
             </li>
