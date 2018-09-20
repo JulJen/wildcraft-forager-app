@@ -16,9 +16,11 @@
           <%= link_to "#{project.name.capitalize}", project_path(project.id) %>
           </li>
         <% end %>
-      <% else %>
+      <% elsif !!@team_admin_id %>
         <h3 align="left">No projects yet. Need ideas?</h3>
         <h3 align="left"><%= link_to "Start project", new_team_project_path(@team.id) %></h3>
+      <% else %>
+        <h3 align="left">No projects yet. Suggest ideas to team admin.</h3>
       <% end %><br>
     </div>
   </div>
