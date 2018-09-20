@@ -1,8 +1,11 @@
 class TeamsController < ApplicationController
   before_action :require_logged_in
+  before_action :authenticate_user, only: %i[edit update destroy]
 
   def index
     @teams = Team.all
+
+    @team = Team.find_by_id(params[:id])
 
     @current_teams = current_user.teams
     @current_projects = current_user.projects

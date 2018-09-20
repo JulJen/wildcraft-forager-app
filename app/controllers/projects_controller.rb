@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :require_logged_in
+  before_action :authenticate_user, only: %i[edit update destroy]
 
   def index
     @team = Team.find_by(user_id: current_user)

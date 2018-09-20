@@ -81,6 +81,10 @@ class ApplicationController < ActionController::Base
     redirect_to signin_path
   end
 
+  def my_team
+    @my_team = Team.find_by_id(params[:id]) if current_user
+  end
+
 
   def current_teams
     @current_teams = current_user.teams if current_user
@@ -131,4 +135,4 @@ class ApplicationController < ActionController::Base
     params[:team_admin] == true ? true : false
   end
 
-end 
+end

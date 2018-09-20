@@ -2,7 +2,7 @@ class TeamMembersController < ApplicationController
   before_action :require_logged_in
 
   def index
-    @team_member = TeamMember.new
+    @team_member = TeamMember.find_by_id(params[:id])
 
     @team = Team.find_by(user_id: current_user)
     if !!params[:project_id]
@@ -13,7 +13,7 @@ class TeamMembersController < ApplicationController
     @member_deleted_message  = session[:member_delete]
     session[:member_delete] = nil
 
-    # @users = User.all
+binding.pry
   end
 
   def new
@@ -24,7 +24,6 @@ class TeamMembersController < ApplicationController
   end
 
   def create
-binding.pry
     @team = Team.find_by(user_id: current_user)
     @project = Project.find_by_id(params[:project_id])
     @team_member= TeamMember.new(member_params)
