@@ -1,5 +1,7 @@
-<%= form_for [@project, @team_member] do |f| %>
+<%= simple_form_for [@project, @team_member] do |f| %>
 
+  <%= f.error_notification %>
+  
   <% if @team_member.errors.any? %>
     <div id="error_explanation">
       <h2>
@@ -18,7 +20,7 @@
 
 
   <%= f.label :name %><br>
-  <%= f.collection_select(:name, User.all, :name, :name, prompt: "Select name") %><br>
+  <%= f.collection_select(:id, User.all, :id, :name, prompt: "Select name") %><br>
   <br>
   <%= f.submit "Invite Member" %>
 

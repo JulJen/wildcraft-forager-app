@@ -1,41 +1,17 @@
-<%= form_for @user, url: '/signup'  do |f| %>
+<%= simple_form_for @user, url: signup_path  do |f| %>
 
-  <% if @user.errors.any? %>
-  <% if @failure_message %>
-    <p><%= @failure_message %></p>
-  <% end %>
-    <div id="error_explanation">
-      <h2>
-        <%= pluralize(@user.errors.count, "error") %>
-        prohibited this user from being saved:
-      </h2>
-
-      <ul>
-      <% @user.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-      <ul>
-    </div>
-  <% end %>
-
-
-
-
-  <%= f.label :name %><br>
-  <%= f.text_field :name %>
-
+  <%= f.error_notification %>
   <br><br>
 
-  <%= f.label :email %><br>
-  <%= f.text_field :email %>
+  <%= f.input :name %><br>
 
-  <br><br>
+  <%= f.input :email, input_html: { autocomplete: 'email' } %><br>
 
-  <%= f.label :password %><br>
-  <%= f.password_field :password %>
+  <br>
 
-  <br><br>
+  <%= f.input :password, input_html: { autocomplete: 'current-password' } %><br>
+
+  <br>
 
   <%= f.submit 'Create Account' %>
 

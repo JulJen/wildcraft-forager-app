@@ -2,7 +2,7 @@
   <div style="text-align: center;">
     <div style="display: inline-block; text-align: left;">
 
-    <h1>Team: <%= "#{@team.name.gsub(/"|\[|\]/, '')}" %></h1>
+    <h1>Team: <%= "#{@team.name.gsub(/"|\[|\]/, '').capitalize}" %></h1>
 
       <% if @project_delete_message %>
         <p><%= @project_delete_message %></p>
@@ -16,14 +16,15 @@
           <%= link_to "#{project.name.capitalize}", project_path(project.id) %>
           </li>
         <% end %>
-
-        <%= link_to "Create a project", new_team_project_path(@team.id) %>
-      <% end %>
-        <br><br>
-
+      <% else %>
+        <h3 align="left">No projects yet. Need ideas?</h3>
+        <h3 align="left"><%= link_to "Start project", new_team_project_path(@team.id) %></h3>
+      <% end %><br>
     </div>
   </div>
+
   <br>
+
   <div style="width: 500px;margin:auto">
     <img style="width: 500px" src="https://images.pexels.com/photos/355952/pexels-photo-355952.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
   </div>

@@ -1,4 +1,6 @@
-<%= form_for @user, url: '/signin' do |f| %>
+<%= simple_form_for @user, url: '/signin' do |f| %>
+
+  <%= f.error_notification %>
 
   <% if @user.errors.any? %>
     <div id="error_explanation">

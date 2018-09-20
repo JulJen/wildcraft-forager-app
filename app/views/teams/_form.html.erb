@@ -1,26 +1,18 @@
-<%= form_for [current_user, @team] do |f| %>
+<%= simple_form_for [current_user, @team] do |f| %>
 
-  <% if @team.errors.any? %>
-    <div id="error_explanation">
-      <h2>
-        <%= pluralize(@team.errors.count, "error") %>
-        prohibited team from being saved:
-      </h2>
+  <%= f.error_notification %>
 
-      <ul>
-      <% @team.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-      <ul>
-    </div>
-  <% end %>
+  <br><br>
 
   <%= f.label :name, "Team" %><br>
-  <%= f.text_field :name %><br><br>
+  <%= f.input :name %><br><br>
 
   <%= f.label :team_admin, "check box if you're the team admin" %>
-  <%= f.check_box :team_admin , {}, "true", "false" %><br><br>
+
+  <%= f.check_box :team_admin, {}, true, false%>
+
+
+  <br><br>
 
   <%= f.submit 'Create Team' %>
 

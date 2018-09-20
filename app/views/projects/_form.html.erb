@@ -1,4 +1,6 @@
-<%= form_for [@team, @project] do |f| %>
+<%= simple_form_for [@team, @project] do |f| %>
+
+  <%= f.error_notification %>
 
   <% if @project.errors.any? %>
     <div id="error_explanation">

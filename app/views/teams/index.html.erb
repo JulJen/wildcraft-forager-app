@@ -11,7 +11,7 @@
         <p><%= @team_success_message %></p>
       <% end %>
 
-      <% if !@user.teams.empty? %>
+      <% if !current_user.teams.empty? %>
         <h2>Current teams: <%= @user.teams.length %></h2>
 
         <% if !!@current_projects %>

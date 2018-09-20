@@ -3,7 +3,9 @@
     <div style="display: inline-block; text-align: center;">
 
       <h1 align="center">
-        <%= form_for @team do |f| %>
+        <%= simple_form_for @team do |f| %>
+
+        <%= f.error_notification %>
 
         <% if @team.errors.any? %>
           <div id="error_explanation">
