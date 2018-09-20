@@ -19,7 +19,6 @@ Rails.application.routes.draw do
   get '/dashboard/:id/teamboard' => 'team_board#index', :as => 'teamboard'
 
 
-
   # index
   # new
   # create
@@ -35,6 +34,7 @@ Rails.application.routes.draw do
     resources :teams, shallow: true
     # resources :projects, shallow: true
   end
+
 
 
   get '/signup' => 'users#new'
