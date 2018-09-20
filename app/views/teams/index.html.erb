@@ -12,7 +12,7 @@
       <% end %>
 
       <% if !current_user.teams.empty? %>
-        <h2>Current teams: <%= @user.teams.length %></h2>
+        <h2>Current teams: <%= current_user.teams.length %></h2>
 
         <% if !!@current_projects %>
           <% if @current_projects.size == 1 %>
@@ -22,7 +22,7 @@
           <% end %>
         <% end %>
 
-        <% @user.teams.each do |team| %>
+        <% current_user.teams.each do |team| %>
           <li>
           <%= link_to "#{team.name.capitalize}", team_path(team.id) %>
           </li>
