@@ -17,19 +17,6 @@
           </li>
         <% end %>
 
-        <% if !!@current_projects %>
-          <% if @current_projects.size == 1 %>
-            <h3>You are active on <%= "#{@current_projects.size} project" %> </h3>
-          <% elsif @current_projects.size >= 2 %>
-            <h3>You are active on <%= "#{@current_projects.size} projects" %> </h3>
-          <% end %>
-          <% current_user.teams.each do |team| %>
-            <li>
-            <%= link_to "#{team.name.capitalize}", team_path(team.id) %>
-            </li>
-          <% end %>
-        <% end %>
-
       <% end %>
 
     </div>

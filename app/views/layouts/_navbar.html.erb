@@ -2,7 +2,7 @@
   <strong>Project Manageable</strong><br>
   <li><%= link_to "Dashboard", current_user %></li>
   <li><%= link_to "#{current_user.name.capitalize}'s profile", profile_path %></li>
-  <li><%= link_to "Public Teams", teamboard_path(current_user) %></li>
+  <li><%= link_to "Public Teams", liveteams_path(current_user) %></li>
 
   <% if current_user.teams.size > 0 %>
     <li><%= link_to "Team Board", user_teams_path(current_user) %></li>

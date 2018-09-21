@@ -3,9 +3,9 @@
     <div style="display: inline-block; text-align: left;">
 
       <h1>Project: <%= @project.name.capitalize %></h1>
-      <h3>Team member: <%= @team_member.name.capitalize %></h3>
-      <h3>Contact: <%= @team_member.email %></h3>
-      <h3> <%= @team_member.image %></h3>
+      <h3>Team member: <%= @team_member.user_id %></h3>
+
+    
 
       <%= link_to "Remove from project", project_team_member_path(@project), method: :delete %>
 

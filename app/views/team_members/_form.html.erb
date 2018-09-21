@@ -18,7 +18,11 @@
     </div>
   <% end %>
 
-  <%= f.input :id,:collection => User.all,:label_method => :name,:value_method => :id,:label => "Select Name",:include_blank => false %><br>
+  <%= f.label :name%>
+
+  <%= f.collection_select :user_id, User.all.order(:name), :id, :name, {include_blank: "Please select"} %>
+
+  <br><br>
 
   <%= f.submit "Invite Member" %>
 

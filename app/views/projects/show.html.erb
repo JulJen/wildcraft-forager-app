@@ -10,6 +10,10 @@
       <p><%= @incomplete_message %></p>
     <% end %>
 
+    <% if @admin_failure_message %>
+      <p><%= @admin_failure_message %></p>
+    <% end %>
+
     <% if !!@projects && @projects.length > 0 %>
       <h2>Current projects: <%= @projects.length %></h2>
 

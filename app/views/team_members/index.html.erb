@@ -2,8 +2,8 @@
   <div style="text-align: center;">
     <div style="display: inline-block; text-align: left;">
 
-      <% if @member_deleted_message %>
-        <p><%= @member_deleted_message %></p>
+      <% if @member_delete_message %>
+        <p><%= @member_delete_message %></p>
       <% end %>
 
       <% if @member_success_message %>
@@ -11,14 +11,14 @@
       <% end %>
 
       <h2>Project: <%= @project.name %></h2>
-      <h4><%= link_to "Add another team member", new_project_team_member_path(@project) %></h4>
 
       <% if @current_members.size > 0 %>
-        <h3>Team members: <%= @current_members.length %></h3>
+        <h3>Team members: <%= @current_members.length %></h3><br>
+        <h4><%= link_to "Add another team member", new_project_team_member_path(@project) %></h4>
 
         <% @current_members.each do |member| %>
           <li>
-          <%= link_to "#{member.name}", project_team_member_path(@project, member.id) %>
+          <%= link_to "#{member.user_id}", project_team_member_path(@project, member.id) %>
           </li>
         <% end %>
       <% else %>
