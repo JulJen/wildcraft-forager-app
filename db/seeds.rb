@@ -31,6 +31,7 @@ Team.destroy_all
 30.times do |index|
   Team.create!(name: Faker::Hipster.unique.words(1, true),
     team_admin: false,
+    category: Faker::Company.unique.industry,
     created_at: Faker::Time.between(4.months.ago, 1.month.ago),
     updated_at: Faker::Time.between(4.months.ago, 1.month.ago)
   )
@@ -41,11 +42,23 @@ Project.destroy_all
 30.times do |index|
   Project.create!(name: Faker::Company.unique.bs,
     description: Faker::Hipster.unique.sentences,
+    category: Faker::Company.unique.industry,
     project_admin: false,
     created_at: Faker::Time.between(4.months.ago, 1.month.ago),
     updated_at: Faker::Time.between(4.months.ago, 1.month.ago)
   )
 end
 
+Industry.destroy_all
+60.times do |index|
+  Industry.create!(
+  category: Faker::Company.unique.industry
+)
+end
+20.times do |index|
+  Industry.create!(
+  profession: Faker::Company.unique.profession
+)
+end
 
-p "Created #{User.count} users, #{Team.count} teams, #{Project.count} projects"
+p "Created #{User.count} users, #{Team.count} teams, #{Project.count} projects, #{Industry.count} industries"
