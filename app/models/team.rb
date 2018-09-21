@@ -1,5 +1,6 @@
 class Team < ApplicationRecord
   belongs_to :user, optional: true
+  belongs_to :industry, optional: true
 
   has_many :projects
   has_many :team_members, through: :projects
