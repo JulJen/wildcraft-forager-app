@@ -16,9 +16,8 @@ Rails.application.routes.draw do
   post '/signin' => 'sessions#create'
   delete '/logout' => 'sessions#destroy', :as => 'logout'
 
-  get '/dashboard/:id/teamboard' => 'team_board#index', :as => 'teamboard'
-
-
+  get '/dashboard/:id/liveteams' => 'public_teams#index', :as => 'liveteams'
+  get '/dashboard/:id/liveprojects' => 'public_teams#show', :as => 'liveprojects'
   # index
   # new
   # create
