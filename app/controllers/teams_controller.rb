@@ -44,6 +44,9 @@ class TeamsController < ApplicationController
 
     @project_delete_message = session[:project_delete]
     session[:project_delete] = nil
+
+    @team_update_message = session[:team_update]
+    session[:team_update] = nil
   end
 
   def edit
@@ -54,6 +57,7 @@ class TeamsController < ApplicationController
     @team = Team.find_by(user_id: current_user)
     if @team.update(team_params)
       redirect_to team_path(@team)
+      session[:team_update] = "Team succesfully updated!"
     else
       render :edit
     end
@@ -75,7 +79,7 @@ class TeamsController < ApplicationController
   end
 
   def authenticate_user
-    if logged_in
+    if logged_in?
       unless is_admin?
         flash[:error] = "You are not admin of this team"
         redirect_to dashboard_path # halts request cycle
@@ -84,6 +88,7 @@ class TeamsController < ApplicationController
   end
 
   def is_admin?
+    @team = Team.find_by_id(params[:id])
     @team.team_admin == true ? true : false
   end
 

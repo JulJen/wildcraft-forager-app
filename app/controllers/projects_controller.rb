@@ -82,7 +82,7 @@ class ProjectsController < ApplicationController
   end
 
   def authenticate_user
-    if logged_in
+    if logged_in?
       unless is_admin?
         flash[:error] = "You are not admin of this team"
         redirect_to dashboard_path # halts request cycle
@@ -91,6 +91,7 @@ class ProjectsController < ApplicationController
   end
 
   def is_admin?
+    @project = Project.find_by_id(params[:id])
     @project.project_admin == true ? true : false
   end
 

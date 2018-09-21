@@ -2,14 +2,14 @@ class TeamMembersController < ApplicationController
   before_action :require_logged_in
 
   def index
-binding.pry
     @users = User.all
-
-    @team_member = TeamMember.find_by_id(params[:id])
+    @team_members = TeamMember.all
 
     @team = Team.find_by(user_id: current_user)
     if !!params[:project_id]
       @project = Project.find_by_id(params[:project_id])
+      @team_member = TeamMember.find_by_id(params[:project_id])
+
       @current_members = @project.team_members
     end
 
