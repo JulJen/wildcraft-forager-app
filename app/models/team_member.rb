@@ -4,7 +4,7 @@ class TeamMember < ApplicationRecord
 
   include ActiveModel::Validations
 
-  validates :name, presence: true
+  validates :user_id, presence: true
   # validates :email, presence: true
 
   # validates :team_id, presence: true

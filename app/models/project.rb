@@ -1,7 +1,10 @@
 class Project < ApplicationRecord
   belongs_to :team, optional: true
-  belongs_to :user, optional: true
+
+  has_many :users, through: :teams
+
   has_many :team_members
+
 
   include ActiveModel::Validations
 
