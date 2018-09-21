@@ -1,8 +1,11 @@
 <div>
   <div style="text-align: center;">
     <div style="display: inline-block; text-align: left;">
+      <% if @team_update_message %>
+        <p><%= @team_update_message %></p>
+      <% end %>
 
-    <h1>Team: <%= "#{@team.name.gsub(/"|\[|\]/, '').capitalize}" %></h1>
+      <h1>Team: <%= "#{@team.name.gsub(/"|\[|\]/, '').capitalize}" %></h1>
 
       <% if @project_delete_message %>
         <p><%= @project_delete_message %></p>

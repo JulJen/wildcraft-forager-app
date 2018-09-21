@@ -2,7 +2,7 @@
   <div style="text-align: center;">
     <div style="display: inline-block; text-align: center;">
 
-      <h1 align="center">
+      <h2 align="center">
         <%= simple_form_for @team do |f| %>
 
         <%= f.error_notification %>
@@ -21,8 +21,14 @@
           </div>
         <% end %>
 
-        <%= f.label :name, "Edit #{@team.name}" %><br>
-        <%= f.text_field :name %><br>
+        <%= f.label :name, "Edit: #{@team.name}" %><br><br>
+        <%= f.input :name %><br>
+
+        <%= f.input :category %>
+
+        <%= f.collection_select :category, Team.all.order(:category), :id, :category, {include_blank: "Select frome existing categories"} %>
+
+        <br><br>
 
         <%= f.submit 'Update Team' %>
       <% end %></h1><br>

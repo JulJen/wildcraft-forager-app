@@ -22,6 +22,10 @@
 
   <%= f.input :description %><br>
 
+  <%= f.input :category %><br>
+
+  <%= f.collection_select :category, Project.all.order(:category), :id, :category, {include_blank: "Select frome existing categories"} %>
+
   <br><br>
 
   <%= f.label :project_admin, "check box if you're the project admin" %>
