@@ -9,10 +9,15 @@ class Team < ApplicationRecord
 
   validates :name, presence: true
   validates :name, uniqueness: true
-  
+
   validates :category, presence: true
 
   validates :team_admin, :inclusion => {:in => [true, false]}
+
+  def name=(new_name)
+  write_attribute(:name, new_name.upcase)
+  # This is equivalent: self[:name] = new_name.upcase
+  end
 
   # validates :user,
   #   uniqueness: {
