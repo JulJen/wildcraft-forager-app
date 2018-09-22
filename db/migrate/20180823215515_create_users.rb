@@ -6,6 +6,7 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.string :password_digest
       t.string :email
       t.text :image
+      t.integer :industry_id
       t.string :time_zone, default: "UTC"
       t.datetime "created_at", null: false
       t.datetime "updated_at", null: false
