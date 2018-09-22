@@ -73,8 +73,8 @@ class ProjectsController < ApplicationController
   end
 
   def authenticate_user
-    if logged_in?
-      unless is_admin?
+    if !!logged_in?
+      unless !!is_admin?
         session[:admin_error] = "You are not admin of this project"
         redirect_to edit_project_path(@project) # halts request cycle
       end
@@ -82,7 +82,7 @@ class ProjectsController < ApplicationController
   end
 
   def is_admin?
-    @project = Project.find_by_id(params[:id])
+    @project = Project.find_by_id(params[:project_id]) if !!params[:project_id]
     @project.project_admin == true ? true : false
   end
 

@@ -18,10 +18,8 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       session[:user_id] = @user.id
-
       session[:success] = "User account created successfully!"
-      redirect_to @user
-      # redirect_to dashboard_path(current_user)
+      redirect_to main_path(current_user)
     else
       session[:failure] = "Failure, user account not saved."
       render :new
@@ -29,13 +27,23 @@ class UsersController < ApplicationController
   end
 
   def show
-    if params[:id] == current_user.id
-      @current_teams = current_user.teams
-      @current_projects = current_user.projects
+    if !!params[:id]
+      if params[:id] == current_user.id
+        # @current_teams = current_user.teams
+        # @current_projects = current_user.projects
+        @success_message = session[:success]
+        session[:success] = nil
+      end
+    else
+      redirect_to '/404'
+    end
+  end
 
-      @success_message = session[:success]
-      session[:success] = nil
-    elsif !params[:id] == current_user.id
+  def member_show
+    if !!params[:id]
+      @team_member = User.grab_teammate(params[:id])
+      # render :member_show
+    else
       redirect_to '/404'
     end
   end

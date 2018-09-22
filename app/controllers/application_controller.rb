@@ -37,6 +37,12 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
 
+  def team_member
+    if !params[:id] == current_user.id
+      @team_member = User.grab_teammate(params[:id])
+    end
+  end
+
   # def select_member
   #   @select_member ||= TeamMember.find_by(session[:project_id]) if session[:project_id]
   # end
