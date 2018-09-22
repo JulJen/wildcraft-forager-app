@@ -3,13 +3,12 @@ class TeamsController < ApplicationController
   before_action :authenticate_user, only: %i[edit update destroy]
 
   def index
+    # @team_category = Team.find_by_id(params[:name])
     @teams = Team.all
-
     @team = Team.find_by_id(params[:id])
-
     @current_teams = current_user.teams
     @current_projects = current_user.projects
-
+# binding.pry
     @team_success_message = session[:success_team]
     session[:success_team] = nil
 
@@ -51,6 +50,9 @@ class TeamsController < ApplicationController
 
   def edit
     @team = Team.find_by_id(params[:id])
+
+    @admin_error_message = session[:admin_error]
+    session[:admin_error] = nil
   end
 
   def update
@@ -75,14 +77,14 @@ class TeamsController < ApplicationController
   private
 
   def team_params
-    params.require(:team).permit(:name, :team_admin)
+    params.require(:team).permit(:name, :category, :team_admin)
   end
 
   def authenticate_user
     if logged_in?
       unless is_admin?
-        flash[:error] = "You are not admin of this team"
-        redirect_to dashboard_path # halts request cycle
+        session[:admin_error] = "You are not admin of this team"
+        redirect_to edit_team_path(@team) # halts request cycle
       end
     end
   end

@@ -1,5 +1,6 @@
 class TeamMembersController < ApplicationController
   before_action :require_logged_in
+  before_action :authenticate_user, only: %i[destroy]
 
   def index
     @users = User.all
@@ -37,7 +38,9 @@ class TeamMembersController < ApplicationController
 
     if @project.project_admin == true
       if @user.id == member_params[:user_id].to_i
-        @team_member = TeamMember.new(member_params)
+binding.pry
+        member = User.grab_teammate(member_params[:user_id].to_i)
+        @team_member = TeamMember.new(member_params[:user_id])
         if @team_member.save
           @project.team_members << @team_member
 
@@ -80,7 +83,21 @@ binding.pry
   private
 
   def member_params
-    params.require(:team_member).permit(:user_id)
+    params.require(:team_member).permit(:user_id, :name, :email, :image, :time_zone)
+  end
+
+  def authenticate_user
+    if logged_in?
+      unless is_admin?
+        session[:admin_error] = "You are not admin"
+        redirect_to project_team_members_path(@project) # halts request cycle
+      end
+    end
+  end
+
+  def is_admin?
+    @project = Project.find_by_id(params[:id])
+    @project.project_admin == true ? true : false
   end
 
 end

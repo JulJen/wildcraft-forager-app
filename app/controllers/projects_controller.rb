@@ -9,9 +9,6 @@ class ProjectsController < ApplicationController
   end
 
   def new
-
-    # @failure_message = session[:failure]
-    # session[:failure] = nil
     @project = Project.new
     # @team = Team.find_by_id(params[:id])
     @team = Team.find_by_id(params[:team_id])
@@ -58,12 +55,6 @@ class ProjectsController < ApplicationController
   end
 
 
-  # project_params.each  do |params|
-  #   if !params[:name] == "" || params[:description] == ""
-  #     @project.update(params)
-  #   end
-  # end
-
   def destroy
     @project = Project.find_by_id(params[:id])
     @team = Team.find_by(user_id: current_user)
@@ -84,8 +75,8 @@ class ProjectsController < ApplicationController
   def authenticate_user
     if logged_in?
       unless is_admin?
-        flash[:error] = "You are not admin of this team"
-        redirect_to dashboard_path # halts request cycle
+        session[:admin_error] = "You are not admin of this project"
+        redirect_to edit_project_path(@project) # halts request cycle
       end
     end
   end
