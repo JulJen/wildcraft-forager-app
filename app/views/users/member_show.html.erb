@@ -1,0 +1,15 @@
+<div>
+  <div style="text-align: center;">
+    <div style="display: inline-block; text-align: left;">
+
+      <h1 align="left">Contact Info</h1>
+      <p align="left"><strong>Name:</strong> <%= @team_member.name%><p>
+      <p align="left"><strong>Email:</strong> <%= @team_member.email%></p>
+      <p align="left"><strong>Timezone:</strong> <%= @team_member.time_zone%></p><br>
+
+      <div style="width: 400px;margin:auto">
+        <img style="width: 400px" src="<%= @team_member.image %>">
+      </div>
+
+  </div>
+</div>

@@ -1,35 +1,15 @@
 <div>
   <div style="text-align: center;">
     <div style="display: inline-block; text-align: left;">
-      <ul align="center">
-      <% if @success_message %>
-        <p><%= @success_message %></p>
-      <% end %>
 
-      <% if @failure_message %>
-        <p><%= @failure_message %></p>
-      <% end %>
+      <h1 align="left">Contact Info</h1>
+      <p align="left"><strong>Name:</strong> <%= current_user.name%><p>
+      <p align="left"><strong>Email:</strong> <%= current_user.email%></p><br>
 
-      <% if @incomplete_message %>
-        <p><%= @incomplete_message %></p>
-      <% end %>
-    </ul>
-    <h3 align="center">Hi <%= current_user.name.capitalize %>, what are you working on today?</h3>
-
-    <% if !!current_user.teams %>
-      <% if current_user.teams.size == 1 %>
-        <h3 align="center">You are active on <%= link_to "#{current_user.teams.size} team", user_teams_path(current_user) %> </h3>
-      <% elsif current_user.teams.size >= 2 %>
-        <h3 align="center">You are active on <%= link_to "#{current_user.teams.size} teams", user_teams_path(current_user) %> </h3>
-      <% else %>
-        <h3 align="center"><%= link_to "Create a team", new_user_team_path(current_user) %></h3>
-      <% end %>
-    <% end %>
-
-    <div style="width: 500px;margin:auto">
-      <img style="width: 500px" src="https://images.pexels.com/photos/954599/pexels-photo-954599.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
-    </div>
-
+      <div style="width: 400px;margin:auto">
+        <img style="width: 400px" src="https://images.pexels.com/photos/1307104/pexels-photo-1307104.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
+      </div>
+      
     </div>
   </div>
 </div>
