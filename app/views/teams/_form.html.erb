@@ -4,18 +4,17 @@
 
   <br><br>
 
-  <%= f.label :name, "Team" %><br>
-  <%= f.input :name %><br><br>
 
-  <%= f.input :category %>
+  <%= f.input :name, include_blank: false %><br><br>
 
-  <%= f.collection_select :category, Team.all.order(:category), :id, :category, {include_blank: "Select frome existing categories"} %>
+  <%= f.label :category %>
+  <%= f.collection_select :category, Industry.all.order(:category), :id, :category, {include_blank: "Select from categories"} %>
 
   <br><br>
 
   <%= f.label :team_admin, "check box if you're the team admin" %>
 
-  <%= f.check_box :team_admin, {}, true, false%>
+  <%= f.check_box :team_admin, {}, true, false %>
 
 
   <br><br>

@@ -2,7 +2,8 @@
   <div style="text-align: center;">
     <div style="display: inline-block; text-align: center;">
 
-      <h1 align="center">
+      <h2 align="center">Edit Project: <%= @project.name %></h2><br>
+
         <%= simple_form_for @project do |f| %>
 
         <%= f.error_notification %>
@@ -29,9 +30,12 @@
 
         <%= f.collection_select :category, Project.all.order(:category), :id, :category, {include_blank: "Select frome existing categories"} %>
 
+        <br><br>
 
         <%= f.submit 'Update Project' %>
-      <% end %></h1><br>
+      <% end %>
+
+      <br>
 
     <div style="width: 500px;margin:auto">
       <img style="width: 500px" src="https://images.pexels.com/photos/355948/pexels-photo-355948.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
