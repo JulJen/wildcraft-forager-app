@@ -55,10 +55,5 @@ Industry.destroy_all
   category: Faker::Company.unique.industry
 )
 end
-20.times do |index|
-  Industry.create!(
-  profession: Faker::Company.unique.profession
-)
-end
 
 p "Created #{User.count} users, #{Team.count} teams, #{Project.count} projects, #{Industry.count} industries"
