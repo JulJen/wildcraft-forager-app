@@ -4,6 +4,12 @@ class User < ApplicationRecord
   has_many :projects, through: :teams
   has_many :industrys, through: :teams
 
+  def self.grab_teammate(user_id)
+    @member = User.find_by_id(user_id).id
+    return User.where(id: @member).select(:id, :name, :email, :time_zone, :image).take
+  end
+
+# @member = User.find_by_id(member_params[:user_id]).id
 
   include ActiveModel::Validations
 
