@@ -17,12 +17,11 @@
       <h2>Project: <%= @project.name %></h2>
 
       <% if @current_members.size > 0 %>
-        <h3>Team members: <%= @current_members.length %></h3><br>
-        <h4><%= link_to "Add another team member", new_project_team_member_path(@project) %></h4>
+        <h3>Team members: <%= @current_members.length %></h3>
 
         <% @current_members.each do |member| %>
           <li>
-          <%= link_to "#{member.user_id}", member_profile_path(member.user_id) %>
+          <%= link_to "member: #{member.user_id}", project_team_member_path(@project, member.id) %>
           </li>
         <% end %>
       <% else %>

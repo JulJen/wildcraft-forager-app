@@ -27,13 +27,11 @@ class UsersController < ApplicationController
   end
 
   def show
-    if !!params[:id]
-      if params[:id] == current_user.id
+    if params[:id].to_i == current_user.id
         # @current_teams = current_user.teams
         # @current_projects = current_user.projects
         @success_message = session[:success]
         session[:success] = nil
-      end
     else
       redirect_to '/404'
     end

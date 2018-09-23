@@ -8,7 +8,7 @@
   <%= f.input :name, include_blank: false %><br><br>
 
   <%= f.label :category %>
-  <%= f.collection_select :category, Industry.all.order(:category), :id, :category, {include_blank: "Select from categories"} %>
+  <%= f.collection_select :category, Industry.all.order(:category), :category, :category, {include_blank: "Select from categories"} %>
 
   <br><br>
 

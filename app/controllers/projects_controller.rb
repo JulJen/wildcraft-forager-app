@@ -5,25 +5,21 @@ class ProjectsController < ApplicationController
   def index
     @team = Team.find_by(user_id: current_user)
     @current_projects = current_user.projects
-    # @projects = Project.where("team_id = ?", params[:team_id])
   end
 
   def new
     @project = Project.new
-    # @team = Team.find_by_id(params[:id])
     @team = Team.find_by_id(params[:team_id])
   end
 
   def create
     @team = Team.find_by_id(params[:team_id])
     @project = Project.new(project_params)
-    if @project.project_admin == true
-      params[:team_admin_id] = @team.id
-      if @project.save
-        @team.projects << @project
-        session[:success] = "Project created successfully!"
-        redirect_to project_path(@project)
-      end
+    if @team.team_admin == true
+      @project.save
+      @team.projects << @project
+      session[:success] = "Project created successfully!"
+      redirect_to project_path(@project)
     else
       session[:failure] = "Project could not be created, please try again."
       render :new
@@ -33,12 +29,18 @@ class ProjectsController < ApplicationController
 
   def show
     @project = Project.find_by_id(params[:id])
-    @team = Team.find_by_id(@project.team_id)
 
-    @project_admin_id = @current_user.id if @project.project_admin == true
+    if !!@project
+      @team = Team.find_by_id(@project.team_id)
 
-    @success_message = session[:success]
-    session[:success] = nil
+      @project_admin_id = @current_user.id if @project.project_admin == true
+      @current_members = @project.team_members
+
+      @success_message = session[:success]
+      session[:success] = nil
+    else
+      redirect_to '/404'
+    end
   end
 
   def edit
@@ -82,7 +84,7 @@ class ProjectsController < ApplicationController
   end
 
   def is_admin?
-    @project = Project.find_by_id(params[:project_id]) if !!params[:project_id]
+    @project = Project.find_by_id(params[:id]) if !!params[:id]
     @project.project_admin == true ? true : false
   end
 

@@ -43,6 +43,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
+
   # def select_member
   #   @select_member ||= TeamMember.find_by(session[:project_id]) if session[:project_id]
   # end
@@ -78,7 +79,6 @@ class ApplicationController < ActionController::Base
   def project_admin_id
     @project_admin_id = @current_user.id if @project.project_admin == true
   end
-
 
 # !params[:uid].present? &&
 

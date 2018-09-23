@@ -2,57 +2,47 @@
   <div style="text-align: center;">
     <div style="display: inline-block; text-align: left;">
 
-    <% if @success_message %>
-      <p><%= @success_message %></p>
-    <% end %>
-
-    <% if @incomplete_message %>
-      <p><%= @incomplete_message %></p>
-    <% end %>
-
-    <% if @admin_failure_message %>
-      <p><%= @admin_failure_message %></p>
-    <% end %>
-
-    <% if !!@projects && @projects.length > 0 %>
-      <h2>Current projects: <%= @projects.length %></h2>
-
-      <ol>
-        <% @projects.each do |p| %>
-          <li>
-          <%= link_to "#{p.name}", team_project_path(@team) %>
-          </li>
-        <% end %>
-      </ol>
-
-    <% else %>
-
-      <h1 align="center">Project: <%= @project.name %></h1>
-      <h3 align="center">Team: <%= link_to @team.name, @team %></h3>
-      <h3 align="center">Description: <%= @project.description %></h3><br>
-
-      <% if !!@project.team_members %>
-      
-        <% if !!@project_admin_id %>
-          <% if @project.team_members.size == 1 %>
-            <h4 align="center">There is currently <%= link_to "#{@project.team_members.size} active member", project_team_members_path(@project) %></h4>
-          <% elsif @project.team_members.size >= 2 %>
-            <h4 align="center">There are currently <%= link_to "#{@project.team_members.size} active members", project_team_members_path(@project) %></h4>
-          <% else %>
-            <h4 align="center"><%= link_to "Add a team member", new_project_team_member_path(@project) %></h4><br>
-          <% end %>
-        <% else %>
-          <h3 align="center">Team members are unavailable</h3><br>
-        <% end %>
+      <% if @success_message %>
+        <p><%= @success_message %></p>
       <% end %>
 
-    <% end %>
+      <% if @incomplete_message %>
+        <p><%= @incomplete_message %></p>
+      <% end %>
 
-    <br>
+      <% if @admin_failure_message %>
+        <p><%= @admin_failure_message %></p>
+      <% end %>
 
-    <div style="width: 500px;margin:auto">
-      <img style="width: 500px" src="https://images.pexels.com/photos/908295/pexels-photo-908295.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
+      <h1>Project: <%= @project.name %></h1>
+      <h3>Team: <%= link_to @team.name, @team %></h3>
+      <h3>Description: <%= @project.description %></h3>
+
+      <% if @current_members.size > 0 %>
+
+        <h3>Team members: <%= @current_members.length %></h3>
+        <% @current_members.each do |member| %>
+          <li>
+            <%= link_to "#{member.user_id}", member_profile_path(member.user_id) %>
+          </li>
+        <% end %>
+
+        <% if !!@project_admin_id %>
+          <h4>Admin: <%= link_to "edit project members", project_team_members_path(@project) %></h4>
+        <% end %>
+
+      <% elsif @current_members.empty? && @project_admin_id%>
+        <h3><%= link_to "Invite team members", new_project_team_member_path(@project) %></h3>
+      <% else %>
+        <h3>Team members are unavailable</h3><br>
+      <% end %>
+
+       <br>
+
+      <div style="width: 500px;margin:auto">
+        <img style="width: 500px" src="https://images.pexels.com/photos/908295/pexels-photo-908295.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
+      </div>
+
     </div>
-
   </div>
 </div>

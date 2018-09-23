@@ -26,7 +26,7 @@ class SessionsController < ApplicationController
         u.password = auth['uid']
       end
       session[:user_id] = @user.id
-      redirect_to user_path(@user)
+      redirect_to main_path(current_user)
     else
       session[:failure] = "Incorrect name and password, please try again."
       redirect_to signin_path

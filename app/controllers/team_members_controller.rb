@@ -1,6 +1,6 @@
 class TeamMembersController < ApplicationController
   before_action :require_logged_in
-  before_action :authenticate_user, only: %i[destroy]
+  before_action :authenticate_user, only: %i[show destroy]
 
 
   def index
@@ -11,23 +11,9 @@ class TeamMembersController < ApplicationController
     if !!params[:project_id]
       @project = Project.find_by_id(params[:project_id])
       @current_members = @project.team_members
-
-      # @current_members.map do |member|
-      #   @member_id = member.user_id
-      # end
-      #
-      # @member = User.grab_teammate(@member_id)
-
     else
       redirect_to '/404'
     end
-
-      # @user = User.grab_teammate(params[:id])
-
-      # @user.id == member_params[:user_id].to_i
-      # redirect_to member_profile_path(@user.id)
-      # @team_member = TeamMember.find_by_id(params[:project_id])
-
 
     @member_success_message = session[:member_success]
     session[:member_success] = nil
@@ -66,7 +52,7 @@ class TeamMembersController < ApplicationController
 
           session[:member_success] = "Team member added!"
 
-          redirect_to member_profile_path(@user.id)
+          redirect_to project_team_members_path(@project)
         else
           render :new
         end
@@ -81,8 +67,6 @@ class TeamMembersController < ApplicationController
   def show
     @team = Team.find_by(user_id: current_user)
     @project = Project.find_by_id(params[:project_id])
-
-    @users = User.all
     @team_member = TeamMember.find_by_id(params[:id])
 
     @current_members = @project.team_members

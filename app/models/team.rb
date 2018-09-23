@@ -14,9 +14,8 @@ class Team < ApplicationRecord
 
   validates :team_admin, :inclusion => {:in => [true, false]}
 
-  def name=(new_name)
-  write_attribute(:name, new_name.upcase)
-  # This is equivalent: self[:name] = new_name.upcase
+  def self.show_team(name)
+    name.gsub(/"|\[|\]/, '').upcase
   end
 
   # validates :user,

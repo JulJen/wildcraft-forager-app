@@ -23,11 +23,6 @@ class User < ApplicationRecord
   validates_length_of :name, within: 2..30, too_long: 'pick a shorter name', too_short: 'pick a longer name'
 
 
-  def name=(new_name)
-  write_attribute(:name, new_name.upcase)
-  # This is equivalent: self[:name] = new_name.upcase
-  end
-
   # before_validation :remove_whitespaces
 
 

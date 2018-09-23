@@ -18,7 +18,6 @@ User.destroy_all
     email: Faker::Internet.unique.email,  #=> "eliza@mann.net"
     image: Faker::LoremFlickr.image,
     time_zone: Faker::Address.unique.time_zone,
-
     language: Faker::Nation.language,
     gender: Faker::Gender.type,
     programlanguage: Faker::ProgrammingLanguage.name,
@@ -28,6 +27,8 @@ end
 
 
 Team.destroy_all
+Project.destroy_all
+
 30.times do |index|
   Team.create!(name: Faker::Hipster.unique.words(1, true),
     team_admin: false,
@@ -35,22 +36,16 @@ Team.destroy_all
     created_at: Faker::Time.between(4.months.ago, 1.month.ago),
     updated_at: Faker::Time.between(4.months.ago, 1.month.ago)
   )
-end
-
-
-Project.destroy_all
-30.times do |index|
   Project.create!(name: Faker::Company.unique.bs,
     description: Faker::Hipster.unique.sentences,
-    category: Faker::Company.unique.industry,
-    project_admin: false,
     created_at: Faker::Time.between(4.months.ago, 1.month.ago),
     updated_at: Faker::Time.between(4.months.ago, 1.month.ago)
   )
 end
 
+
 Industry.destroy_all
-60.times do |index|
+80.times do |index|
   Industry.create!(
   category: Faker::Company.unique.industry
 )
