@@ -12,10 +12,14 @@ require 'faker'
 Faker::UniqueGenerator.clear
 
 User.destroy_all
-30.times do |index|
+Team.destroy_all
+Project.destroy_all
+
+50.times do |index|
   User.create!(name: Faker::FunnyName.unique.name, #=> "Kaci"
     password_digest: Faker::Internet.unique.password, #=> "*%NkOnJsH4"
     email: Faker::Internet.unique.email,  #=> "eliza@mann.net"
+    status: true,
     image: Faker::LoremFlickr.image,
     time_zone: Faker::Address.unique.time_zone,
     language: Faker::Nation.language,
@@ -23,21 +27,15 @@ User.destroy_all
     programlanguage: Faker::ProgrammingLanguage.name,
     interest: Faker::Educator.subject
   )
-end
-
-
-Team.destroy_all
-Project.destroy_all
-
-30.times do |index|
   Team.create!(name: Faker::Hipster.unique.words(1, true),
     team_admin: false,
-    category: Faker::Company.unique.industry,
+    category: Faker::Company.industry,
     created_at: Faker::Time.between(4.months.ago, 1.month.ago),
     updated_at: Faker::Time.between(4.months.ago, 1.month.ago)
   )
   Project.create!(name: Faker::Company.unique.bs,
     description: Faker::Hipster.unique.sentences,
+    status: true,
     created_at: Faker::Time.between(4.months.ago, 1.month.ago),
     updated_at: Faker::Time.between(4.months.ago, 1.month.ago)
   )

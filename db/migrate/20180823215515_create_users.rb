@@ -7,6 +7,8 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.string :email
       t.text :image
       t.string :time_zone, default: "UTC"
+      t.boolean :status, default: true
+
       t.datetime "created_at", null: false
       t.datetime "updated_at", null: false
 
