@@ -17,11 +17,16 @@ Rails.application.routes.draw do
   get '/signup' => 'users#new'
   post '/signup' => 'users#create'
   get '/dashboard' => 'users#index', :as => 'main'
+
+  get '/dashboard/profile/:id/edit' => 'users#edit', :as => 'profile_edit'
   get '/dashboard/profile/:id' => 'users#show', :as => 'profile'
+
   get '/dashboard/member_profile/:id' => 'users#member_show', :as => 'member_profile'
 
+  resources :users, path: :profile, shallow: true, only: %i[show edit update]
 
-  resources :users, path: :dashboard, shallow: true, except: %i[index new create destroy] do
+
+  resources :users, path: :dashboard, shallow: true, only: %i[show] do
     resources :teams, shallow: true
   end
 
