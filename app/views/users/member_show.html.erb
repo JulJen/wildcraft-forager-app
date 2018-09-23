@@ -5,7 +5,10 @@
       <h1 align="left">Contact Info</h1>
       <p align="left"><strong>Name:</strong> <%= @team_member.name%><p>
       <p align="left"><strong>Email:</strong> <%= @team_member.email%></p>
-      <p align="left"><strong>Timezone:</strong> <%= @team_member.time_zone%></p><br>
+      <p align="left"><strong>Timezone:</strong> <%= @team_member.time_zone%></p>
+      <p align="left"><strong>Language:</strong> <%= @team_member.language%></p>
+      <p align="left"><strong>Gender:</strong> <%= @team_member.gender%></p>
+      <p align="left"><strong>Interest:</strong> <%= @team_member.interest%></p><br>
 
       <div style="width: 400px;margin:auto">
         <img style="width: 400px" src="<%= @team_member.image %>">

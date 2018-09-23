@@ -12,6 +12,9 @@ class UsersController < ApplicationController
     else
       redirect_to user_path(current_user)
     end
+
+    @siginin_failure_message = session[:failure]
+    session[:failure] = nil
   end
 
   def create
@@ -19,7 +22,7 @@ class UsersController < ApplicationController
     if @user.save
       session[:user_id] = @user.id
       session[:success] = "User account created successfully!"
-      redirect_to main_path(current_user)
+      redirect_to main_path
     else
       session[:failure] = "Failure, user account not saved."
       render :new
@@ -46,15 +49,26 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+  end
+
+  def update
+    if current_user.update(profile_params)
+      redirect_to profile_path(current_user)
+      session[:user_update] = "Profile succesfully updated!"
+    else
+      render :edit
+    end
+  end
+
   private
 
   def user_params
     params.require(:user).permit(:name, :email, :password)
-    # params.require(signup_path).permit(:name, :email, :password)
   end
 
-  # def set_user
-  #   @user = User.friendly.find(params[:id])
-  #   redirect_to action: action_name, id: @user.friendly_id, status: 301 unless @user.friendly_id == params[:id]
-  # end
+  def profile_params
+    params.require(:user).permit(:language, :gender, :interest)
+  end
+
 end

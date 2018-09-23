@@ -8,7 +8,7 @@ class User < ApplicationRecord
 
   def self.grab_teammate(user_id)
     @member = User.find_by_id(user_id).id
-    return User.where(id: @member).select(:id, :name, :email, :time_zone, :image).take
+    return User.where(id: @member).select(:id, :name, :email, :time_zone, :language, :gender, :interest, :image).take
   end
 
 # @member = User.find_by_id(member_params[:user_id]).id

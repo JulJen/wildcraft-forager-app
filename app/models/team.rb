@@ -2,6 +2,8 @@ class Team < ApplicationRecord
   belongs_to :user, optional: true
   belongs_to :industry, optional: true
 
+  scope :ordered_by_industry, -> { order(industry: :asc) }
+
   has_many :projects
   has_many :team_members, through: :projects
 

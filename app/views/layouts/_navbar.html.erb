@@ -29,7 +29,7 @@
 
     <% if request.path_info.include?('/myteam') %>
       <li><%= link_to "Back to project: #{@project.name.capitalize}", project_path(@project) %></li>
-      <% if @project.project_admin == true %>
+      <% if @team.team_admin == true %>
         <li><%= link_to "Add another team member", new_project_team_member_path(@project) %></li>
       <% end %>
     <% end %>

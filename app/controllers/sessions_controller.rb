@@ -1,8 +1,9 @@
 class SessionsController < ApplicationController
 
   def new
-    @failure_message = session[:failure]
-    session[:failure] = nil
+    @siginin_failure_message = session[:signin_failure]
+    session[:signin_failure] = nil
+
     if !current_user
       @user = User.new
       @users = User.all
@@ -13,10 +14,12 @@ class SessionsController < ApplicationController
 
   def create
     if !google_login?
-      @user = User.find(params[:user][:name])
-      if @user && @user.authenticate(params[:user][:password])
-        session[:user_id] = @user.id
-        redirect_to current_user
+      if params_valid?
+        @user = User.find(params[:user][:name])
+        if @user && @user.authenticate(params[:user][:password])
+          session[:user_id] = @user.id
+          redirect_to main_path
+        end
       end
     elsif google_login?
       @user = User.find_or_create_by(uid: auth['uid']) do |u|
@@ -26,22 +29,15 @@ class SessionsController < ApplicationController
         u.password = auth['uid']
       end
       session[:user_id] = @user.id
-      redirect_to main_path(current_user)
+      redirect_to main_path
     else
       session[:failure] = "Incorrect name and password, please try again."
       redirect_to signin_path
     end
   end
 
-  # @user = User.find_or_create_by(uid: auth['uid']) do |u|
-  #     u.name = auth['info']['name']
-  #     u.email = auth['info']['email']
-  #   end
-  #   # self.current_user = @user
-  #   session[:user_id] = @user.id
-  #   # redirect_to @user
-  #   redirect_to user_path(@user)
-  # end
+
+
 
   def destroy
     reset_session
@@ -55,6 +51,10 @@ class SessionsController < ApplicationController
 
   def auth
     request.env['omniauth.auth']
+  end
+
+  def params_valid?
+    user_params[:name].present? && user_params[:password].present?
   end
 
 end

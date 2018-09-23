@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :require_logged_in
-  before_action :authenticate_user, only: %i[edit update destroy]
+  before_action :authenticate_user, only: %i[new edit update destroy]
 
   def index
     @team = Team.find_by(user_id: current_user)
@@ -33,7 +33,7 @@ class ProjectsController < ApplicationController
     if !!@project
       @team = Team.find_by_id(@project.team_id)
 
-      @project_admin_id = @current_user.id if @project.project_admin == true
+      @project_admin_id = @current_user.id if @team.team_admin == true
       @current_members = @project.team_members
 
       @success_message = session[:success]
@@ -84,8 +84,8 @@ class ProjectsController < ApplicationController
   end
 
   def is_admin?
-    @project = Project.find_by_id(params[:id]) if !!params[:id]
-    @project.project_admin == true ? true : false
+    @team = Team.find_by(user_id: current_user) if current_user
+    @team.team_admin == true ? true : false
   end
 
 end

@@ -17,6 +17,7 @@ end
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   helper_method :require_logged_in, :current_user
+  around_action :set_time_zone, if: :current_user
 
   # <%= form_for  @user, as: :user, url: signup_path do |f| %>
 
@@ -122,9 +123,10 @@ class ApplicationController < ActionController::Base
     !params[:user][:name] == "" || !params[:user][:email] == "" || !params[:user][:password] == ""
   end
 
-  # def user_authenticate?
-  #   if @user && @user.authenticate(params[:user][:password])
-  #     current_user = @user
-  #   end
-  # end
+  private
+
+  def set_time_zone(&block)
+     Time.use_zone(current_user.time_zone, &block)
+  end
+
 end

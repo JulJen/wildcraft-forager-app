@@ -1,6 +1,6 @@
 class TeamMembersController < ApplicationController
   before_action :require_logged_in
-  before_action :authenticate_user, only: %i[show destroy]
+  before_action :authenticate_user, only: %i[new show destroy]
 
 
   def index
@@ -39,23 +39,20 @@ class TeamMembersController < ApplicationController
 
   def create
     @project = Project.find_by_id(params[:project_id])
+    @team = Team.find_by(user_id: current_user)
+    @user = User.grab_teammate(member_params[:user_id])
 
-    if @project.project_admin == true
-      @team = Team.find_by(user_id: current_user)
-      @user = User.grab_teammate(member_params[:user_id])
+    if @user.id == member_params[:user_id].to_i
+      @team_member = TeamMember.new(member_params)
 
-      if @user.id == member_params[:user_id].to_i
-        @team_member = TeamMember.new(member_params)
+      if @team_member.save
+        @project.team_members << @team_member
 
-        if @team_member.save
-          @project.team_members << @team_member
+        session[:member_success] = "Team member added!"
 
-          session[:member_success] = "Team member added!"
-
-          redirect_to project_team_members_path(@project)
-        else
-          render :new
-        end
+        redirect_to project_team_members_path(@project)
+      else
+        render :new
       end
     else
       session[:admin_failure] = "Failure to invite members, contact the project admin."
@@ -106,8 +103,8 @@ class TeamMembersController < ApplicationController
   end
 
   def is_admin?
-    @project = Project.find_by_id(params[:project_id]) if !!params[:project_id]
-    @project.project_admin == true ? true : false
+    @team = Team.find_by(user_id: current_user) if current_user
+    @team.team_admin == true ? true : false
   end
 
 end

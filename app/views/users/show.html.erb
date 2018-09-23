@@ -2,14 +2,20 @@
   <div style="text-align: center;">
     <div style="display: inline-block; text-align: left;">
 
-      <h1 align="left">Contact Info</h1>
-      <p align="left"><strong>Name:</strong> <%= current_user.name%><p>
-      <p align="left"><strong>Email:</strong> <%= current_user.email%></p><br>
+      <h1>Account Info</h1>
+      <p><strong>Name:</strong> <%= current_user.name%><p>
+      <p><strong>Email:</strong> <%= current_user.email%></p>
+      <p><strong>Time zone:</strong> <%= current_user.time_zone%></p>
+      <p><strong>Language:</strong> <%= current_user.language%></p>
+      <p><strong>Gender:</strong> <%= current_user.gender%></p>
+      <p><strong>Interest:</strong> <%= current_user.interest%></p>
+
+      <p><%= link_to "Edit Profile", profile_edit_path(current_user) %></p><br>
 
       <div style="width: 400px;margin:auto">
         <img style="width: 400px" src="https://images.pexels.com/photos/1307104/pexels-photo-1307104.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
       </div>
-      
+
     </div>
   </div>
 </div>
