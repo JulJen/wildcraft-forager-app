@@ -3,12 +3,14 @@ class Project < ApplicationRecord
   belongs_to :industry, optional: true
 
   has_many :users, through: :teams
-
   has_many :team_members
 
-  # scope :member_info, -> {
-  #       where(id: TeamMember.pluck(:user_id)) }
+  # scope :user_comments, -> { where(published: true) }
+  # scope :featured, -> { where(featured: true) }
   #
+  # def self.latest_project_comment
+  #
+  # end
 
   include ActiveModel::Validations
 

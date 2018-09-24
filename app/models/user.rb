@@ -1,9 +1,17 @@
 class User < ApplicationRecord
   has_secure_password
-  has_many :teams
 
+  has_many :teams
   has_many :projects, through: :teams
   has_many :team_members, through: :projects
+
+  scope :status, -> { where(status: true) }
+
+
+
+
+  def user_status
+  end
 
 
   def self.grab_teammate(user_id)

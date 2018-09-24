@@ -16,9 +16,9 @@ class Team < ApplicationRecord
 
   validates :team_admin, :inclusion => {:in => [true, false]}
 
-  def self.show_team(name)
-    name.gsub(/"|\[|\]/, '').upcase
-  end
+  # def self.show_team(name)
+  #   name.gsub(/"|\[|\]/, '').capitalize
+  # end
 
   # validates :user,
   #   uniqueness: {
