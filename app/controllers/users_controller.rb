@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_action :require_logged_in, except: %i[new create]
 
   def index
+
   end
 
   def new
@@ -68,7 +69,7 @@ class UsersController < ApplicationController
   end
 
   def profile_params
-    params.require(:user).permit(:language, :gender, :interest)
+    params.require(:current_user).permit(:language, :gender, :interest, :time_zone)
   end
 
 end
