@@ -12,12 +12,9 @@ module UsersHelper
   end
 end
 
-
-
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   helper_method :require_logged_in, :current_user
-  around_action :set_time_zone, if: :current_user
 
   # <%= form_for  @user, as: :user, url: signup_path do |f| %>
 
