@@ -6,8 +6,8 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.string :password_digest
       t.string :email
       t.text :image
-      t.string :time_zone, default: "UTC"
-      t.boolean :status, default: true
+      t.string :time_zone
+      t.boolean :status, default: false
 
       t.datetime "created_at", null: false
       t.datetime "updated_at", null: false
