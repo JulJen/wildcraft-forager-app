@@ -18,23 +18,18 @@
       <h3>Team: <%= link_to @team.name, @team %></h3>
       <h3>Description: <%= @project.description %></h3>
 
-      <% if @current_members.size > 0 %>
-
-        <h3>Team members: <%= @current_members.length %></h3>
-        <% @current_members.each do |member| %>
+      <% if !@current_tasks.empty? %>
+        <% @current_tasks.each do |task| %>
           <li>
-            <%= link_to "#{member.user_id}", member_profile_path(member.user_id) %>
+            <%= task.comment %>
           </li>
         <% end %>
+      <% end %>
 
-        <% if !!@project_admin_id %>
-          <h4>Admin: <%= link_to "edit project members", project_team_members_path(@project) %></h4>
-        <% end %>
-
-      <% elsif @current_members.empty? && @project_admin_id%>
-        <h3><%= link_to "Invite team members", new_project_team_member_path(@project) %></h3>
+      <% if !!@user_admin%>
+        <h3><%= link_to "Add tasks", new_project_task_path(@project) %></h3>
       <% else %>
-        <h3>Team members are unavailable</h3><br>
+        <h3>No new tasks</h3><br>
       <% end %>
 
        <br>

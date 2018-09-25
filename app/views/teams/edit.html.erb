@@ -24,9 +24,7 @@
         <%= f.label :name, "Edit: #{@team.name}" %><br><br>
         <%= f.input :name %><br>
 
-        <%= f.input :category %>
-
-        <%= f.collection_select :category, Team.all.order(:category), :id, :category, {include_blank: "Select frome existing categories"} %>
+        <%= f.collection_select :industry_id, Industry.all.order(:category), :id, :category, {include_blank: "Select from categories"} %>
 
         <br><br>
 

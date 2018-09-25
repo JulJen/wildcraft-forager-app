@@ -2,11 +2,6 @@ class ProjectsController < ApplicationController
   before_action :require_logged_in
   before_action :authenticate_user, only: %i[new edit update destroy]
 
-  def index
-    @team = Team.find_by(user_id: current_user)
-    @current_projects = current_user.projects
-  end
-
   def new
     @project = Project.new
     @team = Team.find_by_id(params[:team_id])
@@ -14,27 +9,29 @@ class ProjectsController < ApplicationController
 
   def create
     @team = Team.find_by_id(params[:team_id])
-    @project = Project.new(project_params)
     if @team.team_admin == true
-      @project.save
-      @team.projects << @project
-      session[:success] = "Project created successfully!"
-      redirect_to project_path(@project)
-    else
-      session[:failure] = "Project could not be created, please try again."
-      render :new
+      @project = Project.new(project_params)
+      if @project.save
+        @team.projects << @project
+# raise params.inspect
+        session[:success] = "Project created successfully!"
+        redirect_to project_path(@project)
+      else
+        redirect_to new_team_project_path(@team)
+      end
     end
   end
 
 
   def show
     @project = Project.find_by_id(params[:id])
+    @current_tasks = @project.tasks
 
     if !!@project
       @team = Team.find_by_id(@project.team_id)
 
-      @project_admin_id = @current_user.id if @team.team_admin == true
-      @current_members = @project.team_members
+      @user_admin = @current_user.id if @team.team_admin == true
+      @current_members = @team.members
 
       @success_message = session[:success]
       session[:success] = nil
@@ -59,19 +56,19 @@ class ProjectsController < ApplicationController
 
   def destroy
     @project = Project.find_by_id(params[:id])
-    @team = Team.find_by(user_id: current_user)
+    @team = Team.find_by_id(@project.team_id)
     if @project.team_id == @team.id
       @project.delete
     end
     session[:project_delete] = "Project deleted."
-    redirect_to team_projects_path(@team)
+    redirect_to team_path(@team)
   end
 
 
   private
 
   def project_params
-    params.require(:project).permit(:name, :description, :team_admin_id, :project_admin)
+    params.require(:project).permit(:name, :description)
   end
 
   def authenticate_user

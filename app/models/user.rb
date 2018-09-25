@@ -1,17 +1,13 @@
 class User < ApplicationRecord
   has_secure_password
-
   has_many :teams
+  has_many :tasks
+
   has_many :projects, through: :teams
-  has_many :team_members, through: :projects
+  has_many :members, through: :teams
+
 
   scope :status, -> { where(status: true) }
-
-
-
-
-  def user_status
-  end
 
 
   def self.grab_teammate(user_id)
@@ -30,7 +26,7 @@ class User < ApplicationRecord
 
   validates_length_of :name, within: 2..30, too_long: 'pick a shorter name', too_short: 'pick a longer name'
 
-
+end
   # before_validation :remove_whitespaces
 
 
@@ -71,5 +67,3 @@ class User < ApplicationRecord
   # def should_generate_new_friendly_id?
   #   new_record? || slug.nil? || slug.blank? # you can add more condition here
   # end
-
-end

@@ -35,9 +35,9 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
 
-  def team_member
+  def member
     if !params[:id] == current_user.id
-      @team_member = User.grab_teammate(params[:id])
+      @member = User.grab_teammate(params[:id])
     end
   end
 
@@ -89,6 +89,11 @@ class ApplicationController < ActionController::Base
     @my_team = Team.find_by_id(params[:id]) if current_user
   end
 
+  def team_admin_id
+    if @team.team_admin == true
+      @team_admin_id = current_user.id
+    end
+  end 
 
   def current_teams
     @current_teams = current_user.teams if current_user
@@ -99,7 +104,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_members
-    @current_members = @project.team_members if @project
+    @current_members = @project.members if @project
   end
 
   # def find_team

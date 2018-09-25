@@ -3,12 +3,12 @@ class TeamsController < ApplicationController
   before_action :authenticate_user, only: %i[edit update destroy]
 
   def index
-    # @team_category = Team.find_by_id(params[:name])
     @teams = Team.all
     @team = Team.find_by_id(params[:id])
     @current_teams = current_user.teams
     @current_projects = current_user.projects
-# binding.pry
+
+
     @team_success_message = session[:success_team]
     session[:success_team] = nil
 
@@ -26,17 +26,20 @@ class TeamsController < ApplicationController
       current_user.teams << @team
 
       session[:success_team] = "Team created successfully!"
-      redirect_to user_teams_path(current_user)
+      redirect_to team_path(@team)
     else
       render :new
     end
   end
 
   def show
-    @current_teams = current_user.teams
     @team = Team.find_by_id(params[:id])
+    @current_teams = current_user.teams
 
-    @team_admin_id = @current_user.id if @team.team_admin == true
+    @current_projects = @team.projects
+    @current_members = @team.members
+
+    @team_admin = @current_user.id if @team.team_admin == true
 
     @success_message = session[:success]
     session[:success] = nil
@@ -46,6 +49,9 @@ class TeamsController < ApplicationController
 
     @team_update_message = session[:team_update]
     session[:team_update] = nil
+
+    @member_success_message = session[:member_success]
+    session[:member_success] = nil
   end
 
   def edit
@@ -56,7 +62,7 @@ class TeamsController < ApplicationController
   end
 
   def update
-    @team = Team.find_by(user_id: current_user)
+    @team = Team.find_by_id(params[:id])
     if @team.update(team_params)
       redirect_to team_path(@team)
       session[:team_update] = "Team succesfully updated!"
@@ -77,7 +83,7 @@ class TeamsController < ApplicationController
   private
 
   def team_params
-    params.require(:team).permit(:name, :category, :team_admin)
+    params.require(:team).permit(:name, :industry_id, :team_admin)
   end
 
   def authenticate_user

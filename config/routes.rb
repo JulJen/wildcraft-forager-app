@@ -34,15 +34,16 @@ Rails.application.routes.draw do
   delete '/teams/:id' => 'teams#destroy', :as => 'admin_team_delete'
 
   resources :team, only: %i[show] do
-    resources :projects, shallow: true
+    resources :projects, shallow: true, except: %i[index]
+    resources :members, path: :myteam
   end
 
   resources :projects, only: %i[show] do
-    resources :team_members, path: :myteam
+    resources :tasks
   end
 
-  get '/dashboard/:id/liveteams' => 'public_teams#index', :as => 'liveteams'
-  get '/dashboard/:id/liveprojects' => 'public_teams#show', :as => 'liveprojects'
+  get '/dashboard/:id/index/teams' => 'public_teams#index', :as => 'index_teams'
+  get '/dashboard/:id/index/projects' => 'public_teams#show', :as => 'index_projects'
 
   delete '/logout' => 'sessions#destroy', :as => 'logout'
 

@@ -4,11 +4,9 @@
 
       <h1>Team: <%= @team.name.capitalize %></h1>
 
-      <h2>Project: <%= @project.name.capitalize %></h2>
+      <h3>Team member: <%= link_to "#{@member.member_name}", member_profile_path(@member.user_id) %></h3><br>
 
-      <h3>Team member: <%= link_to "#{@team_member.user_id}", member_profile_path(@team_member.user_id) %></h3><br>
-
-      <%= link_to "Remove from project", project_team_member_path(@project), method: :delete %>
+      <%= link_to "Remove from team", team_member_path(@team), method: :delete %>
 
       <br><br>
 

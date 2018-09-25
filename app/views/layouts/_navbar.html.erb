@@ -2,15 +2,15 @@
   <strong>Project Manageable</strong><br>
   <li><%= link_to "Dashboard", main_path %></li>
   <li><%= link_to "#{current_user.name.capitalize}'s profile", profile_path(current_user) %></li>
-  <li><%= link_to "Public Teams", liveteams_path(current_user) %></li>
+  <li><%= link_to "Public Teams", index_teams_path(current_user) %></li>
 
   <% if current_user.teams.size > 0 %>
     <li><%= link_to "Team Board", user_teams_path(current_user) %></li>
-    <% if !!@team && !!@team_admin_id && request.path_info.include?('/teams') && !request.path_info.include?('/edit') && !request.path_info.include?('/new')%>
+    <% if !!@team && !!@team_admin && request.path_info.include?('/teams') && !request.path_info.include?('/edit') && !request.path_info.include?('/new')%>
       <li><%= link_to "Edit team: #{@team.name.capitalize}", edit_team_path(@team) %></li>
       <li><%= link_to "New project", new_team_project_path(@team) %></li>
     <% elsif !!@team && request.path_info.include?('/teams') && !request.path_info.include?('/projects') && !request.path_info.include?('/new') %>
-      <li><%= link_to "Back to team: #{@team.name.capitalize}", team_path(@team) %></li>
+      <li><%= link_to "Back to team: #{@team.name.capitalize}", user_teams_path(current_user) %></li>
     <% elsif request.path_info.include?('/teams') && !request.path_info.include?('/new') && !request.path_info.include?('/projects') %>
       <li><%= link_to "New team", new_user_team_path(current_user) %></li>
     <% elsif request.path_info.include?('/projects') && request.path_info.include?('/new') %>
@@ -20,18 +20,16 @@
 
     <% if !!@project && request.path_info.include?('/projects') && !request.path_info.include?('/new') && !request.path_info.include?('/myteam') %>
       <% if !request.path_info.include?('/edit')%>
-        <li><%= link_to "Back to team: #{@team.name.capitalize}", team_path(@team) %></li>
+        <li><%= link_to "back to team: #{@team.name.capitalize}", team_path(@team) %></li>
         <li><%= link_to "Edit project: #{@project.name.capitalize}", edit_project_path(@project) %></li>
       <% else %>
         <li><%= link_to "Back to project: #{@project.name.capitalize}", project_path(@project) %></li>
       <% end %>
     <% end %>
 
-    <% if request.path_info.include?('/myteam') %>
-      <li><%= link_to "Back to project: #{@project.name.capitalize}", project_path(@project) %></li>
-      <% if @team.team_admin == true %>
-        <li><%= link_to "Add another team member", new_project_team_member_path(@project) %></li>
-      <% end %>
+    <% if request.path_info.include?('/myteam') && @team.team_admin == true %>
+      <li><%= link_to "back to team: #{@team.name.capitalize}", team_path(@team) %></li>
+      <li><%= link_to "Add another team member", new_team_member_path(@team) %></li>
     <% end %>
 
   <% else%>

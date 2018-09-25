@@ -1,32 +1,65 @@
 <div>
   <div style="text-align: center;">
     <div style="display: inline-block; text-align: left;">
+
       <% if @team_update_message %>
         <p><%= @team_update_message %></p>
       <% end %>
 
+      <% if @member_success_message %>
+        <p><%= @member_success_message %></p>
+      <% end %>
+
       <h1>Team: <%= "#{@team.name.gsub(/"|\[|\]/, '').capitalize}" %></h1>
-      <h4>Category: <%= @team.category %></h4>
+      <% if !@team.industry_id.nil? %>
+        <h4>Category: <%= @team.team_category %></h4>
+      <% elsif @team.industry_id.nil? &&!!@team_admin_id %>
+        <%= link_to "Add category", edit_team_path(@team.id) %>
+      <% end %>
 
 
       <% if @project_delete_message %>
         <p><%= @project_delete_message %></p>
       <% end %>
 
-      <% if !@team.projects.empty? && !!@team_admin_id%>
-        <h2>Your projects: <%= @team.projects.length %></h2>
+      <% if !@current_projects.empty? && !!@team_admin %>
+        <h2>Your projects: <%= @current_projects.length %></h2>
 
-        <% @team.projects.each do |project| %>
+        <% @current_projects.each do |project| %>
           <li>
           <%= link_to "#{project.name.capitalize}", project_path(project.id) %>
           </li>
         <% end %>
-      <% elsif !!@team_admin_id %>
+      <% elsif !!@team_admin %>
         <h3 align="left">No projects yet. Need ideas?</h3>
         <h3 align="left"><%= link_to "Start project", new_team_project_path(@team.id) %></h3>
       <% else %>
         <h3 align="left">No projects yet. Suggest ideas to team admin.</h3>
       <% end %><br>
+
+
+      <% if !@current_members.empty?%>
+        <h4>Team members: <%= @current_members.size %></h4>
+        <% @current_members.each do |member| %>
+          <li>
+            <%= link_to "#{member.member_name}", team_member_path(@team, member.id) %>
+          </li>
+        <% end %>
+      <% else %>
+        <p>No team members yet.</p>
+      <% end %>
+
+      <% if !!@team_admin %>
+         <h4>Team admin:</h4>
+         <% if @current_members.empty? %>
+          <p><%= link_to "Invite a member", new_team_member_path(@team) %></p>
+        <% else %>
+          <p><%= link_to "Edit members",team_members_path(@team) %></p>
+        <% end %>
+      <% end %>
+
+
+
     </div>
   </div>
 

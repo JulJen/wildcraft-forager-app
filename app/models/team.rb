@@ -2,19 +2,24 @@ class Team < ApplicationRecord
   belongs_to :user, optional: true
   belongs_to :industry, optional: true
 
-  scope :ordered_by_industry, -> { order(industry: :asc) }
-
   has_many :projects
-  has_many :team_members, through: :projects
+  has_many :members
+
 
   include ActiveModel::Validations
 
   validates :name, presence: true
   validates :name, uniqueness: true
 
-  validates :category, presence: true
+  # validates :industry_id, presence: true
 
   validates :team_admin, :inclusion => {:in => [true, false]}
+
+  def team_category
+    Industry.find(self.industry_id).category
+  end
+
+
 
   # def self.show_team(name)
   #   name.gsub(/"|\[|\]/, '').capitalize

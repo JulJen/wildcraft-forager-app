@@ -32,10 +32,8 @@ class UsersController < ApplicationController
 
   def show
     if params[:id].to_i == current_user.id
-        # @current_teams = current_user.teams
-        # @current_projects = current_user.projects
-        @success_message = session[:success]
-        session[:success] = nil
+      @success_message = session[:success]
+      session[:success] = nil
     else
       redirect_to '/404'
     end
@@ -43,14 +41,18 @@ class UsersController < ApplicationController
 
   def member_show
     if !!params[:id]
-      @team_member = User.grab_teammate(params[:id])
-      # render :member_show
+      @member = User.grab_teammate(params[:id])
     else
       redirect_to '/404'
     end
   end
 
   def edit
+    if params[:id].to_i == current_user.id
+      render :edit
+    else
+      redirect_to '/404'
+    end
   end
 
   def update
@@ -69,7 +71,7 @@ class UsersController < ApplicationController
   end
 
   def profile_params
-    params.require(:current_user).permit(:language, :gender, :interest, :time_zone)
+    params.require(:user).permit(:language, :gender, :interest, :time_zone)
   end
 
 end

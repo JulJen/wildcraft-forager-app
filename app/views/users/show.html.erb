@@ -4,10 +4,15 @@
 
       <h1>Account Info</h1>
       <p><strong>Name:</strong> <%= current_user.name%><p>
-      <p><strong>Email:</strong> <%= current_user.email%></p>
+      <p><strong>Email:</strong> <%= current_user.email%></p><br>
+
+      <% if current_user.status == false %>
+        <p><strong>Status:</strong> pending</p>
+        <p>To change status to 'active', complete info below:</p>
+      <% end %>
+
       <p><strong>Time zone:</strong> <%= current_user.time_zone%></p>
       <p><strong>Language:</strong> <%= current_user.language%></p>
-      <p><strong>Gender:</strong> <%= current_user.gender%></p>
       <p><strong>Interest:</strong> <%= current_user.interest%></p>
 
       <p><%= link_to "Edit Profile", profile_edit_path(current_user) %></p><br>
