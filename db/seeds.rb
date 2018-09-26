@@ -31,6 +31,12 @@ Industry.destroy_all
   )
 end
 
+100.times do |index|
+  Industry.create!(
+  category: Faker::Company.unique.industry
+)
+end
+
 50.times do |index|
   Team.create!(
     name: Faker::Hipster.unique.words(1, true),
@@ -50,10 +56,6 @@ end
   )
 end
 
-100.times do |index|
-  Industry.create!(
-  category: Faker::Company.unique.industry
-)
-end
+
 
 p "Created #{User.count} users, #{Team.count} teams, #{Project.count} projects, #{Industry.count} categories"
