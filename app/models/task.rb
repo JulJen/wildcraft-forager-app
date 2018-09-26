@@ -4,7 +4,8 @@ class Task < ApplicationRecord
 
   include ActiveModel::Validations
 
-  validates :status, presence: true
   validates :comment, presence: true
+
+  scope :by_most_recent_status, -> { order(updated_at: :desc) }
 
 end

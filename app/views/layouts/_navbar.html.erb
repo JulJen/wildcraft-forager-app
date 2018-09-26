@@ -19,11 +19,13 @@
 
 
     <% if !!@project && request.path_info.include?('/projects') && !request.path_info.include?('/new') && !request.path_info.include?('/myteam') %>
-      <% if !request.path_info.include?('/edit')%>
+      <% if !request.path_info.include?('/edit') && !request.path_info.include?('/team')%>
         <li><%= link_to "back to team: #{@team.name.capitalize}", team_path(@team) %></li>
         <li><%= link_to "Edit project: #{@project.name.capitalize}", edit_project_path(@project) %></li>
-      <% else %>
+      <% elsif request.path_info.include?('/teams') %>
         <li><%= link_to "Back to project: #{@project.name.capitalize}", project_path(@project) %></li>
+      <% else %>
+        <li><%= link_to "back to team: #{@team.name.capitalize}", team_path(@team) %></li>
       <% end %>
     <% end %>
 

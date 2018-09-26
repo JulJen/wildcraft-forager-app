@@ -2,6 +2,7 @@ class TasksController < ApplicationController
   before_action :require_logged_in
 
   def index
+    @filter_tasks = ["Name", "Updated At", "Status"]
     @project = Project.find_by_id(params[:project_id])
   end
 
@@ -16,15 +17,17 @@ class TasksController < ApplicationController
   def create
     @team = Team.find_by(user_id: current_user)
     @project = Project.find_by_id(params[:project_id])
-    @task = Task.new(task_params)
     if @team.team_admin == true
-      @task.save
-      @project.tasks << @task
+      @task = Task.new(task_params)
+      if @task.save
+        @project.tasks << @task
 
-      redirect_to project_path(@project)
-    else
-      session[:failure] = "Project could not be created, please try again."
-      render :new
+        session[:task_success] = "Task added."
+        redirect_to project_path(@project)
+      else
+        session[:failure] = "Task could not be created, please try again."
+        render :new
+      end
     end
   end
 
@@ -33,6 +36,34 @@ class TasksController < ApplicationController
     @team = Team.find_by(user_id: current_user)
     @project = Project.find_by_id(params[:project_id])
     @task = Task.find_by_id(params[:id])
+  end
+
+
+  def edit
+    @project = Project.find_by_id(params[:project_id])
+    @team = Team.find_by_id(@project.team_id)
+
+
+    @task = Task.find_by_id(params[:id])
+
+
+
+    @admin_error_message = session[:admin_error]
+    session[:admin_error] = nil
+  end
+
+  def update
+    @team = Team.find_by_id(params[:id])
+    @task = Task.find_by_id(params[:id])
+    @project = Project.find_by_id(@task.project_id)
+
+    if @task.update(task_params)
+      redirect_to project_path(@project)
+
+      session[:task_update] = "Task updated!"
+    else
+      render :edit
+    end
   end
 
 
@@ -52,7 +83,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:comment)
+    params.require(:task).permit(:comment, :status)
   end
 
 end

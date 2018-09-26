@@ -13,11 +13,11 @@ class ProjectsController < ApplicationController
       @project = Project.new(project_params)
       if @project.save
         @team.projects << @project
-# raise params.inspect
         session[:success] = "Project created successfully!"
         redirect_to project_path(@project)
       else
-        redirect_to new_team_project_path(@team)
+        render :new
+        # redirect_to new_team_project_path(@team)
       end
     end
   end
@@ -25,13 +25,27 @@ class ProjectsController < ApplicationController
 
   def show
     @project = Project.find_by_id(params[:id])
-    @current_tasks = @project.tasks
 
     if !!@project
       @team = Team.find_by_id(@project.team_id)
 
-      @user_admin = @current_user.id if @team.team_admin == true
+      @team_admin = @current_user.id if @team.team_admin == true
       @current_members = @team.members
+
+      @current_tasks = @project.tasks if @project.tasks
+
+      if !!@current_tasks
+        @filters = ["Status", "status"]
+        if params[:sort]
+          @tasks = Task.send(params[:sort][:filters])
+          # @current_tasks = Task.order('?', params[:sort][:filters].parameterize.to_sym)
+        else
+          @tasks = Task.all
+        end
+      end
+# binding.pry
+      @task_success_message = session[:task_success]
+      session[:task_success] = nil
 
       @success_message = session[:success]
       session[:success] = nil
