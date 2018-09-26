@@ -14,6 +14,7 @@ Faker::UniqueGenerator.clear
 User.destroy_all
 Team.destroy_all
 Project.destroy_all
+Industry.destroy_all
 
 50.times do |index|
   User.create!(
@@ -28,23 +29,27 @@ Project.destroy_all
     programlanguage: Faker::ProgrammingLanguage.name,
     interest: Faker::Educator.subject
   )
+end
+
+50.times do |index|
   Team.create!(
     name: Faker::Hipster.unique.words(1, true),
     team_admin: false,
     created_at: Faker::Time.between(4.months.ago, 1.month.ago),
     updated_at: Faker::Time.between(4.months.ago, 1.month.ago)
   )
+end
+
+50.times do |index|
   Project.create!(
     name: Faker::Company.unique.bs,
     description: Faker::Hipster.unique.sentences,
-    status: true,
+    status: false,
     created_at: Faker::Time.between(4.months.ago, 1.month.ago),
     updated_at: Faker::Time.between(4.months.ago, 1.month.ago)
   )
 end
 
-
-Industry.destroy_all
 100.times do |index|
   Industry.create!(
   category: Faker::Company.unique.industry

@@ -10,22 +10,43 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_26_193518) do
+ActiveRecord::Schema.define(version: 2018_09_24_210445) do
+
+  create_table "industries", force: :cascade do |t|
+    t.string "category"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "members", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "team_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "projects", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.text "user_comments"
     t.integer "team_id"
+    t.boolean "status", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.text "comment"
+    t.integer "project_id"
+    t.boolean "status", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "teams", force: :cascade do |t|
     t.string "name"
-    t.integer "project_id"
+    t.integer "industry_id"
     t.integer "user_id"
-    t.boolean "team_admin", default: false
+    t.boolean "team_admin", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -36,8 +57,14 @@ ActiveRecord::Schema.define(version: 2018_08_26_193518) do
     t.string "password_digest"
     t.string "email"
     t.text "image"
+    t.string "time_zone"
+    t.boolean "status", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "language"
+    t.string "gender"
+    t.string "programlanguage"
+    t.string "interest"
   end
 
 end
