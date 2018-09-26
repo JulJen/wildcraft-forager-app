@@ -35,10 +35,14 @@ class ProjectsController < ApplicationController
       @current_tasks = @project.tasks if @project.tasks
 
       if !!@current_tasks
-        @filters = ["Status", "status"]
+
+        @filters = ["Status", "status"],["Updated At","formatted_updated_at", {:selected => "selected"}], ["Created At","formatted_created_at", {:selected => "selected"}]
+
         if params[:sort]
+# raise params.inspect
           @tasks = Task.send(params[:sort][:filters])
           # @current_tasks = Task.order('?', params[:sort][:filters].parameterize.to_sym)
+        # @project.tasks = Task.all(:order => 'updated_at DESC')
         else
           @tasks = Task.all
         end

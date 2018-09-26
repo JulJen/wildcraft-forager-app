@@ -34,7 +34,7 @@
 
         <% @current_tasks.each do |task| %>
           <li>
-            <%= link_to task.comment,  edit_project_task_path(task.project_id, task.id)  %>
+            <%= task.status %> - <%= link_to task.comment,  edit_project_task_path(task.project_id, task.id)  %> - <%= task.formatted_updated_at %>
           </li>
         <% end %>
 

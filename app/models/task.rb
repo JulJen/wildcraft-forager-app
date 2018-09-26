@@ -6,6 +6,18 @@ class Task < ApplicationRecord
 
   validates :comment, presence: true
 
-  scope :by_most_recent_status, -> { order(updated_at: :desc) }
+  scope :status, -> { where(status: true) }
+  scope :formatted_updated_at, -> { order(formatted_updated_at: :desc) }
+  scope :formatted_created_at, -> { order(formatted_created_at: :desc) }
+
+
+  def formatted_updated_at
+    updated_at.to_formatted_s(:long_ordinal)
+  end
+
+  def formatted_created_at
+    created_at.to_formatted_s(:long_ordinal)
+  end
+
 
 end
