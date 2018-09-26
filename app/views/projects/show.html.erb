@@ -23,23 +23,25 @@
       <h3>Description: <%= @project.description %></h3>
 
 
-      <% if @current_tasks.size > 1 %>
+      <% if !@current_tasks.empty?%>
 
-      <%= form_tag @project, method: :get do %>
-      <%= select(:sort, "filters", options_for_select(@filters)) %>
-      <%= submit_tag "Sort" %>
+        <%= form_tag @project, method: :get do %>
+        <%= select(:sort, "filters", options_for_select(@filters)) %>
+        <%= submit_tag "Sort" %>
+        <% end %>
+
       <% end %>
 
       <br>
 
-        <% @current_tasks.each do |task| %>
-          <li>
-            <%= task.status %> - <%= link_to task.comment,  edit_project_task_path(task.project_id, task.id)  %> ----- Updated: <%= task.formatted_updated_at %> ------ Created: <%= task.formatted_created_at %>
-          </li>
-          </li>
+      <% @current_tasks.each do |task| %>
+        <% if task.status == true %>
+          <h4> Completed - <%= link_to task.comment %></h4>
+        <% else %>
+          <h4> In Progress - <%= link_to task.comment %></h4>
         <% end %>
-
       <% end %>
+
 
       <% if !!@team_admin%>
         <h3><%= link_to "Add tasks", new_project_task_path(@project) %></h3>

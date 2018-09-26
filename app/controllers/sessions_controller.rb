@@ -1,8 +1,8 @@
 class SessionsController < ApplicationController
 
   def new
-    @siginin_failure_message = session[:signin_failure]
-    session[:signin_failure] = nil
+    @login_failure_message = session[:login_failure]
+    session[:login_failure] = nil
 
     if !current_user
       @user = User.new
@@ -14,12 +14,15 @@ class SessionsController < ApplicationController
 
   def create
     if !google_login?
-      if params_valid?
+      if !params_valid? == false
         @user = User.find(params[:user][:name])
         if @user && @user.authenticate(params[:user][:password])
           session[:user_id] = @user.id
           redirect_to main_path
         end
+      else
+        session[:login_failure] = "Incorrect name and password, please try again."
+        redirect_to signin_path
       end
     elsif google_login?
       @user = User.find_or_create_by(uid: auth['uid']) do |u|
@@ -30,9 +33,6 @@ class SessionsController < ApplicationController
       end
       session[:user_id] = @user.id
       redirect_to main_path
-    else
-      session[:failure] = "Incorrect name and password, please try again."
-      redirect_to signin_path
     end
   end
 

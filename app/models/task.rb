@@ -6,7 +6,10 @@ class Task < ApplicationRecord
 
   validates :comment, presence: true
 
-  scope :status, -> { where(status: true) }
+  scope :active, -> { where(status: false) }
+  scope :inactive, -> { where(status: true) }
+
+
   scope :formatted_updated_at, -> { order(formatted_updated_at: :desc) }
   scope :formatted_created_at, -> { order(formatted_created_at: :desc) }
 
@@ -18,6 +21,8 @@ class Task < ApplicationRecord
   def formatted_created_at
     created_at.to_formatted_s(:long_ordinal)
   end
+
+
 
 
 

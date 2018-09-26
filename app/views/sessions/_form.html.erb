@@ -1,3 +1,7 @@
+<% if @login_failure_message %>
+  <p><%= @login_failure_message %></p>
+<% end %>
+
 <%= simple_form_for @user, url: '/signin' do |f| %>
 
   <%= f.error_notification %>

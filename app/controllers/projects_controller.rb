@@ -36,16 +36,15 @@ class ProjectsController < ApplicationController
 
       if !!@current_tasks
 
-        @filters = [["Active", "status"],["Updated At","formatted_updated_at", {:selected => "selected"}], ["Created At","formatted_created_at", {:selected => "selected"}]]
+        @filters = [["Active", "active"], ["Inactive", "inactive"]]
+        # @filters = [["Active", "active"],["Updated At","formatted_updated_at", {:selected => "selected"}], ["Created At","formatted_created_at", {:selected => "selected"}]]
 
         if params[:sort]
-
           # @tasks = Task.send(params[:sort][:filters])
-          @current_tasks = Task.order('?', params[:sort][:filters].parameterize.to_sym)
-          # raise params.inspect
+          @current_tasks = @current_tasks.send(params[:sort][:filters].parameterize.to_sym)
         # @project.tasks = Task.all(:order => 'updated_at DESC')
         else
-          @tasks = Task.all
+          @current_tasks
         end
       end
 
