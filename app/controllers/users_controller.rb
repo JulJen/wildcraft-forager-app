@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :require_logged_in, except: %i[new create]
 
   def index
-
+    @user = current_user
   end
 
   def new

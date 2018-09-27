@@ -8,7 +8,6 @@ class TeamsController < ApplicationController
     @current_teams = current_user.teams
     @current_projects = current_user.projects
 
-
     @team_success_message = session[:success_team]
     session[:success_team] = nil
 
@@ -52,6 +51,7 @@ class TeamsController < ApplicationController
 
     @member_success_message = session[:member_success]
     session[:member_success] = nil
+binding.pry
   end
 
   def edit

@@ -64,7 +64,8 @@ class MembersController < ApplicationController
 
 
   def destroy
-   @team = Team.find_by_id(@project.team_id)    @project = Project.find_by_id(params[:project_id])
+   @team = Team.find_by_id(@project.team_id)
+   @project = Project.find_by_id(params[:project_id])
     @member = Member.find_by_id(params[:id])
 
     if @member.team_id == @team.id

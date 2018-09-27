@@ -5,6 +5,8 @@ class Team < ApplicationRecord
   has_many :projects
   has_many :members
 
+  has_many :tasks, through: :projects
+
 
   include ActiveModel::Validations
 
