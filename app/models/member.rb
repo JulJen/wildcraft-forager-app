@@ -1,5 +1,5 @@
 class Member < ApplicationRecord
-  belongs_to :team, optional: true
+  belongs_to :team
 
   include ActiveModel::Validations
 

@@ -23,7 +23,6 @@ class MembersController < ApplicationController
 
 
   def new
-    @members = Member.all
     @users = User.all
 
     @member = Member.new
@@ -36,17 +35,16 @@ class MembersController < ApplicationController
     @team = Team.find_by_id(params[:team_id])
     @user = User.grab_teammate(member_params[:user_id])
 
-    if @user.id == member_params[:user_id].to_i
-      @member = Member.new(member_params)
+    # if @user.id == member_params[:user_id].to_i
+    @member = Member.new(member_params)
 
-      if @member.save
-        @team.members << @member
+    if @member.save
+      @team.members << @member
 
-        session[:member_success] = "Team member added!"
-        redirect_to team_path(@team)
-      else
-        render :new
-      end
+      session[:member_success] = "Team member added!"
+      redirect_to team_path(@team)
+    else
+      render :new
     end
   end
 
