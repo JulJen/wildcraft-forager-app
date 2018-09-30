@@ -99,8 +99,8 @@ class ProjectsController < ApplicationController
   end
 
   def is_admin?
-    @team = Team.find_by(user_id: current_user) if current_user
-    @team.team_admin == true ? true : false
+    # @team = Team.find_by(user_id: current_user) if current_user
+    current_user.team_admin == true ? true : false
   end
 
 end

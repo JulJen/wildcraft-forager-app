@@ -1,28 +1,21 @@
 <div>
   <div style="text-align: center;">
     <div style="display: inline-block; text-align: left;">
-      <ul align="center">
-      <% if @success_message %>
-        <p><%= @success_message %></p>
-      <% end %>
 
-      <% if @failure_message %>
-        <p><%= @failure_message %></p>
-      <% end %>
+      <h3 align="center">Hi <%= current_user.name.capitalize %>, what are you working on today?</h3>
 
-      <% if @incomplete_message %>
-        <p><%= @incomplete_message %></p>
+    <% if !@current_teams.empty? %>
+      <% if current_user.team_admin == true %>
+        <% if @admin_teams.size == 1 %>
+          <h3 align="center">You are admin on <%= link_to "#{@admin_teams.size} team", admin_teams_path %> </h3>
+        <% elsif current_user.teams.size >= 2 %>
+          <h3 align="center">You are admin on <%= link_to "#{@admin_teams.size} teams", admin_teams_path %> </h3>
+        <% else %>
+          <h3 align="center"><%= link_to "Create a team",  new_admin_team_path %></h3>
+        <% end %>
       <% end %>
-    </ul>
-    <h3 align="center">Hi <%= current_user.name.capitalize %>, what are you working on today?</h3>
-
-    <% if !!current_user.teams %>
-      <% if current_user.teams.size == 1 %>
-        <h3 align="center">You are active on <%= link_to "#{current_user.teams.size} team", user_teams_path(current_user) %> </h3>
-      <% elsif current_user.teams.size >= 2 %>
-        <h3 align="center">You are active on <%= link_to "#{current_user.teams.size} teams", user_teams_path(current_user) %> </h3>
-      <% else %>
-        <h3 align="center"><%= link_to "Create a team", new_user_team_path(current_user) %></h3>
+      <% if !!@current_teams %>
+        <h3 align="center">See your team membership - <%= link_to "#{@current_teams.size} team", teams_path %> </h3>
       <% end %>
     <% end %>
 

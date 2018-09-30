@@ -1,0 +1,26 @@
+<div>
+  <div style="text-align: center;">
+    <div style="display: inline-block; text-align: left;">
+
+    <% if !!@admin_teams %>\
+      <h2>Current teams: <%= current_user.teams.length %></h2>
+
+      <% @admin_teams.each do |team| %>
+        <li>
+        <%= link_to "#{team.name.capitalize}", admin_team_path(team.id) %>
+        </li>
+      <% end %>
+
+    <% else %>
+      <h3 align="center"><%= link_to "Start a team", new_admin_team_path %></h3>
+    <% end %>
+
+    <br>
+
+    <div style="width: 500px;margin:auto">
+      <img style="width: 500px" src="https://images.pexels.com/photos/1266005/pexels-photo-1266005.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
+    </div>
+
+    </div>
+  </div>
+</div>

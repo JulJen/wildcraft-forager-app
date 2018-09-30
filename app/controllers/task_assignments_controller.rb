@@ -1,4 +1,4 @@
-class MembersController < ApplicationController
+class TaskAssignmentsController < ApplicationController
   before_action :require_logged_in
   before_action :authenticate_user, only: %i[new show destroy]
 
@@ -62,8 +62,8 @@ class MembersController < ApplicationController
 
 
   def destroy
-   @team = Team.find_by_id(@project.team_id)
-   @project = Project.find_by_id(params[:project_id])
+    @project = Project.find_by_id(params[:team_id])
+    @team = Team.find_by_id(params[:team_id])
     @member = Member.find_by_id(params[:id])
 
     if @member.team_id == @team.id

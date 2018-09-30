@@ -1,11 +1,10 @@
 class Team < ApplicationRecord
-  belongs_to :user, optional: true
-  belongs_to :industry, optional: true
+  belongs_to :category
+
+  has_many :memberships
+  has_many :users, through: :memberships
 
   has_many :projects
-  has_many :members
-
-  has_many :tasks, through: :projects
 
 
   include ActiveModel::Validations
@@ -13,12 +12,10 @@ class Team < ApplicationRecord
   validates :name, presence: true
   validates :name, uniqueness: true
 
-  # validates :industry_id, presence: true
-
-  validates :team_admin, :inclusion => {:in => [true, false]}
+  # validates :category_id, presence: true
 
   def team_category
-    Industry.find(self.industry_id).category
+    Category.find(self.team_id).industry_name
   end
 
 

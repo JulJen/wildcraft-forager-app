@@ -1,12 +1,10 @@
-class Task < ApplicationRecord
-  belongs_to :project, optional: true
+class Membership < ApplicationRecord
+  belongs_to :user
+  belongs_to :team
 
-  include ActiveModel::Validations
+  # include ActiveModel::Validations
 
-  validates :name, presence: true
-
-  scope :active, -> { where(status: false) }
-  scope :inactive, -> { where(status: true) }
+  # validates :name, presence: true
 
 
   # scope :formatted_updated_at, -> { order(formatted_updated_at: :desc) }
@@ -21,6 +19,10 @@ class Task < ApplicationRecord
   #   created_at.to_formatted_s(:long_ordinal)
   # end
 
+  # validates :user_id, presence: true
 
+  def member_name
+    User.find(self.user_id).name
+  end
 
 end

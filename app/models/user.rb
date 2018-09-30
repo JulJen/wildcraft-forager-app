@@ -1,22 +1,12 @@
 class User < ApplicationRecord
   has_secure_password
-  has_many :teams
+  has_many :memberships
+  has_many :teams, through: :memberships
 
-  has_many :industries, through: :teams
-
-  has_many :projects, through: :teams
-  has_many :members, through: :teams
-
-
-  scope :status, -> { where(status: true) }
+  has_many :tasks
+  has_many :projects, through: :tasks
 
 
-  def self.grab_teammate(user_id)
-    @member = User.find_by_id(user_id).id
-    return User.where(id: @member).select(:id, :name, :email, :time_zone, :language, :gender, :interest, :image).take
-  end
-
-# @member = User.find_by_id(member_params[:user_id]).id
 
   include ActiveModel::Validations
 
@@ -26,6 +16,27 @@ class User < ApplicationRecord
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
 
   validates_length_of :name, within: 2..30, too_long: 'pick a shorter name', too_short: 'pick a longer name'
+
+  validates :team_admin, :inclusion => {:in => [true, false]}
+
+
+
+  scope :status, -> { where(status: true) }
+
+  scope :all_except, ->(user) { where.not(id: user) }
+
+  # def self.all_except
+  #   return Users.where.not(params[:team_admin].to_sym => true)
+  # end
+
+  def self.admin_user
+    return User.where(id: @user).select(params[:team_admin].to_sym => true)
+  end
+
+  def self.grab_teammate(user_id)
+    @member = User.find_by_id(user_id).id
+    return User.where(id: @member).select(:id, :name, :email, :time_zone, :language, :gender, :interest, :image).take
+  end
 
 end
   # before_validation :remove_whitespaces

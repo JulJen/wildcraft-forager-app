@@ -1,36 +1,32 @@
 <div>
-
   <div style="text-align: center;">
     <div style="display: inline-block; text-align: left;">
 
-      <% if @team_deleted_message %>
-        <p><%= @team_deleted_message %></p>
-      <% end %>
+    <% if !current_user.teams.empty? %>
 
-      <% if @team_success_message %>
-        <p><%= @team_success_message %></p>
-      <% end %>
-
-      <% if !current_user.teams.empty? %>
+      <% if current_user.team_admin == true %>
         <h2>Current teams: <%= current_user.teams.length %></h2>
-
-        <% if !!@current_projects %>
-          <% if @current_projects.size == 1 %>
-            <h3 align="center">You are active on <%= "#{@current_projects.size} project" %> </h3>
-          <% elsif @current_projects.size >= 2 %>
-            <h3 align="center">You are active on <%= "#{@current_projects.size} projects" %> </h3>
-          <% end %>
-        <% end %>
-
-        <% current_user.teams.each do |team| %>
+        <% current_user.memberships.each do |member| %>
           <li>
-          <%= link_to "#{team.name.capitalize}", team_path(team.id) %>
+          <%= link_to "#{member.team_id.capitalize}", team_path(team.id) %>
           </li>
         <% end %>
-
       <% else %>
         <h3 align="center"><%= link_to "Start a team", new_user_team_path(current_user) %></h3>
       <% end %>
+
+    <% else %>
+      <h3>You are not admin. Change <%= link_to "admin status", edit_profile_path(current_user) %></h3>
+    <% end %>
+
+    <% if !!@current_projects %>
+      <% if @current_projects.size == 1 %>
+        <h3 align="center">You are active on <%= "#{@current_projects.size} project" %> </h3>
+      <% elsif @current_projects.size >= 2 %>
+        <h3 align="center">You are active on <%= "#{@current_projects.size} projects" %> </h3>
+      <% end %>
+    <% end%>
+
 
 
 

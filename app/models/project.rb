@@ -1,8 +1,8 @@
 class Project < ApplicationRecord
   belongs_to :team, optional: true
+
   has_many :tasks
-
-
+  has_many :users, through: :tasks
 
   include ActiveModel::Validations
 

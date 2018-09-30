@@ -1,5 +1,4 @@
 <div>
-
   <div style="width: 500px;margin:auto">
     <img style="width: 500px" src="https://images.pexels.com/photos/207896/pexels-photo-207896.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940">
   </div>
@@ -8,12 +7,12 @@
     <div style="display: inline-block; text-align: left;">
 
 
-      <% if !@teams.empty? %>
-        <h2>ProjectManageable's live teams: <%= @teams.length %></h2>
+      <% if !@categories.empty? %>
+        <h2>Industries: <%= @categories.length %></h2>
 
-        <% @teams.each do |team| %>
+        <% @categories.each do |f| %>
           <li>
-          <%= link_to "#{team.name.gsub(/"|\[|\]/, '')}", team_path(team) %>
+          <%= link_to "#{f.industry_name.gsub(/"|\[|\]/, '')}", categories_teams_path(f) %>
           </li>
         <% end %>
 
