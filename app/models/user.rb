@@ -17,21 +17,12 @@ class User < ApplicationRecord
 
   validates_length_of :name, within: 2..30, too_long: 'pick a shorter name', too_short: 'pick a longer name'
 
-  validates :team_admin, :inclusion => {:in => [true, false]}
+  validates :admin, :inclusion => {:in => [true, false]}
 
 
-
-  scope :status, -> { where(status: true) }
-
-  scope :all_except, ->(user) { where.not(id: user) }
-
-  # def self.all_except
-  #   return Users.where.not(params[:team_admin].to_sym => true)
+  # def self.admin_user
+  #   return User.where(id: @user).select(params[:team_admin].to_sym => true)
   # end
-
-  def self.admin_user
-    return User.where(id: @user).select(params[:team_admin].to_sym => true)
-  end
 
   def self.grab_teammate(user_id)
     @member = User.find_by_id(user_id).id
