@@ -29,29 +29,13 @@ Rails.application.routes.draw do
 
   resources :users, path: :profile, shallow: true, only: %i[show edit update]
 
-  # resources :users, path: :dashboard, shallow: true, only: %i[show] do
-  #   resources :teams, path: :myteam, shallow: true, except: %i[show new create edit update destroy]
-  # end
-
-  # resources :users, path: :dashboard, shallow: true, only: %i[show] do
-  #   resources :teams, : %i[index]
-  # end
-
   namespace :admin do
-    # resources :users, shallow: true do
-      resources :teams
-      # , only: %i[new edit delete]
-    # end
+    resources :projects
+    # , only: %i[new edit destroy]
   end
 
-  # delete '/teams/:id' => 'teams#destroy', :as => 'admin_team_delete'
-
-  resources :teams, only: %i[index show] do
-    resources :projects, path: :member, except: %i[index]
-  end
-
-  resources :projects, only: %i[show] do
-    resources :tasks
+  resources :projects, only: %i[index show] do
+    resources :posts, path: :member, except: %i[index]
   end
 
 
