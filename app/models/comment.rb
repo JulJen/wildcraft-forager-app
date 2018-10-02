@@ -1,12 +1,14 @@
-class Task < ApplicationRecord
-  belongs_to :project, optional: true
+class Comment < ApplicationRecord #join table
+  belongs_to :post
+  belongs_to :user
 
-  include ActiveModel::Validations
-
-  validates :name, presence: true
-
-  scope :active, -> { where(status: false) }
-  scope :inactive, -> { where(status: true) }
+  # include ActiveModel::Validations
+  #
+  #
+  # validates :name, presence: true
+  #
+  # scope :active, -> { where(status: false) }
+  # scope :inactive, -> { where(status: true) }
 
 
   # scope :formatted_updated_at, -> { order(formatted_updated_at: :desc) }

@@ -1,6 +1,6 @@
-class Membership < ApplicationRecord
+class Membership < ApplicationRecord  #join table
   belongs_to :user
-  belongs_to :team
+  belongs_to :project
 
   # include ActiveModel::Validations
 
@@ -20,6 +20,9 @@ class Membership < ApplicationRecord
   # end
 
   # validates :user_id, presence: true
+
+  #querying team(project_id) + category_name
+
 
   def member_name
     User.find(self.user_id).name

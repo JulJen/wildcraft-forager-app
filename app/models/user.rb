@@ -1,10 +1,10 @@
 class User < ApplicationRecord
   has_secure_password
   has_many :memberships
-  has_many :teams, through: :memberships
+  has_many :projects, through: :memberships
 
-  has_many :tasks
-  has_many :projects, through: :tasks
+  has_many :comments
+  has_many :posts, through: :comments
 
 
 
