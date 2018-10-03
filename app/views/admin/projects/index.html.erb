@@ -2,17 +2,17 @@
   <div style="text-align: center;">
     <div style="display: inline-block; text-align: left;">
 
-    <% if !!@admin_teams %>\
-      <h2>Current teams: <%= current_user.teams.length %></h2>
+    <% if !!current_user.admin == true %>
+      <h2>Current teams: <%= current_user.projects.length %></h2>
 
-      <% @admin_teams.each do |team| %>
+      <% @current_projects.each do |proj| %>
         <li>
-        <%= link_to "#{team.name.capitalize}", admin_team_path(team.id) %>
+        <%= link_to "#{proj.name.capitalize}", admin_project_path(proj.id) %>
         </li>
       <% end %>
 
     <% else %>
-      <h3 align="center"><%= link_to "Start a team", new_admin_team_path %></h3>
+      <h3 align="center"><%= link_to "Start a project", new_admin_project_path %></h3>
     <% end %>
 
     <br>

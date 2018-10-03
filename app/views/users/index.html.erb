@@ -4,20 +4,30 @@
 
       <h3 align="center">Hi <%= current_user.name.capitalize %>, what are you working on today?</h3>
 
-    <% if !@current_teams.empty? %>
-      <% if current_user.team_admin == true %>
-        <% if @admin_teams.size == 1 %>
-          <h3 align="center">You are admin on <%= link_to "#{@admin_teams.size} team", admin_teams_path %> </h3>
-        <% elsif current_user.teams.size >= 2 %>
-          <h3 align="center">You are admin on <%= link_to "#{@admin_teams.size} teams", admin_teams_path %> </h3>
-        <% else %>
-          <h3 align="center"><%= link_to "Create a team",  new_admin_team_path %></h3>
+    <% if current_user.admin == true %>
+      <h3 align="center">Status: <%= link_to "Admin", edit_profile_path(current_user) %></h3>
+
+      <% if !current_user.projects.empty? %>
+        <% if @admin_projects.size == 1 %>
+          <h3 align="center">You are admin on <%= link_to "#{@admin_projects.size} project", admin_projects_path %> </h3>
+        <% elsif current_user.projects.size >= 2 %>
+          <h3 align="center">You are admin on <%= link_to "#{@admin_projects.size} projects", admin_projects_path %> </h3>
         <% end %>
+      <% else %>
+        <h3 align="center"><%= link_to "Create a project",  new_admin_project_path %></h3>
       <% end %>
-      <% if !!@current_teams %>
-        <h3 align="center">See your team membership - <%= link_to "#{@current_teams.size} team", teams_path %> </h3>
+
+    <% elsif current_user.admin == false %>
+      <h3 align="center">Status: <%= link_to "Member", edit_profile_path(current_user) %></h3>
+
+      <% if current_user.projects.empty? %>
+        <h3 align="center"><%= link_to "Create a project",  new_admin_project_path %></h3>
+      <% else %>
+        <h3 align="center">See your project groups - <%= link_to "#{@member_projects.size} project", projects_path %> </h3>
       <% end %>
     <% end %>
+
+
 
     <div style="width: 500px;margin:auto">
       <img style="width: 500px" src="https://images.pexels.com/photos/954599/pexels-photo-954599.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">

@@ -8,10 +8,10 @@
           <%= f.error_notification %>
           <br><br>
 
-          <%= f.label :team_admin, label: "check box if you're admin" %>
+          <%= f.label :admin, label: "check box if you're admin" %>
 
-          <%= hidden_field_tag :team_admin, 'false' %>
-          <%= f.input :team_admin, as: :boolean, checked_value: 'true', unchecked_value: 'false' %>
+          <%= hidden_field_tag :admin, 'false' %>
+          <%= f.input :admin, as: :boolean, checked_value: 'true', unchecked_value: 'false' %>
           <br><br>
 
           <%= f.input :time_zone %><br>

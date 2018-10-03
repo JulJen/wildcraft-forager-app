@@ -4,15 +4,15 @@
 
       <h1>Account Info</h1>
 
-      <% if current_user.team_admin == false %>
+      <% if current_user.admin == false %>
         <h2>Status: pending</h2>
-        <p>Your account is <b>pending</b>, to start teams change status to <i>'active'</i>, <b>complete info below:</b></p>
-      <% elsif current_user.team_admin == true && !!current_user.teams%>
+        <p>Your account is <b>pending</b>, to start projects change status to <i>'active'</i>, <b>complete info below:</b></p>
+      <% elsif current_user.admin == true && !!current_user.projects%>
         <h2>Status: active</h2>
-        <h4>You are <%= link_to "team admin",  admin_teams_path %></h4>
+        <h4>You are <%= link_to "project admin",  admin_projects_path %></h4>
       <% else %>
         <h2>Status: inactive</h2>
-        <h4>Activate account: <%= link_to "start team", new_user_team_path(current_user) %></h4>
+        <h4>Activate account: <%= link_to "start project", new_user_project_path(current_user) %></h4>
       <% end %>
 
 

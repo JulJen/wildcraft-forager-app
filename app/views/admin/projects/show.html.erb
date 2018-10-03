@@ -2,8 +2,8 @@
   <div style="text-align: center;">
     <div style="display: inline-block; text-align: left;">
 
-      <h3>Project: <%= link_to @project.name.gsub(/"|\[|\]/, ''), @team %></h3>
-      <h3>Description: <%= @project.description.gsub(/"|\[|\]/, '') %></h3>
+      <h3>Project: <%= link_to "#{@project.name}",  edit_admin_project_path(@project) %></h3>
+      <h3>Description: <%= @project.description %></h3>
 
       <% if !@current_posts.empty?%>
 
@@ -30,7 +30,6 @@
       <% else %>
         <h3>No new tasks</h3><br>
       <% end %>
-
 
        <br>
 
