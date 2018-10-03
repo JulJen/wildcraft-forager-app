@@ -3,19 +3,27 @@
     <div style="display: inline-block; text-align: left;">
 
       <h1>Account Info</h1>
+
+      <% if current_user.admin == false %>
+        <h2>Status: pending</h2>
+        <p>Your account is <b>pending</b>, to start projects change status to <i>'active'</i>, <b>complete info below:</b></p>
+      <% elsif current_user.admin == true && !!current_user.projects%>
+        <h2>Status: active</h2>
+        <h4>You are <%= link_to "project admin",  admin_projects_path %></h4>
+      <% else %>
+        <h2>Status: inactive</h2>
+        <h4>Activate account: <%= link_to "start project", new_user_project_path(current_user) %></h4>
+      <% end %>
+
+
       <p><strong>Name:</strong> <%= current_user.name%><p>
       <p><strong>Email:</strong> <%= current_user.email%></p><br>
-
-      <% if current_user.status == false %>
-        <p><strong>Status:</strong> pending</p>
-        <p>To change status to 'active', complete info below:</p>
-      <% end %>
 
       <p><strong>Time zone:</strong> <%= current_user.time_zone%></p>
       <p><strong>Language:</strong> <%= current_user.language%></p>
       <p><strong>Interest:</strong> <%= current_user.interest%></p>
 
-      <p><%= link_to "Edit Profile", profile_edit_path(current_user) %></p><br>
+      <p><%= link_to "Edit Profile", edit_profile_path(current_user) %></p><br>
 
       <div style="width: 400px;margin:auto">
         <img style="width: 400px" src="https://images.pexels.com/photos/1307104/pexels-photo-1307104.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">

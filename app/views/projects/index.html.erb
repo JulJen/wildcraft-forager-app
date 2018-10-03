@@ -1,0 +1,21 @@
+<div>
+  <div style="text-align: center;">
+    <div style="display: inline-block; text-align: left;">
+
+      <div style="width: 500px;margin:auto">
+        <img style="width: 500px" src="https://images.pexels.com/photos/1266005/pexels-photo-1266005.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
+      </div>
+
+      <% @projects.each do |proj| %>
+        <li>
+        <%= link_to "#{proj.name.capitalize.gsub(/"|\[|\]/, '')}", project_path(proj.id) %>
+        </li>
+      <% end %>
+
+      <br>
+
+
+
+    </div>
+  </div>
+</div>

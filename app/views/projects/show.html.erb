@@ -2,30 +2,12 @@
   <div style="text-align: center;">
     <div style="display: inline-block; text-align: left;">
 
-      <% if @success_message %>
-        <p><%= @success_message %></p>
-      <% end %>
+      <h3>Project: <%= link_to @project.name.gsub(/"|\[|\]/, ''), @team %></h3>
+      <h3>Description: <%= @project.description.gsub(/"|\[|\]/, '') %></h3>
 
-      <% if @incomplete_message %>
-        <p><%= @incomplete_message %></p>
-      <% end %>
+      <% if !@current_posts.empty?%>
 
-      <% if @admin_failure_message %>
-        <p><%= @admin_failure_message %></p>
-      <% end %>
-
-      <% if @task_success_message %>
-        <p><%= @task_success_message %></p>
-      <% end %>
-
-      <h1>Project: <%= @project.name %></h1>
-      <h3>Team: <%= link_to @team.name, @team %></h3>
-      <h3>Description: <%= @project.description %></h3>
-
-
-      <% if !@current_tasks.empty?%>
-
-        <%= form_tag @project, method: :get do %>
+        <%= form_tag @posts, method: :get do %>
         <%= select(:sort, "filters", options_for_select(@filters)) %>
         <%= submit_tag "Sort" %>
         <% end %>
@@ -34,20 +16,21 @@
 
       <br>
 
-      <% @current_tasks.each do |task| %>
-        <% if task.status == true %>
-          <h4> Completed - <%= link_to task.comment %></h4>
+      <% @current_posts.each do |post| %>
+        <% if post.status == true %>
+          <h4> Completed - <%= link_to "#{post.name}", edit_project_post_path(post.project_id, post.id) %></h4>
         <% else %>
-          <h4> In Progress - <%= link_to task.comment %></h4>
+          <h4> In Progress - <%= link_to "#{post.name}", edit_project_post_path(post.project_id, post.id) %></h4>
         <% end %>
       <% end %>
 
 
-      <% if !!@team_admin%>
-        <h3><%= link_to "Add tasks", new_project_task_path(@project) %></h3>
+      <% if current_user.admin == true %>
+        <h3><%= link_to "Add post", new_project_post_path(@project) %></h3>
       <% else %>
         <h3>No new tasks</h3><br>
       <% end %>
+
 
        <br>
 

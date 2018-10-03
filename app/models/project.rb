@@ -1,25 +1,37 @@
-class Project < ApplicationRecord
-  belongs_to :team, optional: true
-  has_many :tasks
+class Project < ApplicationRecord #formerly team
+  has_many :memberships
+  has_many :users, through: :memberships
 
-
+  has_many :posts
 
   include ActiveModel::Validations
 
   validates :name, presence: true
   validates :name, uniqueness: true
-  validates :description,  presence: true
+
+  # validates :category_id, presence: true
+
+  # def project_category
+  #   Category.find(self.project_id).name
+  # end
 
 
-  def self.latest_project
-    order('updated_at desc').first
-  end
 
-  def self.names
-    pluck(:name)
-  end
+  # def self.show_team(name)
+  #   name.gsub(/"|\[|\]/, '').capitalize
+  # end
 
-  #Project.latest_project
+  # validates :user,
+  #   uniqueness: {
+  #     message: ->(object, data) do
+  #       "Hey #{object.name}!, #{data[:value]} is taken already!"
+  #     end
+  #   }
+
+  # validates :team_admin, inclusion: { in: [ true, 'true' ] }
+
+  # validates_inclusion_of :team_admin, :in => [true, false]
+  # validates :team_admin, acceptance: {accept: true} , on: :create, allow_nil: false
 
 
 end

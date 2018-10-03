@@ -1,106 +1,100 @@
 class ProjectsController < ApplicationController
+  include ApplicationHelper
   before_action :require_logged_in
-  before_action :authenticate_user, only: %i[new edit update destroy]
+  # before_action :authenticate_user, only: %i[create update destroy]
 
-  def new
-    @project = Project.new
-    @team = Team.find_by_id(params[:team_id])
-  end
+  def index
+    @user = current_user
+    @projects = Project.all
 
-  def create
-    @team = Team.find_by_id(params[:team_id])
-    if @team.team_admin == true
-      @project = Project.new(project_params)
-      if @project.save
-        @team.projects << @project
-        session[:success] = "Project created successfully!"
-        redirect_to project_path(@project)
-      else
-        render :new
-        # redirect_to new_team_project_path(@team)
-      end
+    @project = Project.find_by_id(params[:user_id])
+    @current_projects = current_user.projects
+
+    if current_user.admin == true
+      @admin_projects = current_user.projects
+    else
+      flash[:notice] = "You are not admin"
+      redirect_to projects_path
     end
   end
 
+  # def new
+  #   @project = Project.new
+  #   @categories = Category.all
+  # end
+
+  # def create
+  #   @project = Project.new(project_params)
+  #   if @project.save
+  #     current_user.projects << @project
+  #
+  #     flash[:success] = "Project created successfully!"
+  #     redirect_to project_path(@project)
+  #   else
+  #     render :new
+  #   end
+  # end
 
   def show
     @project = Project.find_by_id(params[:id])
 
-    if !!@project
-      @team = Team.find_by_id(@project.team_id)
+    @current_members = current_user.memberships
+    @current_posts = @project.posts
 
-      @team_admin = @current_user.id if @team.team_admin == true
-      @current_members = @team.members
+    if !!@current_posts
+      @filters = [["Active", "active"], ["Inactive", "inactive"]]
+      # @filters = [["Active", "active"],["Updated At","formatted_updated_at", {:selected => "selected"}], ["Created At","formatted_created_at", {:selected => "selected"}]]
 
-      @current_tasks = @project.tasks if @project.tasks
-
-      if !!@current_tasks
-
-        @filters = [["Active", "active"], ["Inactive", "inactive"]]
-        # @filters = [["Active", "active"],["Updated At","formatted_updated_at", {:selected => "selected"}], ["Created At","formatted_created_at", {:selected => "selected"}]]
-
-        if params[:sort]
-          # @tasks = Task.send(params[:sort][:filters])
-          @current_tasks = @current_tasks.send(params[:sort][:filters].parameterize.to_sym)
-        # @project.tasks = Task.all(:order => 'updated_at DESC')
-        else
-          @current_tasks
-        end
-      end
-
-      @task_success_message = session[:task_success]
-      session[:task_success] = nil
-
-      @success_message = session[:success]
-      session[:success] = nil
-    else
-      redirect_to '/404'
-    end
-  end
-
-  def edit
-    @project = Project.find_by_id(params[:id])
-  end
-
-  def update
-    @project = Project.find_by_id(params[:id])
-    if @project.update(project_params)
-      redirect_to @project
-    else
-      render :edit
-    end
-  end
-
-
-  def destroy
-    @project = Project.find_by_id(params[:id])
-    @team = Team.find_by_id(@project.team_id)
-    if @project.team_id == @team.id
-      @project.delete
-    end
-    session[:project_delete] = "Project deleted."
-    redirect_to team_path(@team)
-  end
-
-
-  private
-
-  def project_params
-    params.require(:project).permit(:name, :description)
-  end
-
-  def authenticate_user
-    if !!logged_in?
-      unless !!is_admin?
-        session[:admin_error] = "You are not admin of this project"
-        redirect_to edit_project_path(@project) # halts request cycle
+      if params[:sort]
+        # @tasks = Task.send(params[:sort][:filters])
+        @current_post = @current_posts.send(params[:sort][:filters].parameterize.to_sym)
+      # @project.tasks = Task.all(:order => 'updated_at DESC')
+      else
+        @current_posts
       end
     end
   end
 
-  def is_admin?
-    @team = Team.find_by(user_id: current_user) if current_user
-    @team.team_admin == true ? true : false
-  end
+  # def edit
+  #   @project = Project.find_by_id(params[:id])
+  # end
 
+  # def update
+  #   @project = Project.find_by_id(params[:id])
+  #   if @project.update(project_params)
+  #     redirect_to project_path(@project)
+  #     flash[:update] = "Project succesfully updated!"
+  #   else
+  #     render :edit
+  #   end
+  # end
+  #
+  # def destroy
+  #   @project = Project.find_by_id(params[:id])
+  #   if @project.user_id == current_user.id
+  #     @project.delete
+  #   end
+  #   flash[:deleted] = "Project deleted."
+  #   redirect_to user_projects_path(current_user)
+  # end
+
+#   private
+#
+#   # def project_params
+#   #   params.require(:project).permit(:name, :category_id)
+#   # end
+#
+#   def authenticate_user
+#     if logged_in?
+#       unless is_admin?
+#         redirect_to user_projects_path(current_user), flash[:error] = "you are not admin, change settings in profile" # halts request cycle
+#       end
+#     end
+#   end
+#
+#   def is_admin?
+#     # @project = Project.find_by_id(params[:id])
+#     current_user.admin == true ? true : false
+#   end
+#
 end

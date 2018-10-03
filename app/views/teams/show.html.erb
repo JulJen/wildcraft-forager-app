@@ -2,27 +2,15 @@
   <div style="text-align: center;">
     <div style="display: inline-block; text-align: left;">
 
-      <% if @team_update_message %>
-        <p><%= @team_update_message %></p>
-      <% end %>
-
-      <% if @member_success_message %>
-        <p><%= @member_success_message %></p>
-      <% end %>
 
       <h1>Team: <%= "#{@team.name.gsub(/"|\[|\]/, '').capitalize}" %></h1>
-      <% if !@team.industry_id.nil? %>
+      <% if !@team.category_id.nil? %>
         <h4>Category: <%= @team.team_category %></h4>
-      <% elsif @team.industry_id.nil? &&!!@team_admin_id %>
+      <% elsif @team.category_id.nil? && current_user.team_admin %>
         <%= link_to "Add category", edit_team_path(@team.id) %>
       <% end %>
 
-
-      <% if @project_delete_message %>
-        <p><%= @project_delete_message %></p>
-      <% end %>
-
-      <% if !@current_projects.empty? && !!@team_admin %>
+      <% if !!@current_projects && @!!@team_admin %>
         <h2>Your projects: <%= @current_projects.length %></h2>
 
         <% @current_projects.each do |project| %>
@@ -32,15 +20,16 @@
         <% end %>
       <% elsif !!@team_admin %>
         <h3 align="left">No projects yet. Need ideas?</h3>
-        <h3 align="left"><%= link_to "Start project", new_team_project_path(@team.id) %></h3>
+        <h3 align="left"><%= link_to "Start project", new_team_project_path(@team) %></h3>
       <% else %>
         <h3 align="left">No projects yet. Suggest ideas to team admin.</h3>
       <% end %><br>
 
 
-      <% if !@current_members.empty?%>
+      <% if !!@current_members%>
         <h4>Team members: <%= @current_members.size %></h4>
         <% @current_members.each do |member| %>
+          <% if member.user_id == %>
           <li>
             <%= link_to "#{member.member_name}", team_member_path(@team, member.id) %>
           </li>

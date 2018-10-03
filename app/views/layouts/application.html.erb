@@ -11,6 +11,14 @@
 
   <body>
     <h4 align="left"><%= render partial: "layouts/navbar", locals: {user: current_user} %></h4>
+
+    <div style="text-align: center;">
+      <%- flash.each do |name, message| %>
+        <p><i><%= "#{name}: #{message}" %></i></p>
+      <% end %>
+      <%= debug(params) if Rails.env.development? %>
+    </div>
+
     <%= yield %>
   </body>
 </html>

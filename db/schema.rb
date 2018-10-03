@@ -12,13 +12,13 @@
 
 ActiveRecord::Schema.define(version: 2018_09_24_210445) do
 
-  create_table "industries", force: :cascade do |t|
-    t.string "category"
+  create_table "categories", force: :cascade do |t|
+    t.string "industry_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "members", force: :cascade do |t|
+  create_table "memberships", force: :cascade do |t|
     t.integer "user_id"
     t.integer "team_id"
     t.datetime "created_at", null: false
@@ -35,8 +35,9 @@ ActiveRecord::Schema.define(version: 2018_09_24_210445) do
   end
 
   create_table "tasks", force: :cascade do |t|
-    t.text "comment"
+    t.text "name"
     t.integer "project_id"
+    t.integer "user_id"
     t.boolean "status", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -44,9 +45,7 @@ ActiveRecord::Schema.define(version: 2018_09_24_210445) do
 
   create_table "teams", force: :cascade do |t|
     t.string "name"
-    t.integer "industry_id"
-    t.integer "user_id"
-    t.boolean "team_admin", default: true
+    t.integer "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -58,13 +57,15 @@ ActiveRecord::Schema.define(version: 2018_09_24_210445) do
     t.string "email"
     t.text "image"
     t.string "time_zone"
-    t.boolean "status", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.string "language"
+    t.string "string"
     t.string "gender"
     t.string "programlanguage"
     t.string "interest"
+    t.boolean "team_admin", default: false
+    t.boolean "status", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

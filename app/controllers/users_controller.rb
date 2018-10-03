@@ -1,9 +1,19 @@
 class UsersController < ApplicationController
   before_action :require_logged_in, except: %i[new create]
 
+
   def index
     @user = current_user
+    @projects = Project.all
+    @current_projects = current_user.projects
+
+    if current_user.admin == true
+      @admin_projects = current_user.projects
+    else
+      @member_projects = current_user.projects
+    end
   end
+
 
   def new
     if !current_user
@@ -22,18 +32,17 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       session[:user_id] = @user.id
-      session[:success] = "User account created successfully!"
+      flash[:success] = "User account created successfully!"
       redirect_to main_path
     else
-      session[:failure] = "Failure, user account not saved."
+      flash[:failure] = "Failure, user account not saved."
       render :new
     end
   end
 
   def show
     if params[:id].to_i == current_user.id
-      @success_message = session[:success]
-      session[:success] = nil
+      render :show
     else
       redirect_to '/404'
     end
@@ -48,6 +57,7 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @user = current_user
     if params[:id].to_i == current_user.id
       render :edit
     else
@@ -58,7 +68,7 @@ class UsersController < ApplicationController
   def update
     if current_user.update(profile_params)
       redirect_to profile_path(current_user)
-      session[:user_update] = "Profile succesfully updated!"
+      flash[:success] = "Profile succesfully updated!"
     else
       render :edit
     end
@@ -67,11 +77,11 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password)
+    params.require(:user).permit(:name, :email, :password, :admin)
   end
 
   def profile_params
-    params.require(:user).permit(:language, :gender, :interest, :time_zone)
+    params.require(:user).permit(:language, :interest, :time_zone, :admin)
   end
 
 end
