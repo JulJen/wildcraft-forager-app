@@ -11,9 +11,9 @@ class Project < ApplicationRecord #formerly team
 
   # validates :category_id, presence: true
 
-  def team_category
-    Category.find(self.team_id).industry_name
-  end
+  # def project_category
+  #   Category.find(self.project_id).name
+  # end
 
 
 
