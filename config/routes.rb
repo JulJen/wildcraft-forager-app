@@ -31,12 +31,29 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :projects
-    # , only: %i[new edit destroy]
+    # , except: %i[index show]
   end
 
+  # namespace :admin do
+  #   resources :posts
+  #   # , except: %i[show]
+  # end
+
+  # scope module: 'admin', path: 'admin', as: 'admin' do
+  #   resources :projects
+  #   # , except: %i[show]
+  # end
+
   resources :projects, only: %i[index show] do
-    resources :posts, path: :member, except: %i[index]
+    resources :posts
+    # , except: %i[index show]
   end
+
+
+
+  # resources :projects, only: %i[index show] do
+  #     resources :posts, only: %i[index show]
+  # end
 
 
 
