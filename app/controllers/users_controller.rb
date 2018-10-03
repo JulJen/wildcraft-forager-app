@@ -4,13 +4,13 @@ class UsersController < ApplicationController
 
   def index
     @user = current_user
-    @teams = Team.all
-    @current_teams = current_user.teams
+    @projects = Project.all
+    @current_projects = current_user.projects
 
-    if !!@team_admin
-      @admin_teams = current_user.teams
-    elsif !@user_admin
-      @team_memberships = current_user.memberships
+    if current_user.admin == true
+      @admin_projects = current_user.projects
+    else
+      @member_projects = current_user.projects
     end
   end
 
@@ -77,15 +77,11 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :team_admin)
+    params.require(:user).permit(:name, :email, :password, :admin)
   end
 
   def profile_params
-    params.require(:user).permit(:language, :interest, :time_zone, :team_admin)
-  end
-
-  def team_admin
-    @team_admin = current_user.team_admin if current_user.team_admin == true
+    params.require(:user).permit(:language, :interest, :time_zone, :admin)
   end
 
 end

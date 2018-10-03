@@ -3,7 +3,6 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   helper_method :require_logged_in, :current_user, :find_user
 
-  # <%= form_for  @user, as: :user, url: signup_path do |f| %>
 
   def clear_user
     @current_user = nil
@@ -31,7 +30,6 @@ class ApplicationController < ActionController::Base
   end
 
 
-
   def logged_in?
     !!current_user
   end
@@ -52,23 +50,6 @@ class ApplicationController < ActionController::Base
     clear_user
     redirect_to signin_path
   end
-
-  def my_team
-    @my_team = Team.find_by_id(params[:id]) if current_user
-  end
-
-  def current_teams
-    @current_teams = current_user.teams if current_user
-  end
-
-  def current_projects
-    @current_projects = current_user.projects if current_user
-  end
-
-  def current_members
-    @current_members = @project.members if @project
-  end
-
 
 
   # def find_team
