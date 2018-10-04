@@ -2,8 +2,8 @@
   <div style="text-align: center;">
     <div style="display: inline-block; text-align: left;">
 
-      <h3>Project: <%= link_to @project.name.gsub(/"|\[|\]/, ''), @team %></h3>
-      <h3>Description: <%= @project.description.gsub(/"|\[|\]/, '') %></h3>
+      <h3>Project: <%= link_to "#{@project.name}",  edit_project_path(@project) %></h3>
+      <h3>Description: <%= @project.description %></h3>
 
       <% if !@current_posts.empty?%>
 
@@ -17,20 +17,12 @@
       <br>
 
       <% @current_posts.each do |post| %>
-        <% if post.status == true %>
-          <h4> Completed - <%= link_to "#{post.name}", edit_project_post_path(post.project_id, post.id) %></h4>
-        <% else %>
-          <h4> In Progress - <%= link_to "#{post.name}", edit_project_post_path(post.project_id, post.id) %></h4>
+        <!-- <% if post.status == true %> -->
+          <h4> Inactive - <%= link_to "#{post.name}", edit_project_post_path(post.project_id, post.id) %></h4>
+        <!-- <% else %> -->
+          <h4> Active - <%= link_to "#{post.name}", edit_project_post_path(post.project_id, post.id) %></h4>
         <% end %>
       <% end %>
-
-
-      <% if current_user.admin == true %>
-        <h3><%= link_to "Add post", new_project_post_path(@project) %></h3>
-      <% else %>
-        <h3>No new tasks</h3><br>
-      <% end %>
-
 
        <br>
 

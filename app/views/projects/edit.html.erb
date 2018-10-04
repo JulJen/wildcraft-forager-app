@@ -1,45 +1,42 @@
 <div>
   <div style="text-align: center;">
-    <div style="display: inline-block; text-align: center;">
+    <div style="display: inline-block; text-align: left;">
 
-      <h2 align="center">Edit Project: <%= @project.name %></h2><br>
+      <h1 align="center">Edit your project</h1>
 
-        <%= simple_form_for @project do |f| %>
+      <%= simple_form_for @project do |f| %>
 
         <%= f.error_notification %>
 
-        <% if @project.errors.any? %>
-          <div id="error_explanation">
-            <h2>
-              <%= pluralize(@project.errors.count, "error") %>
-              prohibited team from being saved:
-            </h2>
-            <ul>
-            <% @project.errors.full_messages.each do |msg| %>
-              <li><%= msg %></li>
-            <% end %>
-            </ul>
-          </div>
-        <% end %>
+        <br><br>
 
-        <%= f.input :name %><br>
 
-        <%= f.input :description %><br>
+        <%= f.input :name, include_blank: false %><br><br>
+
+        <%= f.input :description, include_blank: false %><br><br>
+
+        <%= f.collection_select :category_id, Category.all.order(:name), :id, :name, {include_blank: "Select frome existing categories"} %>
 
         <br><br>
 
-        <%= f.submit 'Update Project' %>
+        <%= f.submit 'Update' %>
+
       <% end %>
 
-      <br>
+      <br><br>
 
-    <div style="width: 500px;margin:auto">
-      <img style="width: 500px" src="https://images.pexels.com/photos/355948/pexels-photo-355948.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
+      <h3><%= link_to "Add post", new_project_post_path(@project) %></h3>
+
+      <br><br>
+
+      <h3>Delete Project?</h3>
+      <%= link_to "Yes, delete", project_path(@project), method: :delete %>
+
+
+
+      <div style="width: 500px;margin:auto">
+        <img style="width: 500px" src="https://images.pexels.com/photos/316465/pexels-photo-316465.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260">
+      </div>
     </div>
-
-    <br>
-
-    <%= link_to "Delete Project", project_path(@project), method: :delete %>
-
   </div>
 </div>

@@ -4,8 +4,36 @@
 
       <h1 align="center">Edit Post: <%= @post.name %></h1>
       <h3 align="center">Project: <%= @project.name %></h3>
-      <h3 align="center"><%= @failure_message if @failure_message %></h3>
-      <h3 align="center"><%= render 'form' %></h3>
+
+      <%= simple_form_for [:project, @post] do |f| %>
+
+        <%= f.error_notification %>
+
+        <br><br>
+
+
+        <%= f.input :name, include_blank: false %><br><br>
+
+        <%= f.input :description, include_blank: false %><br><br>
+
+        <br>
+
+        <%= f.label :status, "check box if completed" %>
+
+        <%= f.check_box :status, {}, true, false %>
+
+
+        <br><br>
+
+        <%= f.submit 'Update' %>
+
+      <% end %>
+
+      <br><br>
+
+      <%= link_to "Delete Post", project_path(@project), method: :delete %>
+
+
 
       <div style="width: 500px;margin:auto">
         <img style="width: 500px" src="https://images.pexels.com/photos/316465/pexels-photo-316465.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260">

@@ -10,8 +10,10 @@ class Post < ApplicationRecord #formerly projects
   validates :name, uniqueness: true
   validates :description,  presence: true
 
-  scope :active, -> { where(status: false) }
+  validates :status, :inclusion => {:in => [true, false]}
+
   scope :inactive, -> { where(status: true) }
+  scope :active, -> { where(status: false) }
 
 
 

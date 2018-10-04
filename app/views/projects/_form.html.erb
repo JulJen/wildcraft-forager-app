@@ -1,29 +1,18 @@
-<%= simple_form_for [@team, @project] do |f| %>
+<%= simple_form_for @project do |f| %>
 
   <%= f.error_notification %>
 
-  <% if @project.errors.any? %>
-    <div id="error_explanation">
-      <h2>
-        <%= pluralize(@project.errors.count, "error") %>
-        prohibited team from being saved:
-      </h2>
+  <br><br>
 
-      <ul>
-      <% @project.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-      <ul>
-    </div>
-  <% end %>
 
-  <%= f.input :name %><br>
+  <%= f.input :name, include_blank: false %><br><br>
 
-  <%= f.input :description %><br>
+  <%= f.input :description, include_blank: false %><br><br>
+
+  <%= f.collection_select :category_id, Category.all.order(:name), :id, :name, {include_blank: "Select frome existing categories"} %>
 
   <br><br>
 
-  <%= f.button :submit, value: 'Create Project' %>
+  <%= f.submit 'Create' %>
 
 <% end %>

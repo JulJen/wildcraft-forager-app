@@ -7,12 +7,12 @@
     <div style="display: inline-block; text-align: left;">
 
 
-      <% if !@categories.empty? %>
-        <h2>Industries: <%= @categories.length %></h2>
+      <% if !@projects.empty? %>
+        <h2>Public Projects </h2>
 
-        <% @categories.each do |f| %>
+        <% @projects.each do |f| %>
           <li>
-          <%= link_to "#{f.industry_name.gsub(/"|\[|\]/, '')}", categories_teams_path(f) %>
+          <%= link_to "#{f.name.gsub(/"|\[|\]/, '')}", f %>
           </li>
         <% end %>
 

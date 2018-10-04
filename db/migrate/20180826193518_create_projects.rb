@@ -3,6 +3,7 @@ class CreateProjects < ActiveRecord::Migration[5.2]
     create_table :projects do |t|
       t.string :name
       t.text :description
+      t.integer :category_id
       t.boolean :status, default: false
 
       t.datetime "created_at", null: false

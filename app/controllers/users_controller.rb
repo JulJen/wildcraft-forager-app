@@ -1,17 +1,10 @@
 class UsersController < ApplicationController
   before_action :require_logged_in, except: %i[new create]
 
-
   def index
     @user = current_user
     @projects = Project.all
     @current_projects = current_user.projects
-
-    if current_user.admin == true
-      @admin_projects = current_user.projects
-    else
-      @member_projects = current_user.projects
-    end
   end
 
 

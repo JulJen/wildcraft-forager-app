@@ -11,8 +11,6 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.string :gender, :string
       t.string :programlanguage, :string
       t.string :interest
-
-      t.boolean :admin, default: false
       t.boolean :status, default: false
 
       t.datetime "created_at", null: false

@@ -29,40 +29,10 @@ Rails.application.routes.draw do
 
   resources :users, path: :profile, shallow: true, only: %i[show edit update]
 
-  namespace :admin do
-    resources :projects
-    # , except: %i[index show]
-  end
 
-  # namespace :admin do
-  #   resources :posts
-  #   # , except: %i[show]
-  # end
-
-  # scope module: 'admin', path: 'admin', as: 'admin' do
-  #   resources :projects
-  #   # , except: %i[show]
-  # end
-
-  resources :projects, only: %i[index show] do
+  resources :projects do
     resources :posts
-    # , except: %i[index show]
   end
 
 
-
-  # resources :projects, only: %i[index show] do
-  #     resources :posts, only: %i[index show]
-  # end
-
-
-
-
-  # index
-  # new
-  # create
-  # show
-  # edit
-  # update
-  # destroy
 end

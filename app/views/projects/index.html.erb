@@ -2,19 +2,20 @@
   <div style="text-align: center;">
     <div style="display: inline-block; text-align: left;">
 
-      <div style="width: 500px;margin:auto">
-        <img style="width: 500px" src="https://images.pexels.com/photos/1266005/pexels-photo-1266005.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
-      </div>
+      <h2>Current projects: <%= current_user.projects.length %></h2>
 
-      <% @projects.each do |proj| %>
+      <% current_user.projects.each do |project| %>
         <li>
-        <%= link_to "#{proj.name.capitalize.gsub(/"|\[|\]/, '')}", project_path(proj.id) %>
+        <%= link_to "#{project.name.capitalize}", project_path(project.id) %>
         </li>
       <% end %>
 
-      <br>
 
+    <br>
 
+    <div style="width: 500px;margin:auto">
+      <img style="width: 500px" src="https://images.pexels.com/photos/1266005/pexels-photo-1266005.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
+    </div>
 
     </div>
   </div>

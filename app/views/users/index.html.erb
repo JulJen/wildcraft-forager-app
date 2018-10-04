@@ -2,30 +2,7 @@
   <div style="text-align: center;">
     <div style="display: inline-block; text-align: left;">
 
-      <h3 align="center">Hi <%= current_user.name.capitalize %>, what are you working on today?</h3>
-
-    <% if current_user.admin == true %>
-      <h3 align="center">Status: <%= link_to "Admin", edit_profile_path(current_user) %></h3>
-
-      <% if !current_user.projects.empty? %>
-        <% if @admin_projects.size == 1 %>
-          <h3 align="center">You are admin on <%= link_to "#{@admin_projects.size} project", admin_projects_path %> </h3>
-        <% elsif current_user.projects.size >= 2 %>
-          <h3 align="center">You are admin on <%= link_to "#{@admin_projects.size} projects", admin_projects_path %> </h3>
-        <% end %>
-      <% else %>
-        <h3 align="center"><%= link_to "Create a project",  new_admin_project_path %></h3>
-      <% end %>
-
-    <% elsif current_user.admin == false %>
-      <h3 align="center">Status: <%= link_to "Member", edit_profile_path(current_user) %></h3>
-
-      <% if current_user.projects.empty? %>
-        <h3 align="center"><%= link_to "Create a project",  new_admin_project_path %></h3>
-      <% else %>
-        <h3 align="center">See your project groups - <%= link_to "#{@member_projects.size} project", projects_path %> </h3>
-      <% end %>
-    <% end %>
+    <h3 align="center">Hi <%= current_user.name.capitalize %>, what are you working on today?</h3>
 
 
 

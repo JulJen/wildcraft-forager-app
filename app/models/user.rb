@@ -16,12 +16,6 @@ class User < ApplicationRecord
 
   validates_length_of :name, within: 2..30, too_long: 'pick a shorter name', too_short: 'pick a longer name'
 
-  validates :admin, :inclusion => {:in => [true, false]}
-
-
-  # def self.admin_user
-  #   return User.where(id: @user).select(params[:team_admin].to_sym => true)
-  # end
 
   def self.grab_teammate(user_id)
     @member = User.find_by_id(user_id).id

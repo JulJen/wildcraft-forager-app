@@ -2,17 +2,9 @@
   <strong>Project Manageable</strong><br>
   <li><%= link_to "Dashboard", main_path %></li>
   <li><%= link_to "#{current_user.name.capitalize}'s profile", profile_path(current_user) %></li>
-  <li><%= link_to "Public Projects", projects_path%></li>
-
-  <% if current_user.admin == true %>
-    <li><%= link_to "Create a project",  new_admin_project_path %></li>
-    <% if !current_user.projects.empty? %>
-      <li><%= link_to "Admin projects",  admin_projects_path %></li>
-    <% end %>
-  <% else %>
-    <li><%= link_to "Projects",  projects_path %></li>
-  <% end %>
-
+  <li><%= link_to "Public Projects", categories_path%></li>
+  <li><%= link_to "Your Projects", projects_path%></li>
+  <li><%= link_to "Create a project",  new_project_path %></li>
   <li><%= link_to "Log Out", logout_path, method: :delete %></li>
 
 <% elsif current_page?(:controller => 'application', :action => 'welcome') %>

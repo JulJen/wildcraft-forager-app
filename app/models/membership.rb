@@ -1,10 +1,13 @@
 class Membership < ApplicationRecord  #join table
-  belongs_to :user
-  belongs_to :project
+  belongs_to :user, optional: true
+  belongs_to :project, optional: true
 
   # include ActiveModel::Validations
 
-  # validates :name, presence: true
+  validates :admin, :inclusion => {:in => [true, false]}
+
+  scope :project_admin, -> { where(admin: true) }
+  scope :project_member, -> { where(admin: false) }
 
 
   # scope :formatted_updated_at, -> { order(formatted_updated_at: :desc) }
@@ -19,9 +22,6 @@ class Membership < ApplicationRecord  #join table
   #   created_at.to_formatted_s(:long_ordinal)
   # end
 
-  # validates :user_id, presence: true
-
-  #querying team(project_id) + category_name
 
 
   def member_name
