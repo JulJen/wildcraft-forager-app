@@ -6,11 +6,6 @@ class User < ApplicationRecord
   has_many :comments
   has_many :posts, through: :comments
 
-  #membership
-  # scope :project_admin, -> { where(admin: true) }
-
-  scope :project_admin, ->{ joins(:name).merge(Membership.project_admin) }
-
 
   include ActiveModel::Validations
 

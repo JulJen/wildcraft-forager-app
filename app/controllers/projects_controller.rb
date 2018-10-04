@@ -24,7 +24,6 @@ class ProjectsController < ApplicationController
     if current_user.memberships.create(project: @project, admin: true)
       @project.save
       # current_user.memberships.build(project: @project, admin: true)
-
       flash[:success] = "Admin: project created successfully!"
       redirect_to  @project
     else
@@ -35,8 +34,10 @@ class ProjectsController < ApplicationController
   def show
     @project = Project.find_by_id(params[:id])
 
+    @admin_by_name = admin_by_name.capitalize if @project.memberships.any?
+    @category_by_name = category_by_name if !!@project.category_id
+
     @current_members = current_user.memberships
-    @show_category = @project.category_id
 
     @current_projects = current_user.projects
     @current_posts = @project.posts
@@ -52,6 +53,9 @@ class ProjectsController < ApplicationController
         @current_posts
       end
     end
+
+
+binding.pry
   end
 
 
@@ -97,11 +101,32 @@ class ProjectsController < ApplicationController
       end
     end
   end
-  #
+
   def is_admin?
     @project = Project.find_by_id(params[:id])
     @current_admin = Membership.where(user_id: current_user.id, admin: true).distinct.pluck(:user_id)
     @current_admin == @project.memberships.map(&:user_id)
+  end
+
+  def find_user_name
+    user  = @project.memberships.pluck(:user_id)
+    @find_user = User.find_by(id: user)
+    @find_user.name
+  end
+
+  def member_by_name
+    user  = @project.memberships.where(admin: false).pluck(:user_id)
+    @member_by_name = User.find_by(id: user).name
+  end
+
+  def admin_by_name
+    admin_user = @project.memberships.where(admin: true).pluck(:user_id)
+    @admin_by_name = User.find_by(id: admin_user).name
+  end
+
+  def category_by_name
+    category = Category.find_by_id(@project.category_id)
+    @category_by_name = category.name
   end
 
 end

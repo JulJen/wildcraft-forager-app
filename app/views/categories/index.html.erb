@@ -6,9 +6,13 @@
   <div style="text-align: center;">
     <div style="display: inline-block; text-align: left;">
 
-
       <% if !@projects.empty? %>
         <h2>Public Projects </h2>
+
+        <%= form_tag categories_path, method: :get do |f| %>
+          <% select("sort", "filters", options_for_select(@filters))%>
+          <%= submit_tag "Search!" %>
+        <% end %>
 
         <% @projects.each do |f| %>
           <li>

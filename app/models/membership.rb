@@ -10,7 +10,6 @@ class Membership < ApplicationRecord  #join table
   scope :project_member, -> { where(admin: false) }
 
 
-  scope :current_admin, -> { where(user_id: current_user.id, admin: true) }
 
   # Membership.project_admin.distinct.pluck(:user_id)
 
@@ -54,14 +53,23 @@ class Membership < ApplicationRecord  #join table
   end
 
   # Membership.project_admin.where(user_id: current_user.id, admin: true)
+
+
   # @project.memberships.map(&:user_id) == @current_admin
   # @project.memberships.pluck(:user_id) == @current_admin
 
-
-
+# User.all.collect(&:name)
+# User.joins(:memberships).select('users.name')
   #
   # def member_name
   #   User.find(self.user_id).name
   # end
 
+
+  # @zombie = Zombie.find 1
+  # @statuses = @zombie.body_statuses.false.pluck(:body_id) #-> array of IDs with "false" status
+  #
+  # @user.tools.joins(:body_impacts).where('body_impacts.body_id IN (?)', @statuses)
+  # ## or
+  # @user.tools.joins(:body_impacts).find_by(id: @statuses)
 end
