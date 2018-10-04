@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
   include ApplicationHelper
   before_action :require_logged_in
-  # before_action :authenticate_user, only: %i[create update destroy]
+  before_action :authenticate_user, only: %i[update destroy]
 
   def index
     @user = current_user
@@ -56,8 +56,10 @@ class ProjectsController < ApplicationController
 
 
   def edit
-    binding.pry
-    @project = Project.find_by_id(params[:id])
+    unless is_admin?
+      redirect_to @project
+    end
+    # @project.memberships.where(user_id: current_user.id, admin: true)
   end
 
 
@@ -88,18 +90,18 @@ class ProjectsController < ApplicationController
     params.require(:project).permit(:name, :description, :category_id)
   end
 
-
-  # def authenticate_user
-  #   if logged_in?
-  #     unless is_admin?
-  #       redirect_to user_projects_path(current_user), flash[:error] = "you are not admin, change settings in profile" # halts request cycle
-  #     end
-  #   end
-  # end
+  def authenticate_user
+    if logged_in?
+      unless is_admin?
+        flash[:error] = "Sorry, admin access only."
+      end
+    end
+  end
   #
-  # def is_admin?
-  #   # @project = Project.find_by_id(params[:id])
-  #   current_user.admin == true ? true : false
-  # end
+  def is_admin?
+    @project = Project.find_by_id(params[:id])
+    @current_admin = Membership.where(user_id: current_user.id, admin: true).distinct.pluck(:user_id)
+    @current_admin == @project.memberships.map(&:user_id)
+  end
 
 end

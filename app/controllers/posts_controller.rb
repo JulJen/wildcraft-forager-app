@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :require_logged_in
-  # before_action :authenticate_user, only: %i[new edit update destroy]
+  before_action :authenticate_user, only: %i[update destroy]
 
   def new
     @project = Project.find_by_id(params[:project_id])
@@ -31,6 +31,10 @@ class PostsController < ApplicationController
   def edit
     @post = Post.find_by_id(params[:id])
     @project = Project.find_by_id(@post.project_id)
+
+    unless is_admin?
+      redirect_to project_post_path(@project, @post)
+    end
   end
 
 
@@ -64,18 +68,18 @@ class PostsController < ApplicationController
     params.require(:post).permit(:name, :description, :status)
   end
 
-  # def authenticate_user
-  #   if !!logged_in?
-  #     unless !!is_admin?
-  #       flash[:error] = "You are not admin of this project"
-  #       redirect_to project_path(@project) # halts request cycle
-  #     end
-  #   end
-  # end
-  #
-  # def is_admin?
-  #   # @team = Team.find_by(user_id: current_user) if current_user
-  #   current_user.admin == true ? true : false
-  # end
+  def authenticate_user
+    if logged_in?
+      unless is_admin?
+        flash[:error] = "Sorry, admin access only."
+      end
+    end
+  end
+
+  def is_admin?
+    @project = Project.find_by_id(params[:project_id])
+    @current_admin = Membership.where(user_id: current_user.id, admin: true).distinct.pluck(:user_id)
+    @current_admin == @project.memberships.map(&:user_id)
+  end
 
 end
