@@ -1,26 +1,30 @@
 <div>
-  <div style="width: 500px;margin:auto">
-    <img style="width: 500px" src="https://images.pexels.com/photos/207896/pexels-photo-207896.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940">
-  </div>
-
   <div style="text-align: center;">
     <div style="display: inline-block; text-align: left;">
 
-      <% if !@projects.empty? %>
+      <% if !!@projects %>
         <h2>Public Projects </h2>
 
-        <%= form_tag categories_path, method: :get do |f| %>
-          <% select("sort", "filters", options_for_select(@filters))%>
-          <%= submit_tag "Search!" %>
+        <%= form_tag categories_path, method: :get do %>
+          <%= select(:sort, "filters", options_from_collection_for_select(@categories, 'id', 'name'))%>
+          <%= submit_tag "Sort" %>
         <% end %>
 
-        <% @projects.each do |f| %>
+        <br><br>
+
+        <% @projects.each do |project| %>
           <li>
-          <%= link_to "#{f.name.gsub(/"|\[|\]/, '')}", f %>
+          <%= link_to "#{project.name.gsub(/"|\[|\]/, '')}", project %>
           </li>
         <% end %>
 
       <% end %>
+
+      <br><br>
+
+      <div style="width: 500px;margin:auto">
+        <img style="width: 500px" src="https://images.pexels.com/photos/207896/pexels-photo-207896.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940">
+      </div>
 
     </div>
   </div>

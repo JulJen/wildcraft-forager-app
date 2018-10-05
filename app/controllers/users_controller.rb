@@ -11,14 +11,9 @@ class UsersController < ApplicationController
   def new
     if !current_user
       @user = User.new
-      @failure_message = session[:failure]
-      session[:failure] = nil
     else
       redirect_to user_path(current_user)
     end
-
-    @siginin_failure_message = session[:failure]
-    session[:failure] = nil
   end
 
   def create

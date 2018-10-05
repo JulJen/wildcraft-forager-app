@@ -13,7 +13,7 @@ class PostsController < ApplicationController
     if @post.save
       @project.posts << @post
 
-      session[:success] = "Post created successfully!"
+      flash[:success] = "Post created successfully!"
       redirect_to @project
     else
       render :new
@@ -31,7 +31,6 @@ class PostsController < ApplicationController
   def edit
     @post = Post.find_by_id(params[:id])
     @project = Project.find_by_id(@post.project_id)
-
     unless is_admin?
       redirect_to project_post_path(@project, @post)
     end
@@ -43,7 +42,7 @@ class PostsController < ApplicationController
     @post = Post.find_by_id(params[:id])
     @project = Project.find_by_id(@post.project_id)
     if @post.update(post_params)
-      session[:update] = "Post updated."
+      flash[:update] = "Post updated."
       redirect_to project_path(@project)
     else
       render :edit
@@ -77,9 +76,11 @@ class PostsController < ApplicationController
   end
 
   def is_admin?
-    @project = Project.find_by_id(params[:project_id])
-    @current_admin = Membership.where(user_id: current_user.id, admin: true).distinct.pluck(:user_id)
-    @current_admin == @project.memberships.map(&:user_id)
+    @post = Post.find_by_id(params[:id])
+    @project = Project.find_by_id(@post.project_id)
+    u = Membership.where(user_id: current_user.id, admin: true).distinct.pluck(:user_id)
+    u_id = u.join(', ').to_i
+    u_id == current_user.id
   end
 
 end

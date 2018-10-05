@@ -11,6 +11,9 @@ class Project < ApplicationRecord
   validates :name, presence: true
   validates :name, uniqueness: true
 
+  scope :by_recent_update, -> { order(updated_at: :desc) }
+  scope :alphabetical_order, -> {order(name: :asc)}
+
   # validates :category_id, presence: true
 
 

@@ -1,5 +1,7 @@
 class Category < ApplicationRecord
   has_many :projects
+
+  scope :alphabetical_order, -> {order(name: :asc)}
   #
   # include ActiveModel::Validations
   #

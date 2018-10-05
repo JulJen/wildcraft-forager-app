@@ -33,7 +33,6 @@ class ProjectsController < ApplicationController
 
   def show
     @project = Project.find_by_id(params[:id])
-
     @admin_by_name = admin_by_name.capitalize if @project.memberships.any?
     @category_by_name = category_by_name if !!@project.category_id
 
@@ -43,19 +42,16 @@ class ProjectsController < ApplicationController
     @current_posts = @project.posts
 
     if !!@current_posts
-      @filters = [["Active", "active"], ["Inactive", "inactive"]]
-      # @filters = [["Active", "active"],["Updated At","formatted_updated_at", {:selected => "selected"}], ["Created At","formatted_created_at", {:selected => "selected"}]]
+      @filters = [["Active", "active"], ["Inactive", "inactive"], ["Recent Update","by_recent_update", {:selected => "selected"}]]
+
       if params[:sort]
         # @tasks = Task.send(params[:sort][:filters])
-        @current_post = @current_posts.send(params[:sort][:filters].parameterize.to_sym)
+        @current_posts = @current_posts.send(params[:sort][:filters].parameterize.to_sym)
       # @project.tasks = Task.all(:order => 'updated_at DESC')
       else
-        @current_posts
+        @current_posts = @project.posts.order(updated_at: :desc)
       end
     end
-
-
-binding.pry
   end
 
 
