@@ -22,12 +22,12 @@ Rails.application.routes.draw do
 
   delete '/logout' => 'sessions#destroy', :as => 'logout'
 
-  get '/dashboard/profile/:id/edit' => 'users#edit', :as => 'edit_profile'
-  get '/dashboard/profile/:id' => 'users#show', :as => 'profile'
-
-  get '/dashboard/member_profile/:id' => 'users#member_show', :as => 'member_profile'
-
+  # get '/dashboard/profile/:id/edit' => 'users#edit', :as => 'edit_profile'
+  # get '/dashboard/profile/:id' => 'users#show', :as => 'profile'
+  #
   resources :users, path: :profile, shallow: true, only: %i[show edit update]
+
+  get '/projects/:id/member_profile/:id' => 'users#member_show', :as => 'member_profile'
 
 
   resources :projects do
