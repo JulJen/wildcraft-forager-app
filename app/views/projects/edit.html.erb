@@ -6,13 +6,21 @@
 
         <% if @project.posts.empty? %>
           <h1 align="center">Project Status: pending</h1>
+<<<<<<< HEAD
           <h4 align="center"><%= link_to "Add a post", new_project_post_path(@project) %> to change status to active. </h4>
+=======
+          <h3 align="center"><%= link_to "Add a post", new_project_post_path(@project) %> to change status to active. </h3>
+>>>>>>> members_feature
         <% else %>
           <h1 align="center">Project Status: active</h1>
           <h3 align="center"><%= link_to "Add new post", new_project_post_path(@project) %></h3>
         <% end %>
 
+<<<<<<< HEAD
         <h3 align="center"><%= link_to "Invite new member",  new_project_member_path(@project) %></h3>
+=======
+        <h3 align="center"><%= link_to "Invite new member",  new_member_path(@project) %></h3>
+>>>>>>> members_feature
 
       <% end %>
 
