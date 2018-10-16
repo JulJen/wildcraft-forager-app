@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   post '/signup' => 'users#create'
   get '/dashboard' => 'users#index', :as => 'main'
 
+
   get '/dashboard/categories' => 'categories#index', :as => 'categories'
   get '/categories/:id' => 'categories#show', :as => 'categories_teams'
 
@@ -26,12 +27,15 @@ Rails.application.routes.draw do
   #
   resources :users, path: :profile, shallow: true, only: %i[show edit update]
 
-  get '/projects/:id/member_profile/:id' => 'users#member_show', :as => 'member_profile'
-
-
   resources :projects do
     resources :posts
   end
+
+  get '/projects/:id/members' => 'users#member_new', :as => 'new_project_member'
+  post '/projects/:id/members/:id' => 'users#member_create'
+
+  get '/members/:id/profile' => 'users#member_show', :as => 'member_profile'
+
 
 
 end
