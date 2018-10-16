@@ -1,9 +1,12 @@
 <div>
   <h1 align="center">Project Manageable</h1>
+
+  <h2 align="center">Sign in</h2>
+
+  <h4 align="center"><%= render partial: "form", locals: {user: @user, users: @users} %></h4>
+
   <div style="width: 500px;margin:auto">
     <img style="width: 500px" src="https://images.pexels.com/photos/917475/pexels-photo-917475.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940">
   </div>
-  <h3 align="center"><%= @siginin_failure_message if @siginin_failure_message %></h3>
-  <h2 align="center">Sign in</h2>
-  <h4 align="center"><%= render partial: "form", locals: {user: @user, users: @users} %></h4>
+
 </div>
