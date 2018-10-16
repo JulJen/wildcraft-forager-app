@@ -24,6 +24,11 @@ class User < ApplicationRecord
     return User.where(id: @member).select(:id, :name, :email, :time_zone, :language, :gender, :interest, :image).take
   end
 
+  def self.find_user_name(user_id)
+    user = User.find_by_id(user_id)
+    @find_user_name = user.name
+  end
+
 end
   # before_validation :remove_whitespaces
 

@@ -8,6 +8,20 @@
       <p>Project admin: <%= @admin_by_name %></p>
 
 
+      <% if !@current_members.empty? %>
+        <p>Members: <p>
+        <% @current_members.each do |member| %>
+          <ul>
+          <%=  find_user_name(member) %>
+          </ul>
+        <% end %>
+
+      <% elsif @admin_invite == true  %>
+        <p>No members yet, <b><%= link_to "invite new member",  new_member_path(@project) %></b></p>
+
+      <% else %>
+        <p>No members yet.</p>
+      <% end %>
 
 
       <% if !@current_posts.empty?%>

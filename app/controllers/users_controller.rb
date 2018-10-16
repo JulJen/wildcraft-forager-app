@@ -36,9 +36,11 @@ class UsersController < ApplicationController
     end
   end
 
-  def member_show
+# //new membership feature //
+  def show_member
     if !!params[:id]
       @member = User.grab_teammate(params[:id])
+      render show_member
     else
       redirect_to '/404'
     end
