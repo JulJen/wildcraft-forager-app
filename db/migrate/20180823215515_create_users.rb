@@ -7,9 +7,9 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.string :email
       t.text :image
       t.string :time_zone
-      t.string :language, :string
-      t.string :gender, :string
-      t.string :programlanguage, :string
+      t.string :language
+      t.string :gender
+      t.string :programlanguage
       t.string :interest
       t.boolean :status, default: false
 
