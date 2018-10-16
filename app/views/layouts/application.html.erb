@@ -16,7 +16,7 @@
       <%- flash.each do |name, message| %>
         <p><i><%= "#{name}: #{message}" %></i></p>
       <% end %>
-      <%= debug(params) if Rails.env.development? %>
+      <!-- <%= debug(params) if Rails.env.development? %> -->
     </div>
 
     <%= yield %>
