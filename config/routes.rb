@@ -23,15 +23,17 @@ Rails.application.routes.draw do
 
   get '/dashboard/profile/:id/edit' => 'users#edit', :as => 'edit_profile'
   get '/dashboard/profile/:id' => 'users#show', :as => 'profile'
-  #
+
   resources :users, path: :profile, shallow: true, only: %i[show edit update]
 
-  get '/projects/:id/member_profile/:id' => 'users#member_show', :as => 'member_profile'
+  get '/members/:id' => 'users#show_member', :as => 'show_member'
 
 
   resources :projects do
     resources :posts
   end
 
+  get '/projects/:id/members' => 'projects#new_member', :as => 'new_member'
+  post '/projects/:id/members' => 'projects#create'
 
 end

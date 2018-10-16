@@ -9,7 +9,7 @@
 
   <%= f.input :description, include_blank: false %><br><br>
 
-  <%= f.collection_select :category_id, Category.all.order(:name), :id, :name, {include_blank: "Select frome existing categories"} %>
+  <%= f.collection_select :category_id, Category.all.order(:name), :id, :name, {include_blank: "Select from existing categories"} %>
 
   <br><br>
 

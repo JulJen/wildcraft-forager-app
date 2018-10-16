@@ -1,0 +1,30 @@
+<div>
+  <div style="text-align: center;">
+    <div style="display: inline-block; text-align: left;">
+
+      <h1>Project: <%= link_to "#{@project.name}",  @project %></h1>
+
+      <h2>Invite a member</h2>
+
+      <%= simple_form_for @project do |f| %>
+
+        <%= f.error_notification %>
+
+        <br>
+
+        <%= f.collection_select :id, @users, :id, :name, {include_blank: "Select member name"} %>
+
+        <br><br>
+
+        <%= f.submit 'Invite member!' %>
+
+        <br><br>
+
+      <% end %>
+
+      <div style="width: 500px;margin:auto">
+        <img style="width: 500px" src="https://images.pexels.com/photos/316465/pexels-photo-316465.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260">
+      </div>
+    </div>
+  </div>
+</div>
