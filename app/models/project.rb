@@ -14,6 +14,9 @@ class Project < ApplicationRecord
   scope :by_recent_update, -> { order(updated_at: :desc) }
   scope :alphabetical_order, -> {order(name: :asc)}
 
+  scope :inactive, -> { where(status: true) }
+  scope :active, -> { where(status: false) }
+
   # validates :category_id, presence: true
 
 

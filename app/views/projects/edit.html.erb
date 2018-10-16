@@ -2,7 +2,19 @@
   <div style="text-align: center;">
     <div style="display: inline-block; text-align: left;">
 
-      <h1 align="center">Edit your project</h1>
+      <% if !!current_user %>
+        <% if @project.posts.empty? %>
+          <h1 align="center">Project Status: pending</h1>
+          <p>Status is pending, no posts yet. </p>
+        <% else %>
+          <h1 align="center">Project Status: active</h1>
+        <% end %>
+        <h3 align="center"><%= link_to "Add new post", new_project_post_path(@project) %></h3>
+      <% end %>
+
+      <br><br>
+
+      <h2>Edit your project</h2>
 
       <%= simple_form_for @project do |f| %>
 
@@ -21,19 +33,6 @@
 
         <%= f.submit 'Update' %>
 
-      <% end %>
-
-      <br><br>
-
-
-      <% if !!current_user %>
-        <% if @project.posts.empty? %>
-          <h2>Status: pending</h2>
-          <p>No posts yet. </p>
-        <% else %>
-          <h2>Status: active</h2>
-        <% end %>
-        <h3><%= link_to "Add post", new_project_post_path(@project) %></h3>
       <% end %>
 
       <br><br>

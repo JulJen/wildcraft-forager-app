@@ -4,7 +4,9 @@
 
     <h3 align="center">Hi <%= current_user.name.capitalize %>, what are you working on today?</h3>
 
-
+    <% if current_user.status == false %>
+      <h4 align="center">Your account is <%= link_to "pending...", user_path(current_user) %></h4>
+    <% end %>
 
     <div style="width: 500px;margin:auto">
       <img style="width: 500px" src="https://images.pexels.com/photos/954599/pexels-photo-954599.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">

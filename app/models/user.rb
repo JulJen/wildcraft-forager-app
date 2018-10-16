@@ -15,9 +15,9 @@ class User < ApplicationRecord
 
   validates_length_of :name, within: 2..30, too_long: 'pick a shorter name', too_short: 'pick a longer name'
 
-  scope :inactive, -> { where(status: true) }
-  
-  scope :active, -> { where(status: false) }
+  scope :inactive, -> { where(status: false) }
+
+  scope :active, -> { where(status: true) }
 
   def self.grab_teammate(user_id)
     @member = User.find_by_id(user_id).id
