@@ -25,14 +25,21 @@
 
       <br><br>
 
-      <h3><%= link_to "Add post", new_project_post_path(@project) %></h3>
+
+      <% if !!current_user %>
+        <% if @project.posts.empty? %>
+          <h2>Status: pending</h2>
+          <p>No posts yet. </p>
+        <% else %>
+          <h2>Status: active</h2>
+        <% end %>
+        <h3><%= link_to "Add post", new_project_post_path(@project) %></h3>
+      <% end %>
 
       <br><br>
 
       <h3>Delete Project?</h3>
       <%= link_to "Yes, delete", project_path(@project), method: :delete %>
-
-
 
       <div style="width: 500px;margin:auto">
         <img style="width: 500px" src="https://images.pexels.com/photos/316465/pexels-photo-316465.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260">

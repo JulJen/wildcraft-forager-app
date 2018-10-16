@@ -54,22 +54,32 @@ class UsersController < ApplicationController
   end
 
   def update
-    if current_user.update(profile_params)
-      redirect_to profile_path(current_user)
-      flash[:success] = "Profile succesfully updated!"
+    if !profile_params_blank?
+      if current_user.update(profile_params)
+        current_user.update(status: true)
+        flash[:success] = "Profile succesfully updated!"
+        redirect_to profile_path(current_user)
+      else
+        render :edit
+      end
     else
-      render :edit
+      flash[:notice] = "No changes saved. All fields were blank."
+      redirect_to profile_path(current_user)
     end
   end
 
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :admin)
+    params.require(:user).permit(:name, :email, :password)
   end
 
   def profile_params
-    params.require(:user).permit(:language, :interest, :time_zone, :admin)
+    params.require(:user).permit( :time_zone, :language, :interest)
+  end
+
+  def profile_params_blank?
+    profile_params[:time_zone].blank? && profile_params[:language].blank? && profile_params[:interest].blank?
   end
 
 end
