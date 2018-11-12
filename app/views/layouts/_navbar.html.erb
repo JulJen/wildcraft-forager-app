@@ -1,5 +1,5 @@
 <% if current_user %>
-  <strong>Project Manageable</strong><br>
+  <strong>WildCraft Healer App</strong><br>
   <li><%= link_to "Dashboard", main_path %></li>
   <li><%= link_to "#{current_user.name.capitalize}'s profile", profile_path(current_user) %></li>
   <li><%= link_to "Public Projects", categories_path%></li>
@@ -8,9 +8,9 @@
   <li><%= link_to "Log Out", logout_path, method: :delete %></li>
 
 <% elsif current_page?(:controller => 'application', :action => 'welcome') %>
-  <br><h1 align="center"><%= link_to 'Project Manageable', enter_path %></h1><br>
-  <div style="width: 728px;margin:auto">
-    <img style="width: 728px" src="https://images.pexels.com/photos/6224/hands-people-woman-working.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260">
+  <br><h1 align="center"><%= link_to 'WildCraft Healer', enter_path %></h1><br>
+  <div style="width: 400px;margin:auto">
+    <img style="width: 400px" src="https://images.pexels.com/photos/1030845/pexels-photo-1030845.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
   </div>
 <% end %>
 
