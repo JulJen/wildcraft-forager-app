@@ -2,8 +2,8 @@
   <div style="text-align: center;">
     <div style="display: inline-block; text-align: left;">
 
-      <% if !!@projects %>
-        <h2>Public Projects </h2>
+      <% if !!@topics %>
+        <h2>Public topics </h2>
 
         <%= form_tag categories_path, method: :get do %>
           <%= select(:sort, "filters", options_from_collection_for_select(@categories, 'id', 'name'))%>
@@ -12,9 +12,9 @@
 
         <br><br>
 
-        <% @projects.each do |project| %>
+        <% @topics.each do |topic| %>
           <li>
-          <%= link_to "#{project.name.gsub(/"|\[|\]/, '')}", project %>
+          <%= link_to "#{topic.name.gsub(/"|\[|\]/, '')}", topic %>
           </li>
         <% end %>
 

@@ -12,12 +12,12 @@
       <% end %>
 
 
-      <p><strong>Name:</strong> <%= current_user.name%><p>
-      <p><strong>Email:</strong> <%= current_user.email%></p><br>
+      <p><strong>Name:</strong> <%= current_user.name %><p>
+      <p><strong>Email:</strong> <%= current_user.email %></p><br>
 
-      <p><strong>Time zone:</strong> <%= current_user.time_zone%></p>
-      <p><strong>Language:</strong> <%= current_user.language%></p>
-      <p><strong>Interest:</strong> <%= current_user.interest%></p>
+      <p><strong>Time zone:</strong> <%= current_user.time_zone %></p>
+      <p><strong>Country:</strong> <%= current_user.country_code %></p>
+      <p><strong>Interest:</strong> <%= current_user.interest %></p>
 
       <p><%= link_to "Edit Profile", edit_profile_path(current_user) %></p><br>
 

@@ -2,9 +2,9 @@
   <strong>WildCraft Healer App</strong><br>
   <li><%= link_to "Dashboard", main_path %></li>
   <li><%= link_to "#{current_user.name.capitalize}'s profile", profile_path(current_user) %></li>
-  <li><%= link_to "Public Projects", categories_path%></li>
-  <li><%= link_to "Your Projects", projects_path%></li>
-  <li><%= link_to "Create a project",  new_project_path %></li>
+  <li><%= link_to "Directory", categories_path%></li>
+  <li><%= link_to "Your Topics", topics_path%></li>
+  <li><%= link_to "New topic",  new_topic_path %></li>
   <li><%= link_to "Log Out", logout_path, method: :delete %></li>
 
 <% elsif current_page?(:controller => 'application', :action => 'welcome') %>

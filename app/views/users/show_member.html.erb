@@ -1,0 +1,17 @@
+<div>
+  <div style="text-align: center;">
+    <div style="display: inline-block; text-align: left;">
+
+      <h1 align="left">Contact Info</h1>
+      <p align="left"><strong>Name:</strong> <%= @member.name%><p>
+      <p align="left"><strong>Email:</strong> <%= @member.email%></p>
+      <p align="left"><strong>Timezone:</strong> <%= @member.time_zone%></p>
+      <p align="left"><strong>Country:</strong> <%= @member.country_code%></p>
+      <p align="left"><strong>Interest:</strong> <%= @member.interest%></p><br>
+
+      <div style="width: 400px;margin:auto">
+        <img style="width: 400px" src="<%= @member.image %>">
+      </div>
+
+  </div>
+</div>

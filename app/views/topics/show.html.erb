@@ -2,10 +2,10 @@
   <div style="text-align: center;">
     <div style="display: inline-block; text-align: left;">
 
-      <h3>Project: <%= link_to "#{@project.name}",  edit_project_path(@project) %></h3>
-      <h3>Description: <%= @project.description %></h3>
+      <h3>Topic: <%= link_to "#{@topic.name}",  edit_topic_path(@topic) %></h3>
+      <h3>Description: <%= @topic.description %></h3>
       <p>Category: <%= @category_by_name %></p>
-      <p>Project admin: <%= @admin_by_name %></p>
+      <p>Admin: <%= @admin_by_name %></p>
 
 
       <% if !@current_members.empty? %>
@@ -17,7 +17,7 @@
         <% end %>
 
       <% elsif @admin_invite == true  %>
-        <p>No members yet, <b><%= link_to "invite new member",  new_member_path(@project) %></b></p>
+        <p>No members yet, <b><%= link_to "invite new member",  new_member_path(@topic) %></b></p>
 
       <% else %>
         <p>No members yet.</p>
@@ -37,9 +37,9 @@
 
       <% @current_posts.each do |post| %>
         <!-- <% if post.status == true %> -->
-          <h4> Inactive - <%= link_to "#{post.name}", edit_project_post_path(post.project_id, post.id) %></h4>
+          <h4> Inactive - <%= link_to "#{post.name}", edit_topic_post_path(post.topic_id, post.id) %></h4>
         <!-- <% else %> -->
-          <h4> Active - <%= link_to "#{post.name}", edit_project_post_path(post.project_id, post.id) %></h4>
+          <h4> Active - <%= link_to "#{post.name}", edit_topic_post_path(post.topic_id, post.id) %></h4>
         <% end %>
       <% end %>
 
