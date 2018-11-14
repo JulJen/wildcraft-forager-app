@@ -3,7 +3,7 @@ class CreatePosts < ActiveRecord::Migration[5.2]
     create_table :posts do |t|
       t.string :name
       t.text :description
-      t.integer :project_id
+      t.integer :topic_id
       t.boolean :status, default: false
 
       t.datetime "created_at", null: false

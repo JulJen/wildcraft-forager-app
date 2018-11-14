@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   has_secure_password
   has_many :memberships
-  has_many :projects, through: :memberships
+  has_many :topics, through: :memberships
 
   has_many :comments
   has_many :posts, through: :comments

@@ -1,5 +1,5 @@
-class Project < ApplicationRecord
-  belongs_to :category, optional: true
+class Topic < ApplicationRecord
+  belongs_to :location, optional: true
 
   has_many :memberships
   has_many :users, through: :memberships
@@ -17,18 +17,18 @@ class Project < ApplicationRecord
   scope :inactive, -> { where(status: true) }
   scope :active, -> { where(status: false) }
 
-  # validates :category_id, presence: true
+  # validates :location_id, presence: true
 
 
   # scope :active, -> { where(status: true) }
   # scope :pending, -> { where(status: false) }
   # def self.is_authorized(user_id)
-  #    @project.memberships.where(user_id: current_user.id, admin: true)
+  #    @topic.memberships.where(user_id: current_user.id, admin: true)
   # end
 
-  def self.find_category(category_id)
-    @category = Category.find_by_id(@project.category_id).id
-    return Category.where(id: @category).select(:id, :name).take
+  def self.find_location(location_id)
+    @location = Location.find_by_id(@topic.location_id).id
+    return Location.where(id: @location).select(:id, :name).take
   end
 
 

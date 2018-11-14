@@ -1,5 +1,5 @@
-class Post < ApplicationRecord #formerly projects
-  belongs_to :project, optional: true
+class Post < ApplicationRecord #formerly topics
+  belongs_to :topic, optional: true
 
   has_many :comments
   has_many :users, through: :comments
@@ -18,7 +18,7 @@ class Post < ApplicationRecord #formerly projects
   scope :by_recent_update, -> { order(updated_at: :desc) }
 
 
-  # def self.latest_project
+  # def self.latest_topic
   #   order('updated_at desc').first
   # end
   #
@@ -26,7 +26,7 @@ class Post < ApplicationRecord #formerly projects
   #   pluck(:name)
   # end
 
-  #Project.latest_project
+  #Project.latest_topic
 
 
 end

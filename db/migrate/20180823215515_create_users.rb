@@ -6,10 +6,13 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.string :password_digest
       t.string :email
       t.text :image
+
+      t.string :city
+      t.string :us_state
       t.string :time_zone
-      t.string :language
+      t.string :country_code
+
       t.string :gender
-      t.string :programlanguage
       t.string :interest
       t.boolean :status, default: false
 

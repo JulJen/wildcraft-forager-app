@@ -1,17 +1,17 @@
 class Membership < ApplicationRecord  #join table
   belongs_to :user, optional: true
-  belongs_to :project, optional: true
+  belongs_to :topic, optional: true
 
   # include ActiveModel::Validations
 
   validates :admin, :inclusion => {:in => [true, false]}
 
-  scope :project_admin, -> { where(admin: true) }
-  scope :project_member, -> { where(admin: false) }
+  scope :topic_admin, -> { where(admin: true) }
+  scope :topic_member, -> { where(admin: false) }
 
 
 
-  # Membership.project_admin.distinct.pluck(:user_id)
+  # Membership.topic_admin.distinct.pluck(:user_id)
 
 
   # scope :formatted_updated_at, -> { order(formatted_updated_at: :desc) }
@@ -34,29 +34,29 @@ class Membership < ApplicationRecord  #join table
 
   def count_admin
     @count_admin = Membership.where(user_id: current_user.id, admin: true).pluck(:user_id).count
-    # @count_admin = @project.memberships.where(user_id: current_user.id, admin: true).pluck(:user_id).count
+    # @count_admin = @topic.memberships.where(user_id: current_user.id, admin: true).pluck(:user_id).count
   end
 
   def all_admin
     @all_admin = Membership.where(admin: true).distinct.pluck(:user_id)
-    # @select_admin = @project.memberships.where(user_id: current_user.id, admin: true).pluck(:user_id)
+    # @select_admin = @topic.memberships.where(user_id: current_user.id, admin: true).pluck(:user_id)
     # Membership.where(user_id: current_user.id, admin: true).distinct.pluck(:user_id)
   end
 
   def order_admin
     @select_admin = Membership.where(user_id: current_user.id, admin: true).pluck(:user_id)
-    # @select_admin = @project.memberships.where(user_id: current_user.id, admin: true).pluck(:user_id)
+    # @select_admin = @topic.memberships.where(user_id: current_user.id, admin: true).pluck(:user_id)
   end
 
   def current_admin
     @current_admin = Membership.where(user_id: current_user.id, admin: true).distinct.pluck(:user_id)
   end
 
-  # Membership.project_admin.where(user_id: current_user.id, admin: true)
+  # Membership.topic_admin.where(user_id: current_user.id, admin: true)
 
 
-  # @project.memberships.map(&:user_id) == @current_admin
-  # @project.memberships.pluck(:user_id) == @current_admin
+  # @topic.memberships.map(&:user_id) == @current_admin
+  # @topic.memberships.pluck(:user_id) == @current_admin
 
 # User.all.collect(&:name)
 # User.joins(:memberships).select('users.name')

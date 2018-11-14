@@ -13,7 +13,7 @@ Faker::UniqueGenerator.clear
 
 User.destroy_all
 Category.destroy_all
-Project.destroy_all
+Topic.destroy_all
 Post.destroy_all
 
 50.times do |index|
@@ -23,16 +23,20 @@ Post.destroy_all
     email: Faker::Internet.unique.email,  #=> "eliza@mann.net"
     status: true,
     image: Faker::LoremFlickr.image,
-    time_zone: Faker::Address.unique.time_zone,
-    language: Faker::Nation.language,
+
+    city: Faker::Address.city,
+    us_state: Faker::Address.state,
+    time_zone: Faker::Address.time_zone,
+    country_code: Faker::Address.country_code,
+
     gender: Faker::Gender.type,
-    programlanguage: Faker::ProgrammingLanguage.name,
     interest: Faker::Educator.subject,
 
     created_at: Faker::Time.between(4.months.ago, 1.month.ago),
     updated_at: Faker::Time.between(4.months.ago, 1.month.ago)
   )
 end
+
 
 
 100.times do |index|
@@ -46,7 +50,7 @@ end
 
 
 50.times do |index|
-  Project.create!(
+  Topic.create!(
     name: Faker::Hipster.unique.words(1, true),
     description: Faker::Hipster.unique.sentences,
     status: true,
@@ -66,4 +70,4 @@ end
 end
 
 
-p "Created #{User.count} users, #{Category.count} categories, #{Project.count} projects, #{Post.count} posts"
+p "Created #{User.count} users, #{Category.count} categories, #{Topic.count} topics, #{Post.count} posts"

@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   get '/auth/google_oauth2/callback', to: 'sessions#create'
 
   root 'application#welcome', :as => 'welcome'
-  get '/projectmanageable' => 'application#enter', :as => 'enter'
+  get '/wildcraft_forager' => 'application#enter', :as => 'enter'
 
   get '/signin' => 'sessions#new'
   post '/signin' => 'sessions#create'
@@ -27,26 +27,23 @@ Rails.application.routes.draw do
 
   resources :users, path: :profile, shallow: true, only: %i[show edit update]
 
-<<<<<<< HEAD
-=======
+
   get '/members/:id' => 'users#show_member', :as => 'show_member'
 
 
->>>>>>> members_feature
-  resources :projects do
+
+  resources :topics do
     resources :posts
   end
 
-<<<<<<< HEAD
-  get '/projects/:id/members' => 'users#member_new', :as => 'new_project_member'
-  post '/projects/:id/members/:id' => 'users#member_create'
+
+  get '/topics/:id/members' => 'users#member_new', :as => 'new_project_member'
+  post '/topics/:id/members/:id' => 'users#member_create'
 
   get '/members/:id/profile' => 'users#member_show', :as => 'member_profile'
 
 
-=======
-  get '/projects/:id/members' => 'projects#new_member', :as => 'new_member'
-  post '/projects/:id/members' => 'projects#create'
->>>>>>> members_feature
+  get '/topics/:id/members' => 'topics#new_member', :as => 'new_member'
+  post '/topics/:id/members' => 'topics#create'
 
 end

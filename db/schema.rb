@@ -10,42 +10,44 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_24_210445) do
+ActiveRecord::Schema.define(version: 2018_10_02_174624) do
 
   create_table "categories", force: :cascade do |t|
-    t.string "industry_name"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.text "message"
+    t.integer "user_id"
+    t.integer "post_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "memberships", force: :cascade do |t|
+    t.boolean "admin", default: false
     t.integer "user_id"
-    t.integer "team_id"
+    t.integer "topic_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "projects", force: :cascade do |t|
+  create_table "posts", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.integer "team_id"
+    t.integer "topic_id"
     t.boolean "status", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "tasks", force: :cascade do |t|
-    t.text "name"
-    t.integer "project_id"
-    t.integer "user_id"
-    t.boolean "status", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "teams", force: :cascade do |t|
+  create_table "topics", force: :cascade do |t|
     t.string "name"
+    t.text "description"
     t.integer "category_id"
+    t.boolean "status", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -56,13 +58,12 @@ ActiveRecord::Schema.define(version: 2018_09_24_210445) do
     t.string "password_digest"
     t.string "email"
     t.text "image"
+    t.string "city"
+    t.string "us_state"
     t.string "time_zone"
-    t.string "language"
-    t.string "string"
+    t.string "country_code"
     t.string "gender"
-    t.string "programlanguage"
     t.string "interest"
-    t.boolean "team_admin", default: false
     t.boolean "status", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

@@ -1,5 +1,5 @@
-class Category < ApplicationRecord
-  has_many :projects
+class Location < ApplicationRecord
+  has_many :topics
 
   scope :alphabetical_order, -> {order(name: :asc)}
   #
@@ -7,7 +7,7 @@ class Category < ApplicationRecord
   #
   # validates :name, presence: true
 
-  # def self.find_category(project_id)
+  # def self.find_location(topic_id)
   #   @member = Project.find_by_id(user_id).id
   #   return User.where(id: @member).select(:id, :name, :email, :time_zone, :language, :gender, :interest, :image).take
   # end
