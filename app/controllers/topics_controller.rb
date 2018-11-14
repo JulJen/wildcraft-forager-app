@@ -6,9 +6,7 @@ class TopicsController < ApplicationController
 
   def index
     @user = current_user
-
     @topic = Topic.find_by_id(params[:user_id])
-
     @current_topics = current_user.memberships
 
     @topics = Topic.all

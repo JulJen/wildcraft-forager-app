@@ -3,8 +3,8 @@ class UsersController < ApplicationController
 
   def index
     @user = current_user
-    @posts = Post.all
-    @current_posts = current_user.posts
+    @topics = Post.all
+    @current_topics = @current_user.topics
   end
 
 
@@ -48,6 +48,7 @@ class UsersController < ApplicationController
 
   def edit
     @user = current_user
+    @locations = Location.all
     if params[:id].to_i == current_user.id
       render :edit
     else
@@ -77,11 +78,11 @@ class UsersController < ApplicationController
   end
 
   def profile_params
-    params.require(:user).permit( :time_zone, :language, :interest)
+    params.require(:user).permit( :time_zone, :country_code, :interest)
   end
 
   def profile_params_blank?
-    profile_params[:time_zone].blank? && profile_params[:language].blank? && profile_params[:interest].blank?
+    profile_params[:time_zone].blank? && profile_params[:country_code ].blank? && profile_params[:interest].blank?
   end
 
 end
