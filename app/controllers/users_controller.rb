@@ -3,8 +3,8 @@ class UsersController < ApplicationController
 
   def index
     @user = current_user
-    @projects = Project.all
-    @current_projects = current_user.projects
+    @posts = Post.all
+    @current_posts = current_user.posts
   end
 
 

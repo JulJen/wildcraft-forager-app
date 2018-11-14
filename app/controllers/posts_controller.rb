@@ -3,18 +3,18 @@ class PostsController < ApplicationController
   before_action :authenticate_user, only: %i[update destroy]
 
   def new
-    @project = Project.find_by_id(params[:project_id])
+    @topic = Topic.find_by_id(params[:topic_id])
     @post = Post.new
   end
 
   def create
-    @project = Project.find_by_id(params[:project_id])
+    @topic = Topic.find_by_id(params[:topic_id])
     @post = Post.new(post_params)
     if @post.save
-      @project.posts << @post
+      @topic.posts << @post
 
       flash[:success] = "Post created successfully!"
-      redirect_to @project
+      redirect_to @topic
     else
       render :new
     end
@@ -22,7 +22,7 @@ class PostsController < ApplicationController
 
 
   def show
-    @project = Project.find_by_id(params[:project_id])
+    @topic = Topic.find_by_id(params[:topic_id])
     @post = Post.find_by_id(params[:id])
   end
 
@@ -30,9 +30,9 @@ class PostsController < ApplicationController
 
   def edit
     @post = Post.find_by_id(params[:id])
-    @project = Project.find_by_id(@post.project_id)
+    @topic = Topic.find_by_id(@post.topic_id)
     unless is_admin?
-      redirect_to project_post_path(@project, @post)
+      redirect_to topic_post_path(@topic, @post)
     end
   end
 
@@ -40,10 +40,10 @@ class PostsController < ApplicationController
 
   def update
     @post = Post.find_by_id(params[:id])
-    @project = Project.find_by_id(@post.project_id)
+    @topic = Topic.find_by_id(@post.topic_id)
     if @post.update(post_params)
       flash[:update] = "Post updated."
-      redirect_to project_path(@project)
+      redirect_to topic_path(@topic)
     else
       render :edit
     end
@@ -52,12 +52,12 @@ class PostsController < ApplicationController
 
   def destroy
     @post = Post.find_by_id(params[:id])
-    @project = Project.find_by_id(@post.project_id)
-    # if @post.project_id == @project.id
+    @topic = Topic.find_by_id(@post.topic_id)
+    # if @post.topic_id == @topic.id
       @post.delete
     # end
     flash[:notice] = "Post deleted."
-    redirect_to @project
+    redirect_to @topic
   end
 
 
@@ -77,7 +77,7 @@ class PostsController < ApplicationController
 
   def is_admin?
     @post = Post.find_by_id(params[:id])
-    @project = Project.find_by_id(@post.project_id)
+    @topic = Topic.find_by_id(@post.topic_id)
     u = Membership.where(user_id: current_user.id, admin: true).distinct.pluck(:user_id)
     u_id = u.join(', ').to_i
     u_id == current_user.id
