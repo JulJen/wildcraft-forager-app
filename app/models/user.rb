@@ -3,8 +3,10 @@ class User < ApplicationRecord
   has_many :memberships
   has_many :topics, through: :memberships
 
-  has_many :comments
-  has_many :posts, through: :comments
+  has_many :posts
+
+  # has_many :comments
+  # has_many :posts, through: :comments
 
 
   include ActiveModel::Validations
