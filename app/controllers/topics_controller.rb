@@ -3,6 +3,7 @@ class TopicsController < ApplicationController
   before_action :require_logged_in
   before_action :authenticate_user, only: %i[update destroy new_member]
 
+  before_action :set_topic, only: [:show, :edit, :update, :destroy]
 
   def index
     @user = current_user
@@ -41,24 +42,27 @@ class TopicsController < ApplicationController
     @topic = Topic.find_by_id(params[:id])
     @admin_by_name = admin_by_name.capitalize
 
-    @category_by_name = category_by_name if !!@topic.category_id
+    @posts = @topic.posts
+    @post = Post.new #@topic.posts.build
 
     @current_posts = @topic.posts
+
+    @category_by_name = category_by_name if !!@topic.category_id
     @current_members = current_members
 
     @admin_invite = @current_members.empty? && is_admin?
 
-    if !!@current_posts
-      @filters = [["Active", "active"], ["Inactive", "inactive"], ["Recent Update","by_recent_update", {:selected => "selected"}]]
-
-      if params[:sort]
-        # @tasks = Task.send(params[:sort][:filters])
-        @current_posts = @current_posts.send(params[:sort][:filters].parameterize.to_sym)
-      # @topic.tasks = Task.all(:order => 'updated_at DESC')
-      else
-        @current_posts = @topic.posts.order(updated_at: :desc)
-      end
-    end
+    # if !!@current_posts
+    #   @filters = [["Active", "active"], ["Inactive", "inactive"], ["Recent Update","by_recent_update", {:selected => "selected"}]]
+    #
+    #   if params[:sort]
+    #     # @tasks = Task.send(params[:sort][:filters])
+    #     @current_posts = @current_posts.send(params[:sort][:filters].parameterize.to_sym)
+    #   # @topic.tasks = Task.all(:order => 'updated_at DESC')
+    #   else
+    #     @current_posts = @topic.posts.order(updated_at: :desc)
+    #   end
+    # end
   end
 
 
@@ -109,6 +113,11 @@ class TopicsController < ApplicationController
 
   private
 
+  def set_topic
+    @topic = Topic.find_by_id(params[:id])
+  end
+
+
   def topic_params
     params.require(:topic).permit(:name, :description, :category_id)
   end
@@ -150,7 +159,7 @@ class TopicsController < ApplicationController
   # end
 
   # <%= link_to "#{find_user_name(member)}", show_member_path(member.user_id) %>
-
+  #
   def admin_by_name
     admin_user = @topic.memberships.where(admin: true).pluck(:user_id)
     @admin_by_name = User.find_by(id: admin_user).name

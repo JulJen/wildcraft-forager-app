@@ -2,6 +2,32 @@ class PostsController < ApplicationController
   before_action :require_logged_in
   before_action :authenticate_user, only: %i[update destroy]
 
+  before_action :set_topic
+
+  def index
+    @posts = @topic.posts
+    @current_posts = @topic.posts
+
+    if !!@current_posts
+      @filters = [["Active", "active"], ["Inactive", "inactive"], ["Recent Update","by_recent_update", {:selected => "selected"}]]
+
+      if params[:sort]
+        # @tasks = Task.send(params[:sort][:filters])
+        @current_posts = @current_posts.send(params[:sort][:filters].parameterize.to_sym)
+      # @topic.tasks = Task.all(:order => 'updated_at DESC')
+      else
+        @current_posts = @topic.posts.order(updated_at: :desc)
+      end
+    end
+
+    respond_to do |f|
+      f.html {render 'index.html', :layout => false}
+      f.js {render 'index.js', :layout => false}
+    end
+
+  end
+
+
   def new
     @topic = Topic.find_by_id(params[:topic_id])
     @post = Post.new
@@ -62,6 +88,10 @@ class PostsController < ApplicationController
 
 
   private
+
+  def set_topic
+    @topic = Topic.find_by_id(params[:topic_id])
+  end
 
   def post_params
     params.require(:post).permit(:name, :description, :status)
