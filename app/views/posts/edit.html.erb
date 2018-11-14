@@ -3,9 +3,9 @@
     <div style="display: inline-block; text-align: left;">
 
       <h1 align="center">Edit Post: <%= @post.name %></h1>
-      <h3 align="center">Project: <%= @project.name %></h3>
+      <h3 align="center">Topic: <%= @topic.name %></h3>
 
-      <%= simple_form_for [:project, @post] do |f| %>
+      <%= simple_form_for [:topic, @post] do |f| %>
 
         <%= f.error_notification %>
 
@@ -31,7 +31,7 @@
 
       <br><br>
 
-      <%= link_to "Delete Post", project_path(@project), method: :delete %>
+      <%= link_to "Delete Post", topic_path(@topic), method: :delete %>
 
 
 

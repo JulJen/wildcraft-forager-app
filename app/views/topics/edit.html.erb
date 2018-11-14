@@ -4,37 +4,32 @@
 
       <% if !!current_user %>
 
-        <% if @project.posts.empty? %>
+        <% if @topic.posts.empty? %>
           <h1 align="center">Project Status: pending</h1>
-<<<<<<< HEAD
-          <h4 align="center"><%= link_to "Add a post", new_project_post_path(@project) %> to change status to active. </h4>
-=======
-          <h3 align="center"><%= link_to "Add a post", new_project_post_path(@project) %> to change status to active. </h3>
->>>>>>> members_feature
+
+          <h3 align="center"><%= link_to "Add a post", new_topic_post_path(@topic) %> to change status to active. </h3>
+
         <% else %>
           <h1 align="center">Project Status: active</h1>
-          <h3 align="center"><%= link_to "Add new post", new_project_post_path(@project) %></h3>
+          <h3 align="center"><%= link_to "Add new post", new_topic_post_path(@topic) %></h3>
         <% end %>
 
-<<<<<<< HEAD
-        <h3 align="center"><%= link_to "Invite new member",  new_project_member_path(@project) %></h3>
-=======
-        <h3 align="center"><%= link_to "Invite new member",  new_member_path(@project) %></h3>
->>>>>>> members_feature
+        <h3 align="center"><%= link_to "Invite new member",  new_member_path(@topic) %></h3>
+
 
       <% end %>
 
       <br><br>
 
-      <h2>Edit your project: <%= @project.name %></h2>
+      <h2>Edit your topic: <%= @topic.name %></h2>
 
-      <%= simple_form_for @project do |f| %>
+      <%= simple_form_for @topic do |f| %>
 
         <%= f.error_notification %>
 
         <br>
 
-        <h3>General project info:</h3>
+        <h3>General topic info:</h3>
 
         <%= f.input :name, include_blank: false %><br><br>
 
@@ -50,8 +45,8 @@
 
       <br><br>
 
-      <h3>Delete Project?</h3>
-      <%= link_to "Yes, delete", project_path(@project), method: :delete %>
+      <h3>Delete Topic?</h3>
+      <%= link_to "Yes, delete", topic_path(@topic), method: :delete %>
 
       <div style="width: 500px;margin:auto">
         <img style="width: 500px" src="https://images.pexels.com/photos/316465/pexels-photo-316465.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260">

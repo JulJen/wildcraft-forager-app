@@ -2,12 +2,10 @@
   <div style="text-align: center;">
     <div style="display: inline-block; text-align: left;">
 
-      <h1>Post: <%= @post.name %></h3>
-      <h3>Description: <%= @post.description %></h3>
-      <h3>Project: <%= link_to "#{@project.name}",  edit_project_path(@project) %></h3>
+      <h1 align="center">Post: <%= @post.name %></h1>
+      <h3 align="center">Description: <%= @post.description %></h3>
+      <h3 align="center">Topic: <%= link_to "#{@topic.name}",  edit_project_path(@topic) %></h3>
 
-
-       <br>
 
       <div style="width: 500px;margin:auto">
         <img style="width: 500px" src="https://images.pexels.com/photos/908295/pexels-photo-908295.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
