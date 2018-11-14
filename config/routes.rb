@@ -36,8 +36,12 @@ Rails.application.routes.draw do
     resources :posts
   end
 
+  resources :posts, only: %i[show] do
+    resources :comments
+  end
 
-  get '/topics/:id/members' => 'users#member_new', :as => 'new_project_member'
+
+  get '/topics/:id/members' => 'users#member_new', :as => 'new_topic_member'
   post '/topics/:id/members/:id' => 'users#member_create'
 
   get '/members/:id/profile' => 'users#member_show', :as => 'member_profile'
