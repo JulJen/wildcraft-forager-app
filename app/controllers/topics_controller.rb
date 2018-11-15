@@ -63,6 +63,7 @@ class TopicsController < ApplicationController
     #     @current_posts = @topic.posts.order(updated_at: :desc)
     #   end
     # end
+    # render json: @topic
   end
 
 

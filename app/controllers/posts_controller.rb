@@ -17,34 +17,38 @@ class PostsController < ApplicationController
         @current_posts = @topic.posts.order(updated_at: :desc)
       end
 
-      # # // implicit in rails, explicitly rendering based on format requested
-      # respond_to do |format|
-      #   format.html {render 'index.html', :layout => false}
-      #   format.js {render 'index.js', :layout => false}
-      # end
+      # // implicit in rails, explicitly rendering based on format requested
+      respond_to do |format|
+        format.html {render 'index.html', :layout => false}
+        format.js {render 'index.js', :layout => false}
+      end
 
-      render :layout => false
+      # render :layout => false
       # render :json => @posts
 
     end
   end
 
 
-  def new
-    @topic = Topic.find_by_id(params[:topic_id])
-    @post = Post.new
-  end
+  # def new
+  #   @topic = Topic.find_by_id(params[:topic_id])
+  #   @post = Post.new
+  # end
 
   def create
     @topic = Topic.find_by_id(params[:topic_id])
-    @post = Post.new(post_params)
-    if @post.save
-      @topic.posts << @post
+    # @post = Post.new(post_params)
 
+    @post = @topic.posts.build(post_params)
+    if @post.save
       flash[:success] = "Post created successfully!"
-      redirect_to @topic
+      render 'posts/show', :layout => false
+      # @topic.posts << @post
+      #
+      # flash[:success] = "Post created successfully!"
+      # redirect_to @topic
     else
-      render :new
+      render "topics/show"
     end
   end
 
@@ -53,7 +57,8 @@ class PostsController < ApplicationController
     @topic = Topic.find_by_id(params[:topic_id])
 
     @post = Post.find_by_id(params[:id])
-    render json: @post
+
+    # render json: @post
   end
 
 
