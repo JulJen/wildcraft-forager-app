@@ -3,6 +3,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.4.1'
 
+gem 'bootstrap-sass', '~> 3.3.6'
+gem 'sass-rails', '>= 3.2'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.0'
 # Use sqlite3 as the database for Active Record
@@ -25,6 +28,9 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
+gem 'jquery-rails'
+
+gem 'active_model_serializers'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
@@ -45,16 +51,12 @@ gem 'dotenv-rails'
 gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
 
 gem 'simple_form'
-
-gem 'bootstrap-sass'
-# , '~> 3.3.6'
-gem 'bootstrap', '~> 4.1.3'
-gem 'jquery-rails'
-
-gem 'active_model_serializers'
-
-
 gem 'country_select', require: 'country_select_without_sort_alphabetical'
+
+
+
+
+
 
 
 group :development, :test do
