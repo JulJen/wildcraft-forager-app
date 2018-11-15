@@ -1,4 +1,5 @@
 <% if current_user %>
+
   <nav class="navbar navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
@@ -6,20 +7,32 @@
       </div>
       <ul class="nav navbar-nav">
         <li class="active"><a href="#">Home</a></li>
-        <li><%= link_to 'WildCraft Forager', enter_path %></li>
-        <li><a href="#">Page 2</a></li>
-        <li><a href="#">Logout</a></li>
+        <li><%= link_to "Profile", profile_path(current_user) %></li>
+        <li><%= link_to "Directory", categories_path%></li>
+        <li><%= link_to "Start a discussion",  new_topic_path %></li>
+        <li><%= link_to "Log Out", logout_path, method: :delete %></li>
       </ul>
     </div>
   </nav>
 
 <% elsif current_page?(:controller => 'application', :action => 'welcome') %><br>
-  <h1 align="center"><%= link_to 'WildCraft Forager', enter_path %></h1><br>
 
-  <div style="width: 400px;margin:auto">
-    <img style="width: 400px" src="https://images.pexels.com/photos/1030845/pexels-photo-1030845.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
-  </div>
+  <%= render 'application/enter' %>
+
+<% elsif current_page?(:controller => 'sessions', :action => 'new') || current_page?(:controller => 'users', :action => 'new') %><br>
+
+
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+          <a class="navbar-brand" href="#">WildCraft Forager</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li><%= link_to 'Sign In', signin_path %></li>
+        <li><%= link_to 'Create an Account', signup_path %></li>
+        <li><%= link_to 'Log In with Google', '/auth/google_oauth2' %><li>
+      </ul>
+    </div>
+  </nav>
 
 <% end %>
-
-<br><br>
