@@ -12,19 +12,21 @@ class PostsController < ApplicationController
       @filters = [["Active", "active"], ["Inactive", "inactive"], ["Recent Update","by_recent_update", {:selected => "selected"}]]
 
       if params[:sort]
-        # @tasks = Task.send(params[:sort][:filters])
         @current_posts = @current_posts.send(params[:sort][:filters].parameterize.to_sym)
-      # @topic.tasks = Task.all(:order => 'updated_at DESC')
       else
         @current_posts = @topic.posts.order(updated_at: :desc)
       end
-    end
 
-    respond_to do |f|
-      f.html {render 'index.html', :layout => false}
-      f.js {render 'index.js', :layout => false}
-    end
+      # # // implicit in rails, explicitly rendering based on format requested
+      # respond_to do |format|
+      #   format.html {render 'index.html', :layout => false}
+      #   format.js {render 'index.js', :layout => false}
+      # end
 
+      render :layout => false
+      # render :json => @posts
+
+    end
   end
 
 
@@ -49,7 +51,9 @@ class PostsController < ApplicationController
 
   def show
     @topic = Topic.find_by_id(params[:topic_id])
+
     @post = Post.find_by_id(params[:id])
+    render json: @post
   end
 
 

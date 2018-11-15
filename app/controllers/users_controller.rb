@@ -48,7 +48,6 @@ class UsersController < ApplicationController
 
   def edit
     @user = current_user
-    @locations = Location.all
     if params[:id].to_i == current_user.id
       render :edit
     else
