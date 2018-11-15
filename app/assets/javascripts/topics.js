@@ -69,3 +69,34 @@
 //     e.preventDefault(); //stop browser from reloading
 //   })
 // })
+
+
+// Submit Comments via AJAX - soon to be replaced by remote true
+$(function(){
+  $("#new_post").on("submit", function(e){
+    // need URL to submit the POST requested
+    url = this.before_action
+    console.log(url)
+    // need the form data
+    data = {
+      'authenticity_token': $("input[name=
+      authenticity_token]").val(),
+      'post': {
+        'name': $("post_name").val()
+      }
+    };
+
+    //low level
+    $.ajax({
+      type: "POST",
+      url: url,
+      data: data,
+      success: function(resp){
+        $("#post_name").val("");
+        var $h3 = $("div.posts h3")
+        $h3.append(resp);
+      }
+    });
+    e.preventDefault();
+  });
+});
