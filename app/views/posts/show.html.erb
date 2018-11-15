@@ -2,14 +2,9 @@
   <div style="text-align: center;">
     <div style="display: inline-block; text-align: left;">
 
-      <h1 align="center">Post: <%= @post.name %></h1>
-      <h3 align="center">Description: <%= @post.description %></h3>
-      <h3 align="center">Topic: <%= link_to "#{@topic.name}",  edit_project_path(@topic) %></h3>
-
-
-      <div style="width: 500px;margin:auto">
-        <img style="width: 500px" src="https://images.pexels.com/photos/908295/pexels-photo-908295.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
-      </div>
+      <h1 align="center">Name: <%= @post.name %></h1>
+      <h3 align="center">Comment: <%= @post.description %></h3>
+      <h3 align="center">Topic: <%= link_to "#{@topic.name}",  edit_topic_path(@topic) %></h3>
 
     </div>
   </div>

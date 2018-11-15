@@ -36,7 +36,7 @@ Rails.application.routes.draw do
     resources :posts
   end
 
-  resources :posts, only: %i[show] do
+  resources :posts do
     resources :comments
   end
 

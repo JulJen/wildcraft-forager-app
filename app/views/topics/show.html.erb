@@ -7,48 +7,30 @@
       <p>Category: <%= @category_by_name %></p>
       <p>Admin: <%= @admin_by_name %></p>
 
+      <br><br>
 
-      <% if !@current_members.empty? %>
-        <p>Members: <p>
-        <% @current_members.each do |member| %>
-          <ul>
-          <%=  find_user_name(member) %>
-          </ul>
-        <% end %>
-
-      <% elsif @admin_invite == true  %>
-        <p>No members yet, <b><%= link_to "invite new member",  new_member_path(@topic) %></b></p>
-
-      <% else %>
-        <p>No members yet.</p>
+      <%= simple_form_for [@topic, @post] do |f| %>
+        <%= f.input :name %><br>
+        <%= f.input :description %><br>
+        <%= submit_tag "New Post" %>
       <% end %>
+
+      <br><br>
 
 
       <% if !@current_posts.empty?%>
 
-        <%= form_tag @posts, method: :get do %>
-        <%= select(:sort, "filters", options_for_select(@filters)) %>
-        <%= submit_tag "Sort" %>
-        <% end %>
+        <p>
+          <%= link_to "Load posts", topic_posts_path(@topic), :class=> "load_posts", :remote => true %>
+        </p>
 
-      <% end %>
+        <div class = "posts">
+          <h3>
 
-      <br>
+          </h3>
+        </div>
 
-      <% @current_posts.each do |post| %>
-        <!-- <% if post.status == true %> -->
-          <h4> Inactive - <%= link_to "#{post.name}", edit_topic_post_path(post.topic_id, post.id) %></h4>
-        <!-- <% else %> -->
-          <h4> Active - <%= link_to "#{post.name}", edit_topic_post_path(post.topic_id, post.id) %></h4>
-        <% end %>
-      <% end %>
-
-       <br>
-
-      <div style="width: 500px;margin:auto">
-        <img style="width: 500px" src="https://images.pexels.com/photos/908295/pexels-photo-908295.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
-      </div>
-
+      <% end %><br>
     </div>
   </div>
 </div>

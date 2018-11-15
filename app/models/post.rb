@@ -1,8 +1,9 @@
 class Post < ApplicationRecord #formerly topics
   belongs_to :topic, optional: true
-
-  has_many :comments
-  has_many :users, through: :comments
+  
+  has_many :users
+  # has_many :comments
+  # has_many :users, through: :comments
 
   include ActiveModel::Validations
 
