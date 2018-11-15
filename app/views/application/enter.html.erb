@@ -1,12 +1,16 @@
 <div>
   <div style="text-align: center;">
     <div style="display: inline-block; text-align: left;">
-      <h1 align="left">WildCraft Healer App</h1>
-      <li align="left"><%= link_to "Create Account", signup_path %></li>
-      <li align="left"><%= link_to "Returning User", signin_path %></li>
+      <h1 align="left">WildCraft Forager</h1>
+      <div class="btn btn-light">
+        <%= link_to 'Create Account', signup_path, :class => "btn" %> |
+        <%= link_to 'Returning User', signin_path, :class => "btn"%>
+      </div>
     </div>
     <br><br>
+
   <div style="width: 400px;margin:auto">
     <img style="width: 400px" src="https://images.pexels.com/photos/1030845/pexels-photo-1030845.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
   </div>
+
 </div>

@@ -15,20 +15,23 @@
         <%= submit_tag "New Post" %>
       <% end %>
 
+      <%#= render 'posts/index' %>
+
+      <%#= form_for(@post, :url =>  topic_posts_path(@topic)) do |f| %>
+        <%#= f.text_area :name %>
+        <%#= f.text_area :name %>
+
+        <p><%#= f.submit %></p>
+      <%# end %>
+
       <br><br>
 
 
       <% if !@current_posts.empty?%>
 
         <p>
-          <%= link_to "Load posts", topic_posts_path(@topic), :class=> "load_posts", :remote => true %>
+          <%= link_to "Load posts", topic_posts_path(@topic), :class=> "load_posts" %>
         </p>
-
-        <div class = "posts">
-          <h3>
-
-          </h3>
-        </div>
 
       <% end %><br>
     </div>
