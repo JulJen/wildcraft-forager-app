@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   get '/auth/google_oauth2/callback', to: 'sessions#create'
 
   root 'application#welcome', :as => 'welcome'
-  get '/wildcraft_forager' => 'application#enter', :as => 'enter'
+  # get '/wildcraft_forager' => 'application#enter', :as => 'enter'
 
   get '/signin' => 'sessions#new'
   post '/signin' => 'sessions#create'
