@@ -1,26 +1,7 @@
-<% if @login_failure_message %>
-  <p><%= @login_failure_message %></p>
-<% end %>
-
 <%= simple_form_for @user, url: '/signin' do |f| %>
 
   <%= f.error_notification %>
 
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2>
-        <%= pluralize(@user.errors.count, "error") %>
-        prohibited this user from being saved:
-      </h2>
-
-      <ul>
-      <% @user.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-      <ul>
-    </div>
-  <% end %>
 
   <%= f.label :name %>
   <%= f.collection_select(:name, User.all, :id, :name, prompt: "Select your name") %><br>

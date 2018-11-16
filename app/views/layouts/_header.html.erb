@@ -6,10 +6,10 @@
         <a class="navbar-brand" href="#">WildCraft Forager</a>
       </div>
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
-        <li><%= link_to "Profile", profile_path(current_user) %></li>
-        <li><%= link_to "Directory", categories_path%></li>
-        <li><%= link_to "Start a discussion",  new_topic_path %></li>
+        <li><%= nav_entry "Home", main_path %></li>
+        <li><%= nav_entry "Profile", profile_path(current_user) %></li>
+        <li><%= nav_entry "Directory", categories_path%></li>
+        <li><%= nav_entry "Start a discussion",  new_topic_path %></li>
         <li><%= link_to "Log Out", logout_path, method: :delete %></li>
       </ul>
     </div>
