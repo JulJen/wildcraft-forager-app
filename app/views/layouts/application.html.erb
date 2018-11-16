@@ -12,26 +12,30 @@
   </head>
 
   <%= render 'layouts/shim' %>
+
   <body>
 
     <div class= "container">
-
       <%= flash_messages %>
-
-      <%= render 'layouts/header' %>
+      
+      <% if current_user %>
+        <%= render 'layouts/header' %>
+      <% elsif current_page?(:controller => 'application', :action => 'welcome') %><br>
+        <%= render 'application/welcome' %>
+      <% elsif current_page?(:controller => 'sessions', :action => 'new') || current_page?(:controller => 'users', :action => 'new') %><br>
+        <%= render 'layouts/login-header' %>
+      <% end %>
 
       <div class="row">
         <div class="col-md-8 col-md-offset-2">
         <%= yield %>
         </div>
       </div>
-
       <%= render '/layouts/footer' %>
     </div>
 
-
     <script src="jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
-
   </body>
+
 </html>
