@@ -15,6 +15,10 @@ Rails.application.routes.draw do
   post '/signup' => 'users#create'
   get '/dashboard' => 'users#index', :as => 'main'
 
+  get '/about' => 'application#about', :as => 'about'
+  get '/resources' => 'application#reading', :as => 'reading'
+
+
 
   get '/dashboard/categories' => 'categories#index', :as => 'categories'
   get '/categories/:id' => 'categories#show', :as => 'categories_teams'
