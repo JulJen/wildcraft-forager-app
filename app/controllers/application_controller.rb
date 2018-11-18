@@ -9,9 +9,9 @@ class ApplicationController < ActionController::Base
     session.clear
   end
   #
-  # def welcome
-  #   clear_user
-  # end
+  def welcome
+    clear_user
+  end
 
   # def enter
   #   clear_user
