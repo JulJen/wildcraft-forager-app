@@ -9,14 +9,6 @@
 
       <br><br>
 
-      <li><%= link_to "Load Posts", topics_path(@topics), :class=> "load_topics", :remote => true %></li>
-
-      <div class = "posts">
-        <h3>
-
-        </h3>
-      </div>
-
       <li><%= link_to "New posts", new_topic_path, :class=> "new_topic", :remote => true %></li>
       <div class = "new_posts">
         <h3>
@@ -41,6 +33,7 @@
 
           </h3>
         </div>
+
       <% end %>
     </div>
   </div>

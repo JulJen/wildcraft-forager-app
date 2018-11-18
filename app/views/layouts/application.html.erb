@@ -9,33 +9,43 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap-table.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/bootstrap-table.min.css">
+
   </head>
 
-  <%= render 'layouts/shim' %>
 
-  <body>
 
-    <div class= "container">
-      <%= flash_messages %>
+    <%= render 'layouts/shim' %>
 
-      <% if current_user %>
-        <%= render 'layouts/header' %>
-      <% elsif current_page?(:controller => 'application', :action => 'welcome') %><br>
-        <%= render 'application/welcome' %>
-      <% elsif current_page?(:controller => 'sessions', :action => 'new') || current_page?(:controller => 'users', :action => 'new') %><br>
-        <%= render 'layouts/login-header' %>
-      <% end %>
+    <body>
+      <div class= "container">
+        <%= flash_messages %>
 
-      <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-        <%= yield %>
+        <% if current_user %>
+          <%= render 'layouts/header' %>
+        <% elsif current_page?(:controller => 'application', :action => 'welcome') %><br>
+          <%= render 'application/welcome' %>
+        <% elsif current_page?(:controller => 'sessions', :action => 'new') || current_page?(:controller => 'users', :action => 'new') %><br>
+          <%= render 'layouts/login-header' %>
+        <% end %>
+
+        <div class="row">
+          <div class="col-md-8 col-md-offset-2">
+          <%= yield %>
+          </div>
         </div>
+        <% if current_user %>
+          <%= render '/layouts/footer' %>
+        <% end %>
       </div>
-      <%= render '/layouts/footer' %>
-    </div>
 
-    <script src="jquery.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="jquery.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <script src="bootstrap-table.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/bootstrap-table.min.js"></script>
   </body>
 
 </html>
