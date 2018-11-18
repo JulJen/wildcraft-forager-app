@@ -37,9 +37,11 @@
           <%= yield %>
           </div>
         </div>
+
         <% if current_user %>
           <%= render '/layouts/footer' %>
         <% end %>
+        
       </div>
 
     <script src="jquery.min.js"></script>

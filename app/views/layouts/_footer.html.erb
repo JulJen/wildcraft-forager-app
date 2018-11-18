@@ -1,16 +1,19 @@
 <footer class="footer">
-  <small>
-    <a href="https://github.com/JulJen/wildcraft-forager-app">WildCraft Forager App</a>
-    by <a href="https://www.linkedin.com/in/juliajen/">Julia Jen</a>
-  </small>
+  <div class="container">
+    <small>
+      <a href="https://github.com/JulJen/wildcraft-forager-app">WildCraft Forager App</a>
+      <copyright>
+        &copy; <a href="https://www.linkedin.com/in/juliajen/">Julia Jen <%= Time.now.year %>
+      </copyright>
+    </small>
 
 
-  <nav>
-    <ul>
-      <li><%= link_to "About", about_path %></li>
-      <li><%= link_to "Resources", reading_path %></li>
-      <li><%= link_to "Contact", reading_path %></li>
-    </ul>
-  </nav>
-
+    <nav>
+      <ul>
+        <li><%= link_to "About", about_path %></li>
+        <li><%= link_to "Resources", reading_path %></li>
+        <li><%= link_to "Contact", reading_path %></li>
+      </ul>
+    </nav>
+  </div>
 </footer>
