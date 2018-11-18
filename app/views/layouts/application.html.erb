@@ -17,7 +17,7 @@
 
     <div class= "container">
       <%= flash_messages %>
-      
+
       <% if current_user %>
         <%= render 'layouts/header' %>
       <% elsif current_page?(:controller => 'application', :action => 'welcome') %><br>

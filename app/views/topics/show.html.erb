@@ -9,31 +9,39 @@
 
       <br><br>
 
+      <li><%= link_to "Load Posts", topics_path(@topics), :class=> "load_topics", :remote => true %></li>
+
+      <div class = "posts">
+        <h3>
+
+        </h3>
+      </div>
+
+      <li><%= link_to "New posts", new_topic_path, :class=> "new_topic", :remote => true %></li>
+      <div class = "new_posts">
+        <h3>
+
+        </h3>
+      </div>
+
       <%= simple_form_for [@topic, @post] do |f| %>
         <%= f.input :name %><br>
         <%= f.input :description %><br>
         <%= submit_tag "New Post" %>
       <% end %>
 
-      <%#= render 'posts/index' %>
-
-      <%#= form_for(@post, :url =>  topic_posts_path(@topic)) do |f| %>
-        <%#= f.text_area :name %>
-        <%#= f.text_area :name %>
-
-        <p><%#= f.submit %></p>
-      <%# end %>
-
       <br><br>
 
-
       <% if !@current_posts.empty?%>
+        <li><%= link_to "Load posts", topic_posts_path(@topic), :class=> "posts", :remote => true %></li>
+        <br><br>
 
-        <p>
-          <%= link_to "Load posts", topic_posts_path(@topic), :class=> "load_posts" %>
-        </p>
+        <div class = "posts">
+          <h3>
 
-      <% end %><br>
+          </h3>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

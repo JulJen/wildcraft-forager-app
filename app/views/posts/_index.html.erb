@@ -1,0 +1,29 @@
+<%= form_tag(@post, method: :get) do %>
+  <%= select(:sort, "filters", options_for_select(@filters)) %>
+  <%= submit_tag "Sort" %>
+<% end %><br>
+
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Created_At</th>
+      <th>Updated_At</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <% count = 0 %>
+    <% @current_posts.each do |post, i| %>
+    <% count += 1 %>
+    <% post_value = i.to_i + count %>
+    <tr>
+      <td><%= "#{post_value}"%></td>
+      <td><%= link_to "#{post.name}", edit_topic_post_path(post.topic_id, post.id) %></td>
+      <td><%= post.created_at.strftime("%B %d, %Y, %A") %></td>
+      <td><%= post.updated_at.strftime("%B %d, %Y, %A, %k:%M") %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
