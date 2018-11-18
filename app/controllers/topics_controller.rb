@@ -22,16 +22,16 @@ class TopicsController < ApplicationController
   def new_member
     @topic = Topic.find_by_id(params[:id])
     @users = User.active
-    # @topic.memberships.create(topic: @topic, admin: false)
   end
 
   def create
     @topic = Topic.new(topic_params)
-    if current_user.memberships.create(topic: @topic, admin: true)
-      @topic.save
-      # current_user.memberships.build(topic: @topic, admin: true)
+    current_user.memberships.create(topic: @topic, admin: true)
+    if @topic.save
+      current_user.memberships.build(topic: @topic, admin: true)
       flash[:success] = "Admin: topic created successfully!"
-      redirect_to  @topic
+      # render 'topics/show', :layout => false
+      redirect_to @topic
     else
       render :new
     end
@@ -64,6 +64,12 @@ class TopicsController < ApplicationController
     #   end
     # end
     # render json: @topic
+    
+    # respond_to do |format|
+    #   format.html {render 'index.html', :layout => false}
+    #   format.js {render 'index.js', :layout => false}
+    # end
+
   end
 
 

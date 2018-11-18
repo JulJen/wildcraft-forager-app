@@ -3,7 +3,6 @@ class SessionsController < ApplicationController
   def new
     @login_failure_message = session[:login_failure]
     session[:login_failure] = nil
-
     if !current_user
       @user = User.new
       @users = User.all

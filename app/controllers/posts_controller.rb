@@ -13,15 +13,19 @@ class PostsController < ApplicationController
 
       if params[:sort]
         @current_posts = @current_posts.send(params[:sort][:filters].parameterize.to_sym)
+        respond_to do |format|
+          format.html {render 'posts/_index.html', :layout => false}
+          format.js {render 'index.js', :layout => false}
+        end
       else
         @current_posts = @topic.posts.order(updated_at: :desc)
       end
 
-      # // implicit in rails, explicitly rendering based on format requested
-      respond_to do |format|
-        format.html {render 'index.html', :layout => false}
-        format.js {render 'index.js', :layout => false}
-      end
+      # # // implicit in rails, explicitly rendering based on format requested
+      # respond_to do |format|
+      #   format.html {render 'index.html', :layout => false}
+      #   format.js {render 'index.js', :layout => false}
+      # end
 
       # render :layout => false
       # render :json => @posts
@@ -55,9 +59,7 @@ class PostsController < ApplicationController
 
   def show
     @topic = Topic.find_by_id(params[:topic_id])
-
     @post = Post.find_by_id(params[:id])
-
     # render json: @post
   end
 

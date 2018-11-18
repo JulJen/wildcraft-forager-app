@@ -3,6 +3,8 @@ class UsersController < ApplicationController
 
   def index
     @user = current_user
+    # @members = Member.search((user_params))
+
     @topics = Post.all
     @current_topics = @current_user.topics
   end

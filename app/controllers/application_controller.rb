@@ -8,14 +8,14 @@ class ApplicationController < ActionController::Base
     @current_user = nil
     session.clear
   end
+  #
+  # def welcome
+  #   clear_user
+  # end
 
-  def welcome
-    clear_user
-  end
-
-  def enter
-    clear_user
-  end
+  # def enter
+  #   clear_user
+  # end
 
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
@@ -48,7 +48,7 @@ class ApplicationController < ActionController::Base
 
   def reset_session
     clear_user
-    redirect_to main_path
+    redirect_to welcome_path
   end
 
 
