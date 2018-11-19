@@ -1,15 +1,21 @@
-<%= simple_form_for @user, url: signup_path  do |f| %>
+<%= simple_form_for @user, url: signup_path, wrapper: :inline_form, html: { class: 'form-inline' } do |f| %>
 
-  <%= f.error_notification %>
+  <%= f.error_notification input_html: { class: 'error' } %>
 
   <br><br>
 
-  <%= f.input :name %>
+  <%= f.input :name, :placeholder => "Your Username" %>
 
-  <%= f.input :email, input_html: { autocomplete: 'email' } %>
+  <br><br>
 
-  <%= f.input :password, input_html: { autocomplete: 'current-password' } %>
+  <%= f.input :email, input_html: { autocomplete: 'email' }, :placeholder => "Your Email"  %>
 
-  <%= f.submit 'Create Account' %>
+  <br><br>
+
+  <%= f.input :password, input_html: { autocomplete: 'current-password' }, :placeholder => "Your Password"  %>
+
+  <br><br>
+  
+  <%= f.submit "Sign Up", class: "btn btn-lg btn-primary" %>
 
 <% end %>

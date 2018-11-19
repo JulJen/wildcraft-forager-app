@@ -1,30 +1,21 @@
-<div class="center jumbotron">
-  <h1>WildCraft Forager</h1>
+<body class="welcome">
+    <div class="jumbotron main" id="home">
+      <h1 class="display-3">WildCraft Forager</h1>
+      <p class="lead">Wildcrafting is the practice of foraging for useful plants from their natural, wild habitat for edible or medicinal purposes.
+      </p><br>
 
-  <h2>
-    Wildcrafting is the practice of foraging for useful plants from their natural, wild habitat for edible or medicinal purposes.
-  </h2>
+      <%= link_to "Start WildCrafting", signup_path, class: "btn btn-lg btn-primary" %>
 
-  <%= link_to "Start WildCrafting", signup_path, class: "btn btn-lg btn-primary" %>
+      <hr class="my-4">
+      <p>Want to know more? Join our mailing list!</p>
 
-  <br><br>
-
-  <footer class="footer">
-    <small>
-      <a href="https://github.com/JulJen/wildcraft-forager-app">WildCraft Forager App</a>
-      by <a href="https://www.linkedin.com/in/juliajen/">Julia Jen</a>
-    </small>
-
-
-    <nav>
-      <ul>
-        <li><%= link_to "About", about_path %></li>
-        <li><%= link_to "Resources", reading_path %></li>
-        <li><%= link_to "Contact", reading_path %></li>
-      </ul>
-    </nav>
-
-  </footer>
-
-
-</div>
+      <form class="form-inline justify-content-center">
+        <label class="sr-only" for="yourEmail">Email</label>
+        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+          <div class="input-group-addon">@</div>
+          <input type="text" class="form-control" id="yourEmail" placeholder="Your Email">
+        </div>
+          <button type="button" class="btn btn-primary my-2 my-sm-0">Sign Up</button>
+      </form>
+    </div>
+  </div>

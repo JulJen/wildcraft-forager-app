@@ -1,7 +1,4 @@
-<div>
-  <div style="text-align: center;">
-    <div style="display: inline-block; text-align: left;">
-
+<div class="center jumbotron">
       <h1>Account Info</h1>
 
       <% if current_user.status == false %>
@@ -20,7 +17,4 @@
       <p><strong>Interest:</strong> <%= current_user.interest %></p>
 
       <p><%= link_to "Edit Profile", edit_profile_path(current_user) %></p><br>
-
-    </div>
-  </div>
 </div>
