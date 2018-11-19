@@ -6,8 +6,9 @@
   <%= f.label :name %>
   <%= f.collection_select(:name, User.all, :id, :name, prompt: "Select your name") %><br>
   <br>
-  <%= f.label :password %><br>
+  <%= f.label :password %>
   <%= f.password_field :password %>
   <br><br>
   <%= f.submit "Sign In", class: "btn btn-lg btn-primary" %>
+  <br><br>
 <% end %>

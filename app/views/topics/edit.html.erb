@@ -3,7 +3,6 @@
     <div style="display: inline-block; text-align: left;">
 
       <% if !!current_user %>
-
         <% if @topic.posts.empty? %>
           <h1 align="center">Project Status: pending</h1>
 
@@ -15,42 +14,33 @@
         <% end %>
 
         <h3 align="center"><%= link_to "Invite new member",  new_member_path(@topic) %></h3>
-
-
       <% end %>
 
-      <br><br>
 
-      <h2>Edit your topic: <%= @topic.name %></h2>
+      <h1>Edit your topic: <%= @topic.name %></h1>
 
       <%= simple_form_for @topic do |f| %>
 
         <%= f.error_notification %>
 
-        <br>
-
         <h3>General topic info:</h3>
 
-        <%= f.input :name, include_blank: false %><br><br>
+        <%= f.input :name, include_blank: false %><br>
 
-        <%= f.input :description, include_blank: false %><br><br>
+        <%= f.input :description, include_blank: false %><br>
 
         <%= f.collection_select :category_id, Category.all.order(:name), :id, :name, {include_blank: "Select frome existing categories"} %>
 
         <br><br>
 
-        <%= f.submit 'Update' %>
+        <%= f.submit 'Update', class: "btn btn-lg btn-primary" %>
 
       <% end %>
 
       <br><br>
 
-      <h3>Delete Topic?</h3>
-      <%= link_to "Yes, delete", topic_path(@topic), method: :delete %>
+      <%= button_to "Delete Topic", { :action => "destroy" }, class: "btn btn-lg btn btn-danger", :method => :delete, data: { confirm: "Are you sure?" } %>
 
-      <div style="width: 500px;margin:auto">
-        <img style="width: 500px" src="https://images.pexels.com/photos/316465/pexels-photo-316465.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260">
-      </div>
     </div>
   </div>
 </div>

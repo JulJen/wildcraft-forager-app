@@ -12,11 +12,9 @@
         <br><br>
 
 
-        <%= f.input :name, include_blank: false %><br><br>
+        <%= f.input :name, include_blank: false %><br>
 
-        <%= f.input :description, include_blank: false %><br><br>
-
-        <br>
+        <%= f.input :description, include_blank: false %><br>
 
         <%= f.label :status, "check box if completed" %>
 
@@ -25,19 +23,14 @@
 
         <br><br>
 
-        <%= f.submit 'Update' %>
+        <%= f.submit 'Update', class: "btn btn-lg btn-primary" %>
 
       <% end %>
 
       <br><br>
 
-      <%= link_to "Delete Post", topic_path(@topic), method: :delete %>
+      <%= button_to "Delete Post", { :action => "destroy" }, class: "btn btn-lg btn btn-danger", :method => :delete, data: { confirm: "Are you sure?" } %>
 
-
-
-      <div style="width: 500px;margin:auto">
-        <img style="width: 500px" src="https://images.pexels.com/photos/316465/pexels-photo-316465.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260">
-      </div>
     </div>
   </div>
 </div>

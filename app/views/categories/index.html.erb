@@ -3,11 +3,11 @@
     <div style="display: inline-block; text-align: left;">
 
       <% if !!@topics %>
-        <h1>Public topics </h1>
+        <h1>Public topics </h1><br>
 
         <%= form_tag categories_path, method: :get do %>
           <%= select(:sort, "filters", options_from_collection_for_select(@categories, 'id', 'name'))%>
-          <%= submit_tag "Sort" %>
+          <%= submit_tag "Sort", class: "btn btn-md btn-primary" %>
         <% end %>
 
         <br><br>

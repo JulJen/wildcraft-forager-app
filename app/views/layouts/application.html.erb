@@ -28,29 +28,29 @@
         <%= flash_messages %>
 
         <% if current_user %>
+          <body class="main">
           <%= render 'layouts/header' %>
         <% elsif current_page?(:controller => 'application', :action => 'welcome') %><br>
+          <body class="welcome">
           <%= render 'application/welcome' %>
         <% elsif current_page?(:controller => 'sessions', :action => 'new') || current_page?(:controller => 'users', :action => 'new') %><br>
+          <body class="home">
           <%= render 'layouts/login-header' %>
         <% end %>
 
 
-        <% if !current_page?(:controller => 'application', :action => 'welcome') %><br>
-          <body class="main">
-
+        <% if !current_page?(:controller => 'application', :action => 'welcome') %>
+          <body class="home">
             <div class="center wrapper">
-
-
-            <div class="center jumbotron-main">
-
-              <div class="row">
-                <div class="col-md-8 col-md-offset-2">
-                  <%= yield %>
+              <div class="center jumbotron-main">
+                <div class="row">
+                  <div class="col-md-8 col-md-offset-2">
+                    <%= yield %>
+                  </div>
                 </div>
-              </div>
             </div>
           </div>
+
         <% end %>
 
         <% if current_user %>

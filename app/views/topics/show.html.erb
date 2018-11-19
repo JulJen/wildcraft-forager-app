@@ -11,9 +11,9 @@
 
       <li><%= link_to "New posts", new_topic_path, :class=> "new_topic", :remote => true %></li>
       <div class = "new_posts">
-        <h3>
+        <ul>
 
-        </h3>
+        </ul>
       </div>
 
       <%= simple_form_for [@topic, @post] do |f| %>
@@ -29,9 +29,9 @@
         <br><br>
 
         <div class = "posts">
-          <h3>
+          <ul>
 
-          </h3>
+          </ul>
         </div>
 
       <% end %>
