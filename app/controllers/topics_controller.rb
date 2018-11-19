@@ -64,7 +64,7 @@ class TopicsController < ApplicationController
     #   end
     # end
     # render json: @topic
-    
+
     # respond_to do |format|
     #   format.html {render 'index.html', :layout => false}
     #   format.js {render 'index.js', :layout => false}
@@ -114,9 +114,8 @@ class TopicsController < ApplicationController
       @topic.delete
     # end
     flash[:deleted] = "Topic deleted."
-    redirect_to topics_path
+    redirect_to dashboard_path
   end
-
 
   private
 

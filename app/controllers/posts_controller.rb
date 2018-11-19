@@ -45,8 +45,12 @@ class PostsController < ApplicationController
 
     @post = @topic.posts.build(post_params)
     if @post.save
-      flash[:success] = "Post created successfully!"
-      render 'posts/show', :layout => false
+      respond_to do |f|
+        f.html {redirect_to topic_path(@topic)}
+        f.json {render :json => @topic}
+      end
+      # flash[:success] = "Post created successfully!"
+      # render 'posts/show', :layout => false
       # @topic.posts << @post
       #
       # flash[:success] = "Post created successfully!"

@@ -74,23 +74,14 @@
 // Submit Comments via AJAX - soon to be replaced by remote true
 $(function(){
   $("#new_post").on("submit", function(e){
-    // need URL to submit the POST requested
-    url = this.before_action
-    console.log(url)
-    // need the form data
-    data = {
-      'authenticity_token': $("input[name=
-      authenticity_token]").val(),
-      'post': {
-        'name': $("post_name").val()
-      }
-    };
+    // 1.need URL to submit the POST requested
+    // 2.need form data
 
     //low level
     $.ajax({
-      type: "POST",
-      url: url,
-      data: data,
+      type: ($("inout[name='_method']").val() || this.method),
+      url: this.action,
+      data: $(this).serialize(); //either json or querystring serializing
       success: function(resp){
         $("#post_name").val("");
         var $h3 = $("div.posts h3")
