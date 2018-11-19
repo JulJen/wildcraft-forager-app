@@ -1,6 +1,7 @@
 <%= simple_form_for @user, url: '/signin' do |f| %>
 
-<%= f.error_notification input_html: { class: 'error' } %>
+  <%= f.error_notification %>
+
 
   <%= f.label :name %>
   <%= f.collection_select(:name, User.all, :id, :name, prompt: "Select your name") %><br>
@@ -8,5 +9,5 @@
   <%= f.label :password %><br>
   <%= f.password_field :password %>
   <br><br>
-  <%= f.submit "Sign In" %>
+  <%= f.submit "Sign In", class: "btn btn-lg btn-primary" %>
 <% end %>

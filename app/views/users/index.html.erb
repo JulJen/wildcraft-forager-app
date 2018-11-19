@@ -5,7 +5,7 @@
     <h3 align="center">Hi <%= current_user.name.capitalize %>, what are you working on today?</h3>
 
     <% if current_user.status == false %>
-      <h4 align="center">Your account is <%= link_to "pending...", user_path(current_user) %></h4>
+      <h3 align="center">Your account is <%= link_to "pending...", user_path(current_user) %></h4>
     <% end %>
 
     <li><%= link_to "Your Topics", topics_path(@topics), :class=> "load_topics", :remote => true %></li>

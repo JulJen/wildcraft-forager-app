@@ -8,7 +8,6 @@
           <%= f.error_notification %>
           <br><br>
 
-
           <p>
             Country:
             <%= f.country_select :country_code %><br>
@@ -17,12 +16,13 @@
 
           <%= f.input :interest %>
 
+        </div>
+
           <br><br>
 
-          <%= f.submit 'Update Profile' %>
-
+          <div style="text-align: center;">
+            <%= f.submit 'Update Profile', class: "btn btn-lg btn-primary" %>
         <% end %>
-
     </div>
   </div>
 </div>

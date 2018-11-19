@@ -1,8 +1,11 @@
-<div class="center jumbotron">
+<div>
+  <div style="text-align: center;">
+    <div style="display: inline-block; text-align: left;">
+
       <h1>Account Info</h1>
 
       <% if current_user.status == false %>
-        <h2>Status: pending</h2>
+        <h1>Status: pending</h1>
         <p>Your account is <b>pending</b>, fill out profile info. </p>
       <% else %>
         <h2>Status: active</h2>
@@ -16,5 +19,15 @@
       <p><strong>Country:</strong> <%= current_user.country_code %></p>
       <p><strong>Interest:</strong> <%= current_user.interest %></p>
 
+      <p><%= link_to "Edit Profile", new_topic_path, :class=> "edit_profile", :remote => true %></p>
+      <div class = "edit_profile">
+        <h3>
+
+        </h3>
+      </div>
+
       <p><%= link_to "Edit Profile", edit_profile_path(current_user) %></p><br>
+
+    </div>
+  </div>
 </div>

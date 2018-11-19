@@ -3,7 +3,7 @@
     <div style="display: inline-block; text-align: left;">
 
       <% if !!@topics %>
-        <h2>Public topics </h2>
+        <h1>Public topics </h1>
 
         <%= form_tag categories_path, method: :get do %>
           <%= select(:sort, "filters", options_from_collection_for_select(@categories, 'id', 'name'))%>
@@ -21,10 +21,6 @@
       <% end %>
 
       <br><br>
-
-      <div style="width: 500px;margin:auto">
-        <img style="width: 500px" src="https://images.pexels.com/photos/207896/pexels-photo-207896.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940">
-      </div>
 
     </div>
   </div>

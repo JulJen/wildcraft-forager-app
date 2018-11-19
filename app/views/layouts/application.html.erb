@@ -37,10 +37,17 @@
 
 
         <% if !current_page?(:controller => 'application', :action => 'welcome') %><br>
-          <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-              <div class="center jumbotron">
-                <%= yield %>
+          <body class="main">
+
+            <div class="center wrapper">
+
+
+            <div class="center jumbotron-main">
+
+              <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                  <%= yield %>
+                </div>
               </div>
             </div>
           </div>
