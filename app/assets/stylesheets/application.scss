@@ -47,6 +47,13 @@
 //   font-style: normal;
 // }
 
+.wrapper {
+   min-height: calc(100vh - 89px);
+    // min-height: 100%;
+    // display: grid;
+    // grid-template-rows: auto 1fr auto;
+}
+
 .nav a {
     color: #5a5a5a;
     font-size:11px;
@@ -77,6 +84,14 @@
 
 html body {
   padding-top: 60px;
+
+  width: 100%;
+  height: 90vh;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  background-attachment: fixed;
+
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -94,7 +109,7 @@ html body {
   // background-repeat: no-repeat, repeat;
   // background-attachment: fixed;
   // background-size: cover;
-
+  font-size:16px;
   font-family: "Courier New", Courier,Lucida Sans Typewriter,Lucida Typewriter,monospace;
   display: block;
 
@@ -102,15 +117,32 @@ html body {
 
 body.welcome{
   background-image: url(asset_path('welcome.jpg'));
+  height: 100vh;
+  width: 100%;
+  max-width: 100%;
+  background-size: cover;
+  background-position: center center;
 }
 
 body.home{
   background-image: url(asset_path('home.jpg'));
-  padding-top:100px;
-  background-size:cover;
+  height: 100vh;
+  width: 100%;
+  max-width: 100%;
+  background-size: cover;
+  background-position: center center;
 }
 
-.jumbotron.main{
+body.main{
+  background-image: url(asset_path('main.jpg'));
+  // height: 100vh;
+  // width: 100%;
+  // max-width: 100%;
+  // // background-size: cover;
+  // background-position: center center;
+}
+
+.jumbotron-main{
   background: rgb(162, 162, 162);
   //   /* This is for ie8 and below */
   background: rgba(162, 162, 162, 0.70);
@@ -118,15 +150,15 @@ body.home{
   font-family: 'Frank Ruhl Libre', serif;
 }
 
-.jumbotron.main h1 {
-color:#102523;
-font-size:48px;
-font-weight:bold;
+.jumbotron-main h1 {
+  color:#102523;
+  font-size:48px;
+  font-weight:bold;
 }
 
-.jumbotron.main p {
+.jumbotron-main p {
   color:#102523;
-  font-size:20px;
+  // font-size:20px;
   font-weight:bold;
 }
 
@@ -135,6 +167,8 @@ font-weight:bold;
   margin-top: 50px;
   text-align: center;
 }
+
+
 
 #yourEmail{
   width: 350px;
@@ -165,25 +199,90 @@ font-weight:bold;
 //   }
 // }
 
+// .jumbotron {
+//   background: rgb(212, 231, 217);
+//   //   /* This is for ie8 and below */
+//   background: rgba(212, 231, 217, 0.65);
+//   // height: 500px;
+//   font-family: 'Frank Ruhl Libre', serif;
+// }
+//
+// .jumbotron h1 {
+// color:#3A4847;
+// font-size:38px;
+// font-weight:bold;
+// }
+//
+// .jumbotron p {
+//   color:#3A4847;
+//   font-size:10px;
+// }
+
+@media (min-width: 48em) {
+	h1 {
+	  font-size: 2.441em;
+	}
+	h2 {
+		font-size: 1.953em;
+	}
+	h3 {
+		font-size: 1.563em;
+	}
+	h4 {
+		font-size: 1.25em;
+	}
+	.display-1 {
+		font-size: 6em;
+	}
+	.display-2 {
+		font-size: 5.5em;
+	}
+	.display-3 {
+		font-size: 4.5em;
+	}
+	.display-4 {
+		font-size: 3.5em;
+	}
+}
+
+// Large devices (desktops, 62em and up)
+@media (min-width: 62em) {
+	html,
+	body {
+		font-size: 16px !important;
+	}
+}
+
+// Extra large devices (large desktops, 75em and up)
+@media (min-width: 75em) {
+	html,
+	body {
+		font-size: 18px !important;
+	}
+}
+
+// Pen Specific Styles
 .jumbotron {
   background: rgb(212, 231, 217);
-  //   /* This is for ie8 and below */
-  background: rgba(212, 231, 217, 0.5);
-  // height: 500px;
+  //   //   /* This is for ie8 and below */
+    background: rgba(212, 231, 217, 0.65);
+  //   // height: 500px;
   font-family: 'Frank Ruhl Libre', serif;
-}
-
+	font-size: 16px;
+	@media (min-width: 62em) {
+		font-size: 20px;
+	}
 .jumbotron h1 {
-color:#3A4847;
-font-size:48px;
-font-weight:bold;
+// 	border-bottom: 4px solid #0275d8;
+border-top: 1px solid #2E181A;;
+border-bottom: 1px solid #2E181A;
 }
 
-.jumbotron p {
-  color:#3A4847;
-  font-size:20px;
+.jumbotron p.lead {
+	border-radius: 4px;
 }
 
+}
 section {
   overflow: auto;
 }
@@ -207,10 +306,15 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1;
 }
 
+
 h1 {
   font-size: 3em;
   letter-spacing: -2px;
   margin-bottom: 30px;
+  text-align: center;
+}
+
+h1.display1 {
   text-align: center;
 }
 
@@ -222,6 +326,13 @@ h2 {
   font-weight: normal;
   color: #777;
 }
+
+// h1 { font-size: 2em; }
+// h2 { font-size: 1.5em; }
+h3 { font-size: 1.17em; }
+h4 { font-size: 1.12em; }
+h5 { font-size: .83em; }
+h6 { font-size: .75em; }
 
 p {
   font-size: 1.1em;
@@ -252,17 +363,33 @@ p {
 
 /* footer */
 
-footer {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  padding: 1rem;
+// footer {
+//   position: absolute;
+//   right: 0;
+//   bottom: 0;
+//   left: 0;
+//   padding: 1rem;
+//
+//   margin-top: 45px;
+//   padding-top: 5px;
+//   border-top: 1px solid #eaeaea;
+//   color: #777;
+// }
 
-  margin-top: 45px;
-  padding-top: 5px;
-  border-top: 1px solid #eaeaea;
-  color: #777;
+footer
+{
+ 	width:798px;
+	border-top: 2px solid #2E181A;
+	clear: both;
+	padding: 5px 0 0 0;
+	background-color: inherit;
+	text-align: center;
+	bottom:0;
+	background-color: #E6D9BD;
+	position:relative;
+	height: 30px;
+	margin: -30px auto 2px auto;
+	z-index:30;
 }
 
 footer a {
